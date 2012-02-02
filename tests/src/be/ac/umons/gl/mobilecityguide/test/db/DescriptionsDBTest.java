@@ -1,14 +1,10 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import be.ac.umons.gl.mobilecityguide.db.DescriptionsDB;
 import android.test.AndroidTestCase;
 
 /**
- * @author kent
- *
+ * @author Quentin Loos
  */
 public class DescriptionsDBTest extends AndroidTestCase {
   DescriptionsDB db;
@@ -38,5 +34,4 @@ public class DescriptionsDBTest extends AndroidTestCase {
     String description2 = db.getDescription(1);
     assertEquals(description,description2);
   }
-
 }

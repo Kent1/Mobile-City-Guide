@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 /**
  * Class for using the Descriptions Table
  * in the DB
@@ -11,7 +13,8 @@ import org.json.JSONObject;
  * @author Quentin Loos
  */
 public class DescriptionsDB extends DB{
-  
+  /** Tag for log */
+  private static final String tag = "DescriptionsDB";
   /**
    * Constructor
    */
@@ -37,7 +40,7 @@ public class DescriptionsDB extends DB{
         json = jsonArray.getJSONObject(0);
         retour = json.getString("Description");
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     return retour;
   }

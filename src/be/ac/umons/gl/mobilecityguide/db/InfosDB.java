@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 /**
  * Class for using the Infos Table
  * in the DB
@@ -11,7 +13,9 @@ import org.json.JSONObject;
  * @author Quentin Loos
  */
 public class InfosDB extends DB{
-
+  /** Tag for log */
+  private static final String tag = "InfosDB";
+  
   /**
    * Constructor
    */
@@ -35,7 +39,7 @@ public class InfosDB extends DB{
         json = jsonArray.getJSONObject(0);
         retour = json.getDouble("Price");
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     return retour;
   }
@@ -57,7 +61,7 @@ public class InfosDB extends DB{
         json = jsonArray.getJSONObject(0);
         retour = json.getInt("Duration");
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     return retour;
   }

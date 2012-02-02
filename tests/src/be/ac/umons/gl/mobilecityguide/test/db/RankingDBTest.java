@@ -1,14 +1,10 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import be.ac.umons.gl.mobilecityguide.db.RankingDB;
 import android.test.AndroidTestCase;
 
 /**
- * @author kent
- *
+ * @author Quentin Loos
  */
 public class RankingDBTest extends AndroidTestCase {
   RankingDB db;
@@ -43,5 +39,4 @@ public class RankingDBTest extends AndroidTestCase {
     int nb = db.getNBVote(1);
     assertTrue(nb>=0);
   }
-
 }

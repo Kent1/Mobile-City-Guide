@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
 /**
@@ -15,6 +16,8 @@ import be.ac.umons.gl.mobilecityguide.poi.POI;
  * @author Quentin Loos
  */
 public class POIDB extends DB{
+  /** Tag for log */
+  private static final String tag = "POIDB";
   
   /**
    * Construtor
@@ -37,7 +40,7 @@ public class POIDB extends DB{
         json = jsonArray.getJSONObject(0);
         retour = this.toPOI(json);
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return retour;
@@ -60,7 +63,7 @@ public class POIDB extends DB{
         json = jsonArray.getJSONObject(0);
         retour = this.toPOI(json);
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return retour;

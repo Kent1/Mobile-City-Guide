@@ -1,6 +1,3 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import be.ac.umons.gl.mobilecityguide.db.InfosDB;

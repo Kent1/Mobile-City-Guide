@@ -1,6 +1,3 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import java.util.ArrayList;
@@ -44,5 +41,4 @@ public class TagDBTest extends TestCase {
     String tag = db.getTag(1);
     assertEquals(tag, "education");
   }
-
 }

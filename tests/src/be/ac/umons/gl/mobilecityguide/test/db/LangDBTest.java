@@ -1,6 +1,3 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import java.util.ArrayList;
@@ -39,5 +36,4 @@ public class LangDBTest extends AndroidTestCase {
     assertEquals(array.get(1), "FR");
     assertEquals(array.get(2), "NL");
   }
-
 }

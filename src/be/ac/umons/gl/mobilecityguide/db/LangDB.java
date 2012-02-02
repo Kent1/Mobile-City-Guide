@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 /**
  * Class for using the LangList Table
  * in the DB
@@ -13,10 +15,21 @@ import org.json.JSONObject;
  * @author Quentin Loos
  */
 public class LangDB extends DB{
+  /** Tag for log */
+  private static final String tag = "LangDB";
   
+  /**
+   * Constructor
+   */
   public LangDB(){
   }
   
+  /**
+   * Return the list of languages available
+   * 
+   * @return
+   *    the list of the languages
+   */
   public ArrayList<String> getLangList(){
     JSONArray jsonArray = this.query("SELECT * FROM LangList");
     ArrayList<String> str = new ArrayList<String>();
@@ -29,7 +42,7 @@ public class LangDB extends DB{
         }
       }
       catch (JSONException e){
-        e.printStackTrace();
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return str;
