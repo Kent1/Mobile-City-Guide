@@ -1,7 +1,7 @@
 /**
  * 
  */
-package be.ac.umons.gl.mobilecityguide.test;
+package be.ac.umons.gl.mobilecityguide.test.poi;
 
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
