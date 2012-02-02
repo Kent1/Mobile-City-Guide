@@ -32,7 +32,7 @@ public class DB {
    * @param query
    * @return
    */
-  public JSONObject query(String query){
+  public JSONArray query(String query){
     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
     nameValuePairs.add(new BasicNameValuePair("request", query));
     String result = "";
@@ -61,12 +61,6 @@ public class DB {
       System.out.println("[Error] POIDB.query ");
       e.printStackTrace();
     }
-    JSONObject json = null;
-    try {
-      json = jsonArray.getJSONObject(0);
-    } catch (JSONException e){
-      e.printStackTrace();
-    }
-    return json;
+    return jsonArray;
   }
 }

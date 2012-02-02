@@ -1,5 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.db;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,10 +29,12 @@ public class DescriptionsDB extends DB{
     String retour = "No description";
     // TO DO
     // Language
-    JSONObject json = this.query("SELECT * FROM Descriptions where id = "
+    JSONArray jsonArray = this.query("SELECT * FROM Descriptions where id = "
         + id + " AND Language = \"FR\" LIMIT 0,1");
-    if(json != null)
+    JSONObject json = null;
+    if(jsonArray != null)
       try {
+        json = jsonArray.getJSONObject(0);
         retour = json.getString("Description");
       } catch (JSONException e) {
         e.printStackTrace();

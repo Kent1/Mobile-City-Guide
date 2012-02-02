@@ -2,6 +2,7 @@ package be.ac.umons.gl.mobilecityguide.db;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,9 +29,15 @@ public class POIDB extends DB{
    * @return POI with id specified
    */
   public POI getPOI(int id){
-    JSONObject json = query("SELECT * FROM POI WHERE Id = " + id + " LIMIT 0,1");
+    JSONArray jsonArray = query("SELECT * FROM POI WHERE Id = " + id + " LIMIT 0,1");
+    JSONObject json = null;
+    try {
+      json = jsonArray.getJSONObject(0);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
     POI retour = null;
-    if(json!=null)
+    if(jsonArray!=null)
       retour = this.toPOI(json);
     return retour;
   }
@@ -44,7 +51,13 @@ public class POIDB extends DB{
    *    POI with name specified or null
    */
   public POI getPOI(String name){
-    JSONObject json = query("SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1");
+    JSONArray jsonArray = query("SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1");
+    JSONObject json = null;
+    try {
+      json = jsonArray.getJSONObject(0);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
     POI retour = null;
     if(json!=null)
       retour = this.toPOI(json);
