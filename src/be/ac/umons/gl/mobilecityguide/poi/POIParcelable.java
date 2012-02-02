@@ -1,20 +1,19 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.poi;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @author Quentin Loos
+ * A Parcelable implementation of POI
+ * 
+ * @author Allard Hugo & Quentin Loos
  */
 public class POIParcelable implements Parcelable {
-  /** POI Parcelable */
+  /** POI to Parcel */
   private POI poi;
   
   /**
-   * Constructor
+   * Constructor with POI
    * 
    * @param poi
    */
@@ -23,9 +22,9 @@ public class POIParcelable implements Parcelable {
   }
   
   /**
-   * Constructor for Parcel
+   * Constructor with Parcel
    * 
-   * @param poi
+   * @param source
    */
   public POIParcelable(Parcel source) {
     poi = new POI();
@@ -37,7 +36,6 @@ public class POIParcelable implements Parcelable {
     poi.setVotes(source.readInt());
     poi.setPrice(source.readDouble());
     poi.setRank(source.readDouble());
-    poi.setMyRank(source.readDouble());
     poi.setLatitude(source.readDouble());
     poi.setLongitude(source.readDouble());
     poi.setTag(source.readString());
@@ -78,25 +76,21 @@ public class POIParcelable implements Parcelable {
     dest.writeInt(poi.getVotes());
     dest.writeDouble(poi.getPrice());
     dest.writeDouble(poi.getRank());
-    dest.writeDouble(poi.getMyRank());
     dest.writeDouble(poi.getLatitude());
     dest.writeDouble(poi.getLongitude());
     dest.writeString(poi.getTag());
   }
   
-  public static final Parcelable.Creator<POIParcelable> CREATOR = new Parcelable.Creator<POIParcelable>(){
-
+  public static final Parcelable.Creator<POIParcelable> CREATOR = 
+      new Parcelable.Creator<POIParcelable>(){
     @Override
     public POIParcelable createFromParcel(Parcel source){
-      
       return new POIParcelable(source);
     }
 
     @Override
     public POIParcelable[] newArray(int size){
-
       return new POIParcelable[size];
-    }
-    
+    }   
   };
 }
