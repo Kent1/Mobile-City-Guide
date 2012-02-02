@@ -1,17 +1,13 @@
 package be.ac.umons.gl.mobilecityguide.poi;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.android.maps.GeoPoint;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * A <code>POI</code> is a place to visit.
  * 
  * @author Allard Hugo
  */
-public class POI implements Parcelable{
+public class POI{
   
   /** The Id of this <code>POI</code> in the database. */
   private int id;
@@ -46,15 +42,13 @@ public class POI implements Parcelable{
   /** The description of this <code>POI</code>. */
   private String description;
   
-  /** The tags list of this <code>POI</code>. */
-  private List<String> tags;
+  /** The tag of this <code>POI</code>. */
+  private String tag;
   
   /**
    * Constructs a new empty instance of <code>POI</code>.
    */
   public POI(){
-
-    tags = new ArrayList<String>();
   }
   
   /**
@@ -63,7 +57,6 @@ public class POI implements Parcelable{
    * @param id the id of this <code>POI</code>.
    */
   public POI(int id){
-    
     this();
     this.id = id;
   }
@@ -81,28 +74,6 @@ public class POI implements Parcelable{
     this.id = id;
     this.setLatitude(latitude);
     this.setLongitude(longitude);
-  }
-
-  /**
-   * Constructs a new instance of <code>POI</code> from a previous one.
-   * 
-   * @param in the <code>Parcel</code> to read.
-   */
-  public POI(Parcel in){
-
-    this();
-    this.name = in.readString();
-    this.address = in.readString();
-    this.description = in.readString();
-    this.id = in.readInt();
-    this.duration = in.readInt();
-    this.votes = in.readInt();
-    this.price = in.readDouble();
-    this.rank = in.readDouble();
-    this.myRank = in.readDouble();
-    this.latitude = in.readDouble();
-    this.longitude = in.readDouble();
-    in.readList(tags, String.class.getClassLoader());
   }
 
   /**
@@ -306,9 +277,9 @@ public class POI implements Parcelable{
    * 
    * @return the <code>List</code> of tags of this <code>POI</code>.
    */
-  public List<String> getTags(){
+  public String getTag(){
 
-    return tags;
+    return tag;
   }
 
   /**
@@ -316,30 +287,9 @@ public class POI implements Parcelable{
    * 
    * @param tags a <code>List</code> of <code>String</code>.
    */
-  public void setTags(List<String> tags){
+  public void setTag(String tag){
 
-    this.tags = tags;
-  }
-  
-  /**
-   * Checks if this <code>POI</code> has the given tag.
-   * 
-   * @param tag the wanted tag
-   * @return <code>true</code> if this <code>POI</code> has the given tag, <code>false</code> otherwise.
-   */
-  public boolean hasTag(String tag){
-    
-    return tags.contains(tag);
-  }
-  
-  /**
-   * Adds a tag in the tag <code>List</code>.
-   * 
-   * @param tag the tag to add.
-   */
-  public void addTag(String tag){
-    
-    tags.add(tag);
+    this.tag = tag;
   }
   
   /**
@@ -390,43 +340,4 @@ public class POI implements Parcelable{
     else
       return false;
   }
-
-  @Override
-  public int describeContents(){
-
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags){
-
-    dest.writeString(name);
-    dest.writeString(address);
-    dest.writeString(description);
-    dest.writeInt(id);
-    dest.writeInt(duration);
-    dest.writeInt(votes);
-    dest.writeDouble(price);
-    dest.writeDouble(rank);
-    dest.writeDouble(myRank);
-    dest.writeDouble(latitude);
-    dest.writeDouble(longitude);
-    dest.writeList(tags);
-  } 
-  
-  public static final Parcelable.Creator<POI> CREATOR = new Parcelable.Creator<POI>(){
-
-    @Override
-    public POI createFromParcel(Parcel source){
-
-      return new POI(source);
-    }
-
-    @Override
-    public POI[] newArray(int size){
-
-      return new POI[size];
-    }
-    
-  };
 }
