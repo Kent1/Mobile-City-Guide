@@ -13,6 +13,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,17 +34,17 @@ public class DB {
    */
   public JSONObject query(String query){
     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-    nameValuePairs.add(new BasicNameValuePair("request",query));
+    nameValuePairs.add(new BasicNameValuePair("request", query));
     String result = "";
+    HttpClient httpclient = new DefaultHttpClient();
+    HttpPost httppost = new HttpPost(adress);
     try{
-      HttpClient httpclient = new DefaultHttpClient();
-      HttpPost httppost = new HttpPost(adress);
       httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
       HttpResponse response = httpclient.execute(httppost);
       HttpEntity entity = response.getEntity();
       InputStream is = entity.getContent();
     
-      BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+      BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
       String line = null;
       while ((line = reader.readLine()) != null)
         result = result + line + "\n";
@@ -53,13 +54,19 @@ public class DB {
       e.printStackTrace();
     }
     
-    JSONObject jsonObject = null;
+    JSONArray jsonArray = null;
     try {
-      jsonObject = new JSONObject(result);
+      jsonArray = new JSONArray(result);
     } catch (JSONException e) {
       System.out.println("[Error] POIDB.query ");
       e.printStackTrace();
     }
-    return jsonObject;
+    JSONObject json = null;
+    try {
+      json = jsonArray.getJSONObject(0);
+    } catch (JSONException e){
+      e.printStackTrace();
+    }
+    return json;
   }
 }
