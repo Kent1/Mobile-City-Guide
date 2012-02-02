@@ -31,14 +31,15 @@ public class POIDB extends DB{
   public POI getPOI(int id){
     JSONArray jsonArray = query("SELECT * FROM POI WHERE Id = " + id + " LIMIT 0,1");
     JSONObject json = null;
-    try {
-      json = jsonArray.getJSONObject(0);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
     POI retour = null;
-    if(jsonArray!=null)
-      retour = this.toPOI(json);
+    if(jsonArray!=null){
+      try {
+        json = jsonArray.getJSONObject(0);
+        retour = this.toPOI(json);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
     return retour;
   }
 
@@ -51,16 +52,17 @@ public class POIDB extends DB{
    *    POI with name specified or null
    */
   public POI getPOI(String name){
-    JSONArray jsonArray = query("SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1");
+    JSONArray jsonArray = this.query("SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1");
     JSONObject json = null;
-    try {
-      json = jsonArray.getJSONObject(0);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
     POI retour = null;
-    if(json!=null)
-      retour = this.toPOI(json);
+    if(jsonArray!=null){
+      try {
+        json = jsonArray.getJSONObject(0);
+        retour = this.toPOI(json);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
     return retour;
   }
   
@@ -81,18 +83,15 @@ public class POIDB extends DB{
    * 
    * @param json
    *    the JSONObject
+   * @throws JSONException 
    */
-  private POI toPOI(JSONObject json){
+  private POI toPOI(JSONObject json) throws JSONException{
     POI poi = new POI();
-    try {
-      poi.setId(json.getInt("Id"));
-      poi.setName(json.getString("Name"));
-      poi.setLongitude(json.getDouble("Longitude"));
-      poi.setLatitude(json.getDouble("Latitude"));
-      poi.setAddress(json.getString("Adress"));
-    } catch (JSONException e){
-      e.printStackTrace();
-    }
+    poi.setId(json.getInt("Id"));
+    poi.setName(json.getString("Name"));
+    poi.setLongitude(json.getDouble("Longitude"));
+    poi.setLatitude(json.getDouble("Latitude"));
+    poi.setAddress(json.getString("Address"));
     return poi;
   }
 }
