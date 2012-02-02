@@ -44,6 +44,7 @@ public class POI{
    * Constructs a new empty instance of <code>POI</code>.
    */
   public POI(){
+    
   }
   
   /**
@@ -52,7 +53,7 @@ public class POI{
    * @param id the id of this <code>POI</code>.
    */
   public POI(int id){
-    this();
+    
     this.id = id;
   }
   
@@ -64,7 +65,7 @@ public class POI{
    * @param longitude the longitude (in degrees) of this <code>POI</code>.
    */
   public POI(int id, double latitude, double longitude){
-    this();
+    
     this.id = id;
     this.setLatitude(latitude);
     this.setLongitude(longitude);
@@ -76,6 +77,7 @@ public class POI{
    * @return the Id of this <code>POI</code>.
    */
   public int getId(){
+    
     return id;
   }
   
@@ -85,6 +87,7 @@ public class POI{
    * @param id Id the ID in the database.
    */
   public void setId(int id){
+    
     this.id = id;
   }
   
@@ -94,6 +97,7 @@ public class POI{
    * @return the duration in minutes.
    */
   public int getDuration(){
+    
     return duration;
   }
 
@@ -103,6 +107,7 @@ public class POI{
    * @param duration the duration in minutes.
    */
   public void setDuration(int duration){
+    
     this.duration = duration;
   }
 
@@ -112,6 +117,7 @@ public class POI{
    * @return the number of votes.
    */
   public int getVotes(){
+    
     return votes;
   }
 
@@ -121,6 +127,7 @@ public class POI{
    * @param votes the number of votes.
    */
   public void setVotes(int votes){
+    
     this.votes = votes;
   }
 
@@ -130,6 +137,7 @@ public class POI{
    * @return the price in euros.
    */
   public double getPrice(){
+    
     return price;
   }
 
@@ -139,16 +147,17 @@ public class POI{
    * @param price the price in euros.
    */
   public void setPrice(double price){
+    
     this.price = price;
   }
 
   /**
    * Gets the global ranking of this <code>POI</code>.<br>
-   * The ranking is between 0 and 5.
    * 
    * @return the global ranking.
    */
   public double getRank(){
+    
     return rank;
   }
 
@@ -158,6 +167,7 @@ public class POI{
    * @param rank the global ranking.
    */
   public void setRank(double rank){
+    
     if(rank < 0)
       rank = 0;
     else if(rank > 5)
@@ -172,6 +182,7 @@ public class POI{
    * @return the name of this <code>POI</code>.
    */
   public String getName(){
+    
     return name;
   }
 
@@ -181,6 +192,7 @@ public class POI{
    * @param name the name this <code>POI</code>.
    */
   public void setName(String name){
+    
     this.name = name;
   }
 
@@ -190,6 +202,7 @@ public class POI{
    * @return the description of this <code>POI</code>.
    */
   public String getDescription(){
+    
     return description;
   }
 
@@ -199,6 +212,7 @@ public class POI{
    * @param description the description.
    */
   public void setDescription(String description){
+    
     this.description = description;
   }
 
@@ -208,6 +222,7 @@ public class POI{
    * @return the address of this <code>POI</code>.
    */
   public String getAddress(){
+    
     return address;
   }
 
@@ -217,6 +232,7 @@ public class POI{
    * @param address the address of this <code>POI</code>.
    */
   public void setAddress(String address){
+    
     this.address = address;
   }
 
@@ -226,6 +242,7 @@ public class POI{
    * @return the <code>List</code> of tags of this <code>POI</code>.
    */
   public String getTag(){
+    
     return tag;
   }
 
@@ -235,6 +252,7 @@ public class POI{
    * @param tags a <code>List</code> of <code>String</code>.
    */
   public void setTag(String tag){
+    
     this.tag = tag;
   }
   
@@ -244,6 +262,7 @@ public class POI{
    * @return the latitude of this <code>POI</code> in degrees.
    */
   public double getLatitude(){
+    
     return latitude;
   }
 
@@ -253,6 +272,7 @@ public class POI{
    * @param latitude the latitude of this <code>POI</code> in degrees.
    */
   public void setLatitude(double latitude){
+    
     this.latitude = latitude;
   }
 
@@ -262,6 +282,7 @@ public class POI{
    * @return the longitude of this <code>POI</code> in degrees.
    */
   public double getLongitude(){
+    
     return longitude;
   }
 
@@ -271,6 +292,7 @@ public class POI{
    * @param longitude the longitude of this <code>POI</code> in degrees.
    */
   public void setLongitude(double longitude){
+    
     this.longitude = longitude;
   }
   
@@ -279,6 +301,7 @@ public class POI{
    */
   @Override
   public boolean equals(Object o){
+    
     if(o != null && o instanceof POI)
       return this.id == ((POI) o).getId();
     else

@@ -4,29 +4,31 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * A Parcelable implementation of POI
+ * A <code>Parcelable</code> implementation of <code>POI</code>.
  * 
  * @author Allard Hugo & Quentin Loos
  */
-public class POIParcelable implements Parcelable {
+public class POIParcelable implements Parcelable{
+  
   /** POI to Parcel */
   private POI poi;
   
   /**
-   * Constructor with POI
+   * Constructs a <code>POI</code> from another <code>POI</code>.
    * 
-   * @param poi
+   * @param poi the <code>POI</code> source.
    */
   public POIParcelable(POI poi){
     this.poi = poi;
   }
   
   /**
-   * Constructor with Parcel
+   * Constructs a <code>POI</code> from a <code>Parcel</code>.
    * 
-   * @param source
+   * @param source the <code>Parcel</code> source.
    */
-  public POIParcelable(Parcel source) {
+  public POIParcelable(Parcel source){
+    
     poi = new POI();
     poi.setName(source.readString());
     poi.setAddress(source.readString());
@@ -42,30 +44,24 @@ public class POIParcelable implements Parcelable {
   }
 
   /**
-   * @return the poi
+   * @return the <code>POI</code>
    */
   public POI getPoi() {
     return poi;
   }
 
   /**
-   * @param poi the poi to set
+   * @param poi the <code>POI</code> to set
    */
   public void setPoi(POI poi) {
     this.poi = poi;
   }
 
-  /**
-   * @see android.os.Parcelable#describeContents()
-   */
   @Override
   public int describeContents() {
     return 0;
   }
 
-  /**
-   * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-   */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(poi.getName());
@@ -83,13 +79,16 @@ public class POIParcelable implements Parcelable {
   
   public static final Parcelable.Creator<POIParcelable> CREATOR = 
       new Parcelable.Creator<POIParcelable>(){
+    
     @Override
     public POIParcelable createFromParcel(Parcel source){
+      
       return new POIParcelable(source);
     }
 
     @Override
     public POIParcelable[] newArray(int size){
+      
       return new POIParcelable[size];
     }   
   };
