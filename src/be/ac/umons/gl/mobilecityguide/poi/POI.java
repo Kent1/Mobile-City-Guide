@@ -274,11 +274,25 @@ public class POI{
     this.longitude = longitude;
   }
   
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals()
+   */
   @Override
   public boolean equals(Object o){
     if(o != null && o instanceof POI)
       return this.id == ((POI) o).getId();
     else
       return false;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "POI [id=" + id + ", duration=" + duration + ", votes=" + votes
+        + ", price=" + price + ", rank=" + rank + ", latitude=" + latitude
+        + ", longitude=" + longitude + ", name=" + name + ", address="
+        + address + ", description=" + description + ", tag=" + tag + "]";
   }
 }
