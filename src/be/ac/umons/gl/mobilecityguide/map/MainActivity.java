@@ -1,4 +1,4 @@
-package be.ac.umons.gl.mobilecityguide;
+package be.ac.umons.gl.mobilecityguide.map;
 
 import android.os.Bundle;
 import be.ac.umons.gl.mobilecityguide.R;

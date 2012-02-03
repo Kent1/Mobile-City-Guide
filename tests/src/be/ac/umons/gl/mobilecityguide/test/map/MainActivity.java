@@ -1,9 +1,9 @@
 /**
  * 
  */
-package be.ac.umons.gl.mobilecityguide.test;
+package be.ac.umons.gl.mobilecityguide.test.map;
 
-import be.ac.umons.gl.mobilecityguide.MainActivity;
+import be.ac.umons.gl.mobilecityguide.map.MainActivity;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
