@@ -45,6 +45,20 @@ public class RankingDB extends DB {
   }
 
   /**
+   * Return the rank of a specified POI
+   * 
+   * @param id
+   *          the id of a POI
+   * @return the rank of the POI
+   */
+  public void rank(int id, double rank) {
+    String newRank = "((Rank*NBVote)" + rank + ")/(NBVote+1)";
+    String query = "UPDATE Ranking SET Rank= " + newRank
+        + ", NBVote=NBVote+1 WHERE Id = " + id + "";
+    this.query(query);
+  }
+
+  /**
    * Return the number of vote for the specified POI
    * 
    * @param id
