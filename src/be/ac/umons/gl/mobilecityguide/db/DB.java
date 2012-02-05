@@ -71,20 +71,19 @@ public class DB {
     }
 
     BufferedReader reader = null;
-    try {
-      reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-    } catch (UnsupportedEncodingException e) {
-      Log.e(tag, "UnsupportedEncodingException : " + e.getMessage());
-    }
+    reader = new BufferedReader(new InputStreamReader(is));
 
     String line = null;
     try {
-      while ((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null && !line.equals("null"))
         result = result + line + "\n";
       is.close();
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
     }
+
+    if (result.equals(""))
+      return null;
 
     JSONArray jsonArray = null;
     try {
