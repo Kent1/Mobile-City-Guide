@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
@@ -131,8 +130,6 @@ public class MainActivity extends MapActivity implements LocationListener {
 
     double lat_span = mapView.getLatitudeSpan() / 1E6;
     double lon_span = mapView.getLongitudeSpan() / 1E6;
-
-    Log.e("tag", "lat_span : " + lat_span + "; lon_span : " + lon_span);
 
     pois = poidb.getPOI(latitude, longitude, lat_span, lon_span);
 
