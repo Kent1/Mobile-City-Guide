@@ -1,15 +1,16 @@
 package be.ac.umons.gl.mobilecityguide.poi;
 
 import java.util.ArrayList;
-
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import be.ac.umons.gl.mobilecityguide.gui.POIDisplayActivity;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
 /**
- * @author Hugo Allard
+ * @author Allard Hugo
  */
 public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
@@ -24,6 +25,8 @@ public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
    * 
    * @param defaultMarker
    *          the default marker to draw.
+   * @param context
+   *          the <code>Context</code> of the application.
    */
   public POIItemizedOverlay(Drawable defaultMarker, Context context) {
 
@@ -77,13 +80,9 @@ public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
   @Override
   protected boolean onTap(int index) {
 
-    // TODO
-
-    /*
-     * Intent intent = new Intent(context, POIDisplayActivity.class);
-     * intent.putExtra("poi", new POIParcelable(mOverlays.get(index).getPoi()));
-     * context.startActivity(intent);
-     */
+    Intent intent = new Intent(context, POIDisplayActivity.class);
+    intent.putExtra("poi", new POIParcelable(mOverlays.get(index).getPoi()));
+    context.startActivity(intent);
 
     return true;
   }

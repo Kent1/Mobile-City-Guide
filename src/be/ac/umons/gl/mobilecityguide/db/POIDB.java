@@ -72,12 +72,12 @@ public class POIDB extends DB{
   /**
    * Get the POIs where is in the range specified
    * 
-   * @param longitude
    * @param latitude
+   * @param longitude
    * @param range
    * @return
    */
-  public ArrayList<POI> getPOI(int longitude, int latitude, int range){
+  public ArrayList<POI> getPOI(int latitude, int longitude, int range){
     return null;
   }
 
