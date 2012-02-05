@@ -18,6 +18,9 @@ public class POIDB extends DB {
   /** Tag for log */
   private static final String tag = "POIDB";
 
+  private final TagDB tdb = new TagDB();
+  private final InfosDB idb = new InfosDB();
+
   /**
    * Construtor
    */
@@ -109,11 +112,15 @@ public class POIDB extends DB {
    */
   private POI toPOI(JSONObject json) throws JSONException {
     POI poi = new POI();
-    poi.setId(json.getInt("Id"));
+    int id = json.getInt("Id");
+    poi.setId(id);
     poi.setName(json.getString("Name"));
     poi.setLongitude(json.getDouble("Longitude"));
     poi.setLatitude(json.getDouble("Latitude"));
     poi.setAddress(json.getString("Address"));
+    poi.setTag(tdb.getTag(id));
+    poi.setPrice(idb.getPrice(id));
+    poi.setDuration(idb.getDuration(id));
     return poi;
   }
 }

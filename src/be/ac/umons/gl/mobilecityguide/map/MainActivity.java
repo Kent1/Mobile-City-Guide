@@ -1,5 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -65,6 +66,8 @@ public class MainActivity extends MapActivity implements LocationListener {
   public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
+
+    filter = new ArrayList<String>();
 
     initMap();
     initGPS();
@@ -136,13 +139,13 @@ public class MainActivity extends MapActivity implements LocationListener {
     itemizedOverlay = new POIItemizedOverlay(marker, this);
 
     for (POI poi : pois) {
-      // if (!filter.contains(poi.getTag())) {
-      POIOverlayItem item = new POIOverlayItem(new GeoPoint(
-          (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
-          "", "");
-      item.setPoi(poi);
-      itemizedOverlay.addOverlay(item);
-      // }
+      if (!filter.contains(poi.getTag())) {
+        POIOverlayItem item = new POIOverlayItem(new GeoPoint(
+            (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
+            "", "");
+        item.setPoi(poi);
+        itemizedOverlay.addOverlay(item);
+      }
     }
 
     if (itemizedOverlay.size() != 0)
