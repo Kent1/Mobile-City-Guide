@@ -14,7 +14,8 @@ public class POIDisplayActivity extends Activity {
 
   private POI poi;
   private TextView name, address, description, tag, price, duration;
-  private RatingBar ratingBar;
+  private RatingBar ratingBar, ratingBarIndicator;
+  private double myRank;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class POIDisplayActivity extends Activity {
     name = (TextView) findViewById(R.id.name);
     name.setText(poi.getName());
 
+    ratingBarIndicator = (RatingBar) findViewById(R.id.ratingIndicator);
+    ratingBarIndicator.setRating((float) poi.getRank());
+
     address = (TextView) findViewById(R.id.address);
     address.setText(poi.getAddress());
 
@@ -44,11 +48,12 @@ public class POIDisplayActivity extends Activity {
         + getString(R.string.minutes));
 
     ratingBar = (RatingBar) findViewById(R.id.rating);
-    ratingBar.setRating((float) poi.getRank());
+    // TODO myRank
     ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
       @Override
       public void onRatingChanged(RatingBar ratingBar, float rating,
           boolean fromUser) {
+        myRank = rating;
         Toast.makeText(POIDisplayActivity.this,
             "Vous attribuez une note de " + rating + "/5", Toast.LENGTH_SHORT)
             .show();
