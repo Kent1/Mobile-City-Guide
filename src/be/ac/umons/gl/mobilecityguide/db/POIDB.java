@@ -74,11 +74,30 @@ public class POIDB extends DB {
    * 
    * @param latitude
    * @param longitude
+   * @param lon_span
    * @param range
    * @return
    */
-  public ArrayList<POI> getPOI(int latitude, int longitude, int range) {
-    return null;
+  public ArrayList<POI> getPOI(double latitude, double longitude,
+      double lat_span, double lon_span) {
+    String query = "SELECT * FROM POI WHERE latitude <= "
+        + (latitude + lat_span) + " AND latitude >= " + (latitude - lat_span)
+        + " AND longitude <= " + (longitude + lon_span) + " AND longitude >= "
+        + (longitude - lon_span);
+    JSONArray jsonArray = this.query(query);
+    JSONObject json = null;
+    ArrayList<POI> retour = new ArrayList<POI>();
+    if (jsonArray != null) {
+      try {
+        for (int i = 0; i < jsonArray.length(); i++) {
+          json = jsonArray.getJSONObject(i);
+          retour.add(this.toPOI(json));
+        }
+      } catch (JSONException e) {
+        Log.e(tag, "JSONException : " + e.getMessage());
+      }
+    }
+    return retour;
   }
 
   /**

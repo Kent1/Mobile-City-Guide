@@ -1,8 +1,10 @@
 package be.ac.umons.gl.mobilecityguide.test.db;
 
+import java.util.ArrayList;
+
+import android.test.AndroidTestCase;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
-import android.test.AndroidTestCase;
 
 /**
  * Test Class for POIDB
@@ -12,8 +14,10 @@ import android.test.AndroidTestCase;
 public class POIDBTest extends AndroidTestCase {
   POIDB db;
   POI poi;
-  
-  /* (non-Javadoc)
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see android.test.AndroidTestCase#setUp()
    */
   @Override
@@ -22,7 +26,9 @@ public class POIDBTest extends AndroidTestCase {
     poi = null;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see android.test.AndroidTestCase#tearDown()
    */
   @Override
@@ -31,27 +37,30 @@ public class POIDBTest extends AndroidTestCase {
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(int)}.
+   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(int)}
    */
   public final void testGetPOIInt() {
     poi = db.getPOI(1);
     assertTrue(poi != null);
-    assertTrue(poi.getId()==1);
+    assertTrue(poi.getId() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(java.lang.String)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(java.lang.String)}.
    */
   public final void testGetPOIString() {
     poi = db.getPOI("Pentagone");
     assertTrue(poi != null);
-    assertTrue(poi.getId()==1);
+    assertTrue(poi.getId() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(int, int, int)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(double, double, double, double)}
    */
-  public final void testGetPOIIntIntInt() {
-    fail("Not yet implemented"); // TODO
+  public final void testGetPOIDoubleDoubleDoubleDouble() {
+    ArrayList<POI> poi = db.getPOI(50, 3, 1, 1);
+    assertTrue(!poi.isEmpty());
   }
 }
