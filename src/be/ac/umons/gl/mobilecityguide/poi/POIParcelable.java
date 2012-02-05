@@ -8,28 +8,53 @@ import android.os.Parcelable;
  * 
  * @author Allard Hugo & Quentin Loos
  */
-public class POIParcelable implements Parcelable{
-  
+public class POIParcelable implements Parcelable {
+
   /** POI to Parcel */
   private POI poi;
-  
+
   /**
    * Constructs a <code>POI</code> from another <code>POI</code>.
    * 
-   * @param poi the <code>POI</code> source.
+   * @param poi
+   *          the <code>POI</code> source.
    */
-  public POIParcelable(POI poi){
+  public POIParcelable(POI poi) {
     this.poi = poi;
   }
-  
+
   /**
    * Constructs a <code>POI</code> from a <code>Parcel</code>.
    * 
-   * @param source the <code>Parcel</code> source.
+   * @param source
+   *          the <code>Parcel</code> source.
    */
-  public POIParcelable(Parcel source){
-    
+  public POIParcelable(Parcel source) {
     poi = new POI();
+    this.readFromParcel(source);
+  }
+
+  /**
+   * @return the <code>POI</code>
+   */
+  public POI getPoi() {
+    return poi;
+  }
+
+  /**
+   * @param poi
+   *          the <code>POI</code> to set
+   */
+  public void setPoi(POI poi) {
+    this.poi = poi;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  private void readFromParcel(Parcel source) {
     poi.setName(source.readString());
     poi.setAddress(source.readString());
     poi.setDescription(source.readString());
@@ -41,25 +66,6 @@ public class POIParcelable implements Parcelable{
     poi.setLatitude(source.readDouble());
     poi.setLongitude(source.readDouble());
     poi.setTag(source.readString());
-  }
-
-  /**
-   * @return the <code>POI</code>
-   */
-  public POI getPoi() {
-    return poi;
-  }
-
-  /**
-   * @param poi the <code>POI</code> to set
-   */
-  public void setPoi(POI poi) {
-    this.poi = poi;
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
   }
 
   @Override
@@ -76,20 +82,19 @@ public class POIParcelable implements Parcelable{
     dest.writeDouble(poi.getLongitude());
     dest.writeString(poi.getTag());
   }
-  
-  public static final Parcelable.Creator<POIParcelable> CREATOR = 
-      new Parcelable.Creator<POIParcelable>(){
-    
+
+  public static final Parcelable.Creator<POIParcelable> CREATOR = new Parcelable.Creator<POIParcelable>() {
+
     @Override
-    public POIParcelable createFromParcel(Parcel source){
-      
+    public POIParcelable createFromParcel(Parcel source) {
+
       return new POIParcelable(source);
     }
 
     @Override
-    public POIParcelable[] newArray(int size){
-      
+    public POIParcelable[] newArray(int size) {
+
       return new POIParcelable[size];
-    }   
+    }
   };
 }
