@@ -36,21 +36,21 @@ public class DB {
    * Execute query and return the result in a JSONArray
    * 
    * @param query
-   *    the query submitted to the DB
-   * @return
-   *    The response in JSONArray
+   *          the query submitted to the DB
+   * @return The response in JSONArray
    */
-  public JSONArray query(String query){
+  public JSONArray query(String query) {
     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
     nameValuePairs.add(new BasicNameValuePair("request", query));
-    String result = null;
+    String result = "";
     HttpClient httpclient = new DefaultHttpClient();
     HttpPost httppost = new HttpPost(adress);
-    
+
     try {
       httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-    } catch (UnsupportedEncodingException e) {}
-    
+    } catch (UnsupportedEncodingException e) {
+    }
+
     HttpResponse response = null;
     try {
       response = httpclient.execute(httppost);
@@ -59,7 +59,7 @@ public class DB {
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
     }
-    
+
     HttpEntity entity = response.getEntity();
     InputStream is = null;
     try {
@@ -69,14 +69,14 @@ public class DB {
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
     }
-      
+
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+      reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
     } catch (UnsupportedEncodingException e) {
       Log.e(tag, "UnsupportedEncodingException : " + e.getMessage());
     }
-    
+
     String line = null;
     try {
       while ((line = reader.readLine()) != null)
@@ -85,7 +85,7 @@ public class DB {
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
     }
-    
+
     JSONArray jsonArray = null;
     try {
       jsonArray = new JSONArray(result);
