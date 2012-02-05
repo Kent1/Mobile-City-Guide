@@ -3,7 +3,9 @@ package be.ac.umons.gl.mobilecityguide.gui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
@@ -43,5 +45,14 @@ public class POIDisplayActivity extends Activity {
 
     ratingBar = (RatingBar) findViewById(R.id.rating);
     ratingBar.setRating((float) poi.getRank());
+    ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+      @Override
+      public void onRatingChanged(RatingBar ratingBar, float rating,
+          boolean fromUser) {
+        Toast.makeText(POIDisplayActivity.this,
+            "Vous attribuez une note de " + rating + "/5", Toast.LENGTH_SHORT)
+            .show();
+      }
+    });
   }
 }
