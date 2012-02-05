@@ -9,39 +9,37 @@ import org.json.JSONObject;
 import android.util.Log;
 
 /**
- * Class for using the LangList Table
- * in the DB
+ * Class for using the LangList Table in the DB
  * 
  * @author Quentin Loos
  */
-public class LangDB extends DB{
+public class LangDB extends DB {
   /** Tag for log */
   private static final String tag = "LangDB";
-  
+
   /**
    * Constructor
    */
-  public LangDB(){
+  public LangDB() {
   }
-  
+
   /**
    * Return the list of languages available
    * 
-   * @return
-   *    the list of the languages
+   * @return the list of the languages
    */
-  public ArrayList<String> getLangList(){
-    JSONArray jsonArray = this.query("SELECT * FROM LangList");
+  public ArrayList<String> getLangList() {
+    String query = "SELECT * FROM LangList";
+    JSONArray jsonArray = this.query(query);
     ArrayList<String> str = new ArrayList<String>();
     JSONObject json = null;
-    if(jsonArray != null){
+    if (jsonArray != null) {
       try {
-        for(int i = 0; i<jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
           json = jsonArray.getJSONObject(i);
           str.add(json.getString("Language"));
         }
-      }
-      catch (JSONException e){
+      } catch (JSONException e) {
         Log.e(tag, "JSONException : " + e.getMessage());
       }
     }

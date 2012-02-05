@@ -10,19 +10,18 @@ import android.util.Log;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
 /**
- * Class for using the POI Table
- * in the DB
+ * Class for using the POI Table in the DB
  * 
  * @author Quentin Loos
  */
-public class POIDB extends DB{
+public class POIDB extends DB {
   /** Tag for log */
   private static final String tag = "POIDB";
-  
+
   /**
    * Construtor
    */
-  public POIDB(){
+  public POIDB() {
   }
 
   /**
@@ -31,11 +30,12 @@ public class POIDB extends DB{
    * @param id
    * @return POI with id specified
    */
-  public POI getPOI(int id){
-    JSONArray jsonArray = query("SELECT * FROM POI WHERE Id = " + id + " LIMIT 0,1");
+  public POI getPOI(int id) {
+    String query = "SELECT * FROM POI WHERE Id = " + id + " LIMIT 0,1";
+    JSONArray jsonArray = query(query);
     JSONObject json = null;
     POI retour = null;
-    if(jsonArray!=null){
+    if (jsonArray != null) {
       try {
         json = jsonArray.getJSONObject(0);
         retour = this.toPOI(json);
@@ -50,15 +50,15 @@ public class POIDB extends DB{
    * get the POI with name specified
    * 
    * @param name
-   *    The name of POI
-   * @return 
-   *    POI with name specified or null
+   *          The name of POI
+   * @return POI with name specified or null
    */
-  public POI getPOI(String name){
-    JSONArray jsonArray = this.query("SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1");
+  public POI getPOI(String name) {
+    String query = "SELECT * FROM POI WHERE Name = \"" + name + "\" LIMIT 0,1";
+    JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     POI retour = null;
-    if(jsonArray!=null){
+    if (jsonArray != null) {
       try {
         json = jsonArray.getJSONObject(0);
         retour = this.toPOI(json);
@@ -68,7 +68,7 @@ public class POIDB extends DB{
     }
     return retour;
   }
-  
+
   /**
    * Get the POIs where is in the range specified
    * 
@@ -77,7 +77,7 @@ public class POIDB extends DB{
    * @param range
    * @return
    */
-  public ArrayList<POI> getPOI(int latitude, int longitude, int range){
+  public ArrayList<POI> getPOI(int latitude, int longitude, int range) {
     return null;
   }
 
@@ -85,10 +85,10 @@ public class POIDB extends DB{
    * Create POI from JSONObject
    * 
    * @param json
-   *    the JSONObject
-   * @throws JSONException 
+   *          the JSONObject
+   * @throws JSONException
    */
-  private POI toPOI(JSONObject json) throws JSONException{
+  private POI toPOI(JSONObject json) throws JSONException {
     POI poi = new POI();
     poi.setId(json.getInt("Id"));
     poi.setName(json.getString("Name"));

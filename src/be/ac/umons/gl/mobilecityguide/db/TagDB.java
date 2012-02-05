@@ -9,57 +9,56 @@ import org.json.JSONObject;
 import android.util.Log;
 
 /**
- * Class for using the TAG Table
- * in the DB
+ * Class for using the TAG Table in the DB
  * 
  * @author Quentin Loos
  */
-public class TagDB extends DB{
+public class TagDB extends DB {
   /** Tag for log */
   private static final String tag = "TagDB";
-  
+
   /**
    * Constructor
    */
   public TagDB() {
   }
-  
+
   /**
    * Return the list of tags available
    * 
    * @return List of tags
    */
-  public ArrayList<String> getTagList(){
-    JSONArray jsonArray = this.query("SELECT * FROM TAGList");
+  public ArrayList<String> getTagList() {
+    String query = "SELECT * FROM TAGList";
+    JSONArray jsonArray = this.query(query);
     ArrayList<String> str = new ArrayList<String>();
     JSONObject json = null;
-    if(jsonArray != null){
+    if (jsonArray != null) {
       try {
-        for(int i = 0; i<jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
           json = jsonArray.getJSONObject(i);
           str.add(json.getString("TAG"));
         }
-      }
-      catch (JSONException e){
+      } catch (JSONException e) {
         Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return str;
   }
-  
+
   /**
    * Return the tag of a specified POI
    * 
    * @param id
-   *    the id of the POI
-   * @return
-   *    tag of the POI
+   *          the id of the POI
+   * @return tag of the POI
    */
-  public String getTag(int id){
-    JSONArray jsonArray = this.query("SELECT TAG FROM TAG WHERE id = " + id + " LIMIT 0,1");
+  public String getTag(int id) {
+    String query = "SELECT TAG FROM TAG WHERE id = " + id + " LIMIT 0,1";
+    JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     String retour = null;
-    if(jsonArray!=null){
+    if (jsonArray != null) {
       try {
         json = jsonArray.getJSONObject(0);
         retour = json.getString("TAG");
