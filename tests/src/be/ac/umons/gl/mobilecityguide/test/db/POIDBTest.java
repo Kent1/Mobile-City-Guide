@@ -43,6 +43,8 @@ public class POIDBTest extends AndroidTestCase {
     poi = db.getPOI(1);
     assertTrue(poi != null);
     assertTrue(poi.getId() == 1);
+    assertTrue(poi.getTag().equals("education"));
+    assertTrue(poi.getDuration() == 30);
   }
 
   /**
