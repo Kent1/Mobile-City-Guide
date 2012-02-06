@@ -9,6 +9,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
@@ -91,6 +94,26 @@ public class MainActivity extends MapActivity implements LocationListener {
     super.onStop();
     locationManager.removeUpdates(this);
     myLocation.disableMyLocation();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.mainmenu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    switch (item.getItemId()) {
+    case R.id.itemOptions:
+      // TODO PreferencesActivity
+      return true;
+    case R.id.itemQuitter:
+      finish();
+      return true;
+    }
+    return super.onMenuItemSelected(featureId, item);
   }
 
   /**
