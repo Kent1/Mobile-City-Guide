@@ -77,12 +77,19 @@ public class MainActivity extends MapActivity implements LocationListener {
   @Override
   public void onResume() {
     super.onResume();
-    myLocation.enableMyLocation();
+    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+        0, this);
   }
 
   @Override
   public void onPause() {
     super.onPause();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    locationManager.removeUpdates(this);
     myLocation.disableMyLocation();
   }
 
@@ -111,9 +118,9 @@ public class MainActivity extends MapActivity implements LocationListener {
     myLocation.runOnFirstFix(new Runnable() {
       @Override
       public void run() {
+        loadPOIs();
         mapController.animateTo(myLocation.getMyLocation());
         mapController.setZoom(14);
-        loadPOIs();
       }
     });
 
