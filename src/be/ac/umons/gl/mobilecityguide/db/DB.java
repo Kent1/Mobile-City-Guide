@@ -26,7 +26,7 @@ import android.util.Log;
  * 
  * @author Quentin Loos
  */
-public class DB {
+public abstract class DB {
   /** DB address */
   private final String adress = "http://sgl.umons.ac.be/mobilecityguide/cible.php";
   /** Tag for log */
