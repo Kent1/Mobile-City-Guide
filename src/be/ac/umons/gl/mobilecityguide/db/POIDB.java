@@ -31,8 +31,9 @@ public class POIDB extends DB {
    * @return POI with id specified
    */
   public POI getPOI(int id) {
-    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id JOIN Infos ON Infos.id=POI.id WHERE POI.Id = "
-        + id + " LIMIT 0,1";
+    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
+        + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
+        + "WHERE POI.Id = " + id + " LIMIT 0,1";
     JSONArray jsonArray = query(query);
     JSONObject json = null;
     POI retour = null;
@@ -55,8 +56,9 @@ public class POIDB extends DB {
    * @return POI with name specified or null
    */
   public POI getPOI(String name) {
-    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id JOIN Infos ON Infos.id=POI.id WHERE Name = \""
-        + name + "\" LIMIT 0,1";
+    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
+        + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
+        + "WHERE Name = \"" + name + "\" LIMIT 0,1";
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     POI retour = null;
@@ -82,13 +84,10 @@ public class POIDB extends DB {
    */
   public ArrayList<POI> getPOI(double latitude, double longitude,
       double lat_span, double lon_span) {
-    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id JOIN Infos ON Infos.id=POI.id WHERE latitude <= "
-        + (latitude + lat_span)
-        + " AND latitude >= "
-        + (latitude - lat_span)
-        + " AND longitude <= "
-        + (longitude + lon_span)
-        + " AND longitude >= "
+    String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
+        + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id WHERE latitude <= "
+        + (latitude + lat_span) + " AND latitude >= " + (latitude - lat_span)
+        + " AND longitude <= " + (longitude + lon_span) + " AND longitude >= "
         + (longitude - lon_span);
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
@@ -124,6 +123,7 @@ public class POIDB extends DB {
     poi.setTag(json.getString("TAG"));
     poi.setPrice(json.getDouble("Price"));
     poi.setDuration(json.getInt("Duration"));
+    poi.setRank(json.getDouble("Rank"));
     return poi;
   }
 }
