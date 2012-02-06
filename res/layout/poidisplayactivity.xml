@@ -3,7 +3,7 @@
 <ScrollView 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
+    android:layout_height="match_parent" 
     android:background="#EBF2FA">
 
   <LinearLayout
@@ -12,70 +12,101 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content">
 
-      <RelativeLayout
+      <LinearLayout
           android:id="@+id/relativeLayout1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:orientation="vertical"
           android:background="#4556A6"
-          android:gravity="top" >
+          android:gravity="right" >
 
           <TextView
               android:id="@+id/name"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentTop="true"
-              android:paddingBottom="2dip"
-              android:paddingLeft="5dip"
-              android:paddingTop="2dip"
-              android:text="Name"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:layout_marginTop="5dp"
+              android:text="@string/name"
               android:textColor="#EBF2FA"
-              android:textSize="40dip"
+              android:textSize="40dp"
               android:textStyle="bold" />
 
           <RatingBar
               android:id="@+id/ratingIndicator"
               style="?android:attr/ratingBarStyleSmall"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignBottom="@+id/name"
-              android:layout_alignParentRight="true"
-              android:isIndicator="false" />
-      </RelativeLayout>
+              android:layout_height="0dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:layout_marginBottom="5dp"
+              android:layout_weight="0.59"
+              android:isIndicator="true" />
+
+      </LinearLayout>
 
       <LinearLayout
           android:id="@+id/linearLayout1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="vertical" android:padding="5dip">
+          android:orientation="vertical" android:padding="5dp">
+
+          <TextView
+              android:id="@+id/address1"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/address"
+              android:textColor="#000000"
+              android:textSize="20dp" />
 
           <TextView
               android:id="@+id/address"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="17dp" />
+
+          <TextView
+              android:id="@+id/description1"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="Address"
-              android:textSize="20dip" />
-
+              android:text="@string/description"
+              android:textColor="#000000"
+              android:textSize="20dp" />
+          
           <TextView
               android:id="@+id/description"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="fill"
+              android:textSize="17dp" />
+
+          <TextView
+              android:id="@+id/price1"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="Description"
-              android:textSize="20dip" />
-
+              android:text="@string/price"
+              android:textColor="#000000"
+              android:textSize="20dp" />
+          
           <TextView
               android:id="@+id/price"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:text="Price"
-              android:textSize="20dip" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="17dp" />
 
           <TextView
-              android:id="@+id/duration"
+              android:id="@+id/duration1"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="Duration"
-              android:textSize="20dip" />
+              android:text="@string/duration"
+              android:textColor="#000000"
+              android:textSize="20dp" />
+          
+          <TextView
+              android:id="@+id/duration"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="17dp" />
 
           <RatingBar
               android:id="@+id/rating"
@@ -91,7 +122,7 @@
     <Button android:id="@+id/add" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Add/Remove" />
+        android:text="@string/button" />
     
   </LinearLayout>
 </ScrollView>

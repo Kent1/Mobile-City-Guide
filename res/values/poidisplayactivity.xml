@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- POIDisplayActivity -->
+    <string name="name">Name :</string>
+    <string name="description">Description :</string>
+    <string name="address">Adress :</string>
+    <string name="price">Price :</string>
+    <string name="duration">Duration :</string>
+    <string name="minutes">minutes</string>
+    <string name="button">Add/Remove</string>
+</resources>

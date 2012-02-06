@@ -26,7 +26,7 @@ public class POIDisplayActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.display_poi);
+    setContentView(R.layout.poidisplayactivity);
 
     if (getIntent().getParcelableExtra("poi") == null)
       this.finish();
@@ -49,11 +49,10 @@ public class POIDisplayActivity extends Activity {
     description.setText(ddb.getDescription(poi.getId()));
 
     price = (TextView) findViewById(R.id.price);
-    price.setText(getString(R.string.price) + " " + poi.getPrice() + "€");
+    price.setText(poi.getPrice() + " €");
 
     duration = (TextView) findViewById(R.id.duration);
-    duration.setText(getString(R.string.duration) + " " + poi.getDuration()
-        + getString(R.string.minutes));
+    duration.setText(poi.getDuration() + " " + getString(R.string.minutes));
 
     myRank = (float) rdb.getMyRank(poi.getId());
 
