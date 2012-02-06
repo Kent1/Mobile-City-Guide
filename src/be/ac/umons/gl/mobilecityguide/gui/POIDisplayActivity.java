@@ -7,6 +7,8 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
+import be.ac.umons.gl.mobilecityguide.db.DescriptionsDB;
+import be.ac.umons.gl.mobilecityguide.db.RankingDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
@@ -15,7 +17,10 @@ public class POIDisplayActivity extends Activity {
   private POI poi;
   private TextView name, address, description, tag, price, duration;
   private RatingBar ratingBar, ratingBarIndicator;
-  private double myRank;
+  private float myRank;
+
+  private RankingDB rdb;
+  private DescriptionsDB ddb;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,9 @@ public class POIDisplayActivity extends Activity {
 
     if (getIntent().getParcelableExtra("poi") == null)
       this.finish();
+
+    rdb = new RankingDB(this);
+    ddb = new DescriptionsDB();
 
     poi = ((POIParcelable) (getIntent().getParcelableExtra("poi"))).getPoi();
 
@@ -38,7 +46,7 @@ public class POIDisplayActivity extends Activity {
     address.setText(poi.getAddress());
 
     description = (TextView) findViewById(R.id.description);
-    description.setText(poi.getDescription());
+    description.setText(ddb.getDescription(poi.getId()));
 
     price = (TextView) findViewById(R.id.price);
     price.setText(getString(R.string.price) + " " + poi.getPrice() + "€");
@@ -47,17 +55,26 @@ public class POIDisplayActivity extends Activity {
     duration.setText(getString(R.string.duration) + " " + poi.getDuration()
         + getString(R.string.minutes));
 
+    myRank = (float) rdb.getMyRank(poi.getId());
+
     ratingBar = (RatingBar) findViewById(R.id.rating);
-    // TODO myRank
+    ratingBar.setRating(myRank);
     ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
       @Override
       public void onRatingChanged(RatingBar ratingBar, float rating,
           boolean fromUser) {
-        myRank = rating;
         Toast.makeText(POIDisplayActivity.this,
             "Vous attribuez une note de " + rating + "/5", Toast.LENGTH_SHORT)
             .show();
       }
     });
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    if (myRank != ratingBar.getRating()) {
+      rdb.rank(poi.getId(), ratingBar.getRating(), myRank);
+    }
   }
 }
