@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
+import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
@@ -107,7 +109,7 @@ public class MainActivity extends MapActivity implements LocationListener {
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
     case R.id.itemOptions:
-      // TODO PreferencesActivity
+      this.startActivity(new Intent(this, PreferencesActivity.class));
       return true;
     case R.id.itemQuitter:
       finish();
