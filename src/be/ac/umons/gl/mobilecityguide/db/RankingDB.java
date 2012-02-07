@@ -139,9 +139,11 @@ public class RankingDB extends DB {
     ContentValues values = new ContentValues();
     values.put(COL_ID, id);
     values.put(COL_RANK, rank);
+    this.open();
     if (oldRank == 0)
       db.insert(TABLE_RANK, null, values);
     else
       db.update(TABLE_RANK, values, COL_ID + " = " + id, null);
+    this.close();
   }
 }
