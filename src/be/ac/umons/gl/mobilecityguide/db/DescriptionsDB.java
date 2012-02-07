@@ -1,5 +1,7 @@
 package be.ac.umons.gl.mobilecityguide.db;
 
+import java.util.Locale;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,10 +32,13 @@ public class DescriptionsDB extends DB {
    */
   public String getDescription(int id) {
     String retour = "No description";
-    // TO DO
-    // Language
+    String locale = Locale.getDefault().getLanguage();
+
+    if (locale.equals(""))
+      locale = "en";
+
     String query = "SELECT * FROM Descriptions where id = " + id
-        + " AND Language = \"FR\" LIMIT 0,1";
+        + " AND Language = \"" + locale + "\" LIMIT 0,1";
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     if (jsonArray != null)
