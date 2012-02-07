@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Nom :</string>
+    <string name="description">Description :</string>
+    <string name="address">Adresse :</string>
+    <string name="price">Prix :</string>
+    <string name="duration">Durée :</string>
+    <string name="minutes">minutes</string>
+    <string name="button">Ajouter/Supprimer</string>
+</resources>
