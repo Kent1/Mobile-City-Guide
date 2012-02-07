@@ -1,6 +1,5 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -15,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
+import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
+import be.ac.umons.gl.mobilecityguide.gui.TagListActivity;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
@@ -79,7 +80,7 @@ public class MainActivity extends MapActivity {
 
     context = this;
 
-    filter = new ArrayList<String>();
+    filter = new TagDB().getTagList();
 
     setContentView(R.layout.main);
     mapView = (MapView) findViewById(R.id.mapview);
@@ -113,10 +114,13 @@ public class MainActivity extends MapActivity {
   @Override
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
-    case R.id.itemOptions:
+    case R.id.itemTagFilter:
+      this.startActivity(new Intent(this, TagListActivity.class));
+      return true;
+    case R.id.itemPreferences:
       this.startActivity(new Intent(this, PreferencesActivity.class));
       return true;
-    case R.id.itemQuitter:
+    case R.id.itemClose:
       finish();
       return true;
     }
@@ -139,7 +143,7 @@ public class MainActivity extends MapActivity {
     itemizedOverlay = new POIItemizedOverlay(marker, context);
 
     for (POI poi : pois) {
-      if (!filter.contains(poi.getTag())) {
+      if (filter.contains(poi.getTag())) {
         POIOverlayItem item = new POIOverlayItem(new GeoPoint(
             (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
             "", "");

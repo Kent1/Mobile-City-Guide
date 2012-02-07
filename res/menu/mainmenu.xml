@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
-  <item android:title="Options" android:id="@+id/itemOptions"></item>
-  <item android:title="Quitter" android:id="@+id/itemQuitter"></item>
+  <item android:id="@+id/itemTagFilter" android:title="@string/itemTagFilter"></item><item android:title="@string/itemPreferences" android:id="@+id/itemPreferences"></item>
+  <item android:title="@string/itemClose" android:id="@+id/itemClose"></item>
+  
     
 </menu>
