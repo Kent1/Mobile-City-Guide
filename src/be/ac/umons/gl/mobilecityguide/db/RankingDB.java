@@ -109,6 +109,7 @@ public class RankingDB extends DB {
     cursor.moveToFirst();
     double retour = cursor.getDouble(1);
     cursor.close();
+    close();
     return retour;
   }
 
