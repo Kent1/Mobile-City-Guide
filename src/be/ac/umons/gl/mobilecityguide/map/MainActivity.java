@@ -22,17 +22,22 @@ import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 
-public class MainActivity extends MapActivity implements LocationListener {
+public class MainActivity extends MapActivity {
 
-  private static final int RELOAD_RATE = 30;
+  private static final int RELOAD_RATE = 20;
 
-  /** The <code>MapController</code> for this map. */
-  private MapController mapController;
+  /**
+   * Used to reload the <code>POI</code>s every RELOAD_RATE call of
+   * <code>onLocationChanged</code>.
+   */
+  private int iterator;
+
+  /** The Context of the MainActivity */
+  Context context;
 
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
@@ -42,6 +47,9 @@ public class MainActivity extends MapActivity implements LocationListener {
 
   /** The <code>List</code> with the non-wanted tags. */
   private List<String> filter;
+
+  /** The <code>LocationHelperr</code> for GPS localization. */
+  private LocationHelper locationHelper;
 
   /** The <code>LocationManager</code> for GPS localization. */
   private LocationManager locationManager;
@@ -61,41 +69,38 @@ public class MainActivity extends MapActivity implements LocationListener {
   /** The <code>List</code> with the <code>Overlay</code>s of this map. */
   private List<Overlay> mapOverlays;
 
-  /**
-   * Used to reload the <code>POI</code>s every 6 call of
-   * <code>onLocationChanged</code>.
-   */
-  private int iterator;
+  /** The radius in wich we load POIs */
+  private double lat_span, lon_span;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
 
+    context = this;
+
     filter = new ArrayList<String>();
 
-    initMap();
-    initGPS();
-    mapView.invalidate();
+    setContentView(R.layout.main);
+    mapView = (MapView) findViewById(R.id.mapview);
+    mapView.setBuiltInZoomControls(true);
+    mapView.getController().setZoom(16);
+    mapOverlays = mapView.getOverlays();
+    marker = getResources().getDrawable(R.drawable.map_marker);
+
+    locationHelper = new LocationHelper();
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-        0, this);
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
+    locationHelper.enableLocation();
   }
 
   @Override
   public void onStop() {
     super.onStop();
-    locationManager.removeUpdates(this);
-    myLocation.disableMyLocation();
+    locationHelper.disableLocation();
   }
 
   @Override
@@ -118,57 +123,20 @@ public class MainActivity extends MapActivity implements LocationListener {
     return super.onMenuItemSelected(featureId, item);
   }
 
-  /**
-   * Initializes this Map.
-   */
-  private void initMap() {
-
-    setContentView(R.layout.main);
-    mapView = (MapView) findViewById(R.id.mapview);
-    mapView.setBuiltInZoomControls(true);
-    mapOverlays = mapView.getOverlays();
-    mapController = mapView.getController();
-    marker = getResources().getDrawable(R.drawable.map_marker);
-  }
-
-  /**
-   * Initializes the GPS localization.
-   */
-  private void initGPS() {
-
-    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-        0, this);
-    myLocation = new MyLocationOverlay(getApplicationContext(), mapView);
-    myLocation.runOnFirstFix(new Runnable() {
-      @Override
-      public void run() {
-        loadPOIs();
-        mapController.animateTo(myLocation.getMyLocation());
-        mapController.setZoom(14);
-      }
-    });
-
-    myLocation.enableMyLocation();
-    mapOverlays.add(myLocation);
-  }
-
-  /**
-   * Loads the <code>POI</code>s from the database.
-   */
-  private void loadPOIs() {
-
+  public void loadPOIs() {
     poidb = new POIDB();
 
-    double latitude = myLocation.getMyLocation().getLatitudeE6() / 1E6;
-    double longitude = myLocation.getMyLocation().getLongitudeE6() / 1E6;
+    GeoPoint p = myLocation.getMyLocation();
 
-    double lat_span = mapView.getLatitudeSpan() / 1E6;
-    double lon_span = mapView.getLongitudeSpan() / 1E6;
+    double latitude = p.getLatitudeE6() / 1E6;
+    double longitude = p.getLongitudeE6() / 1E6;
 
-    pois = poidb.getPOI(latitude, longitude, lat_span, lon_span);
+    lat_span = mapView.getLatitudeSpan() / 1E6;
+    lon_span = mapView.getLongitudeSpan() / 1E6;
 
-    itemizedOverlay = new POIItemizedOverlay(marker, this);
+    pois = poidb.getPOI(latitude, longitude, lat_span * 2, lon_span * 2);
+
+    itemizedOverlay = new POIItemizedOverlay(marker, context);
 
     for (POI poi : pois) {
       if (!filter.contains(poi.getTag())) {
@@ -182,42 +150,89 @@ public class MainActivity extends MapActivity implements LocationListener {
 
     if (itemizedOverlay.size() != 0)
       mapOverlays.add(itemizedOverlay);
-
-  }
-
-  @Override
-  public void onLocationChanged(Location location) {
-
-    mapOverlays.remove(myLocation);
-    mapOverlays.add(new MyLocationOverlay(this, mapView));
-
-    // Reload the pois when the location has changed too many times.
-    if (iterator++ == RELOAD_RATE) { // TODO reload rate from preferences?
-      loadPOIs();
-      iterator = 0;
-    }
-
-    mapView.invalidate();
-  }
-
-  @Override
-  public void onProviderDisabled(String provider) {
-
-  }
-
-  @Override
-  public void onProviderEnabled(String provider) {
-
-  }
-
-  @Override
-  public void onStatusChanged(String provider, int status, Bundle extras) {
-
   }
 
   @Override
   protected boolean isRouteDisplayed() {
 
     return false;
+  }
+
+  public class LocationHelper implements LocationListener {
+
+    public LocationHelper() {
+
+      locationManager = (LocationManager) context
+          .getSystemService(Context.LOCATION_SERVICE);
+
+      // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+      // 60000, 0, this);
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+          10000, 0, this);
+
+      myLocation = new MyLocationOverlay(context, mapView);
+      myLocation.enableMyLocation();
+      myLocation.runOnFirstFix(new Runnable() {
+        @Override
+        public void run() {
+          mapOverlays.add(myLocation);
+          mapView.getController().animateTo(myLocation.getMyLocation());
+          loadPOIs();
+        }
+      });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+      if (iterator++ < RELOAD_RATE) // TODO reload rate from preferences?
+        return;
+
+      iterator = 0;
+
+      GeoPoint p = myLocation.getMyLocation();
+
+      double latitude = p.getLatitudeE6() / 1E6;
+      double longitude = p.getLongitudeE6() / 1E6;
+
+      List<POI> pois2 = poidb.getPOI(latitude, longitude, lat_span * 2,
+          lon_span * 2);
+
+      for (POI poi : pois2) {
+        pois.add(poi);
+        if (!filter.contains(poi.getTag())) {
+          POIOverlayItem item = new POIOverlayItem(
+              new GeoPoint((int) (poi.getLatitude() * 1E6),
+                  (int) (poi.getLongitude() * 1E6)), "", "");
+          item.setPoi(poi);
+          itemizedOverlay.addOverlay(item);
+        }
+      }
+
+      if (itemizedOverlay.size() != 0)
+        mapOverlays.add(itemizedOverlay);
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
+    public void enableLocation() {
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+          10000, 0, locationHelper);
+      myLocation.enableMyLocation();
+    }
+
+    public void disableLocation() {
+      locationManager.removeUpdates(locationHelper);
+      myLocation.disableMyLocation();
+    }
   }
 }
