@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 /**
@@ -16,35 +15,23 @@ import android.util.Log;
  * @author Quentin Loos
  */
 public class RankingDB extends DB {
-  /** DBName & Tag for log */
-  private static final String DBName = "RankingDB";
+  /** Tag for log */
+  private static final String tag = "RankingDB";
 
   /** MyDB */
-  protected MyRankingDB myDB;
-  protected SQLiteDatabase db;
   private static final String TABLE_RANK = "Ranking";
   private static final String COL_ID = "Id";
   private static final String COL_RANK = "Rank";
+
+  /** Request to create table */
+  private static final String CREATE_BDD = "CREATE TABLE " + TABLE_RANK + " ("
+      + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK + " DOUBLE );";
 
   /**
    * Constructor
    */
   public RankingDB(Context context) {
-    myDB = new MyRankingDB(context, DBName, null, 1);
-  }
-
-  /**
-   * Open the SQLite DB
-   */
-  public void open() {
-    db = myDB.getWritableDatabase();
-  }
-
-  /**
-   * Close the SQLite DB
-   */
-  public void close() {
-    db.close();
+    super(context, CREATE_BDD);
   }
 
   /**
@@ -64,7 +51,7 @@ public class RankingDB extends DB {
         json = jsonArray.getJSONObject(0);
         retour = json.getDouble("Rank");
       } catch (JSONException e) {
-        Log.e(DBName, "JSONException : " + e.getMessage());
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return retour;
@@ -87,7 +74,7 @@ public class RankingDB extends DB {
         json = jsonArray.getJSONObject(0);
         retour = json.getInt("NBVote");
       } catch (JSONException e) {
-        Log.e(DBName, "JSONException : " + e.getMessage());
+        Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
     return retour;
@@ -101,7 +88,7 @@ public class RankingDB extends DB {
    * @return My rank of the POI. 0 if we haven't already vote
    */
   public double getMyRank(int id) {
-    open();
+    this.open();
     Cursor cursor = db.query(TABLE_RANK, new String[] { COL_ID, COL_RANK },
         COL_ID + " = " + id, null, null, null, null);
     if (cursor.getCount() == 0)
@@ -109,7 +96,7 @@ public class RankingDB extends DB {
     cursor.moveToFirst();
     double retour = cursor.getDouble(1);
     cursor.close();
-    close();
+    this.close();
     return retour;
   }
 
@@ -145,6 +132,6 @@ public class RankingDB extends DB {
       db.insert(TABLE_RANK, null, values);
     else
       db.update(TABLE_RANK, values, COL_ID + " = " + id, null);
-    this.close();
+    myDB.close();
   }
 }

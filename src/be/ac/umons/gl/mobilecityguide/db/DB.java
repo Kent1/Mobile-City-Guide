@@ -19,6 +19,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 /**
@@ -31,6 +33,36 @@ public abstract class DB {
   private final String adress = "http://sgl.umons.ac.be/mobilecityguide/cible.php";
   /** Tag for log */
   private static final String tag = "DB";
+  /** MyDB */
+  protected MyDB myDB;
+  protected SQLiteDatabase db;
+
+  /**
+   * Constructor without SQLiteDB
+   */
+  public DB() {
+  }
+
+  /**
+   * Constructor with SQLiteDB
+   */
+  public DB(Context context, String CreateDB) {
+    myDB = new MyDB(context, CreateDB);
+  }
+
+  /**
+   * Open the SQLiteDB
+   */
+  public void open() {
+    db = myDB.getWritableDatabase();
+  }
+
+  /**
+   * Close the SQLiteDB
+   */
+  public void close() {
+    db.close();
+  }
 
   /**
    * Execute query and return the result in a JSONArray
