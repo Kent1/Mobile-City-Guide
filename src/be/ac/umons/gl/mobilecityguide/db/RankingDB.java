@@ -19,7 +19,7 @@ public class RankingDB extends DB {
   private static final String tag = "RankingDB";
 
   /** MyDB */
-  private static final String TABLE_RANK = "Ranking";
+  private static final String TABLE_RANK = "RankingDB";
   private static final String COL_ID = "Id";
   private static final String COL_RANK = "Rank";
 

@@ -21,7 +21,7 @@ public class TagDB extends DB {
   private static final String tag = "TagDB";
 
   /** MyDB */
-  private static final String TABLE_TAG = "Tag";
+  private static final String TABLE_TAG = "TagDB";
   private static final String COL_TAG = "Tag";
   private static final String COL_BOOL = "Bool";
 
