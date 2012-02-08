@@ -1,5 +1,7 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -47,7 +49,8 @@ public class MainActivity extends MapActivity {
   private List<POI> pois;
 
   /** The <code>List</code> with the non-wanted tags. */
-  private List<String> filter;
+  private HashMap<String, Boolean> filter;
+  private TagDB tagDB;
 
   /** The <code>LocationHelperr</code> for GPS localization. */
   private LocationHelper locationHelper;
@@ -80,7 +83,13 @@ public class MainActivity extends MapActivity {
 
     context = this;
 
-    filter = new TagDB().getTagList();
+    tagDB = new TagDB(this);
+    tagDB.retrieveTagList();
+    ArrayList<String> tagList = tagDB.getTagList();
+    filter = new HashMap<String, Boolean>();
+
+    for (String str : tagList)
+      filter.put(str, true);
 
     setContentView(R.layout.main);
     mapView = (MapView) findViewById(R.id.mapview);
@@ -115,7 +124,9 @@ public class MainActivity extends MapActivity {
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
     case R.id.itemTagFilter:
-      this.startActivity(new Intent(this, TagListActivity.class));
+      Intent intent = new Intent(context, TagListActivity.class);
+      intent.putExtra("filter", filter);
+      this.startActivity(intent);
       return true;
     case R.id.itemPreferences:
       this.startActivity(new Intent(this, PreferencesActivity.class));
@@ -143,7 +154,7 @@ public class MainActivity extends MapActivity {
     itemizedOverlay = new POIItemizedOverlay(marker, context);
 
     for (POI poi : pois) {
-      if (filter.contains(poi.getTag())) {
+      if (poi.getTag() == null || filter.get(poi.getTag())) {
         POIOverlayItem item = new POIOverlayItem(new GeoPoint(
             (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
             "", "");
@@ -203,7 +214,7 @@ public class MainActivity extends MapActivity {
 
       for (POI poi : pois2) {
         pois.add(poi);
-        if (!filter.contains(poi.getTag())) {
+        if (poi.getTag() == null || filter.get(poi.getTag())) {
           POIOverlayItem item = new POIOverlayItem(
               new GeoPoint((int) (poi.getLatitude() * 1E6),
                   (int) (poi.getLongitude() * 1E6)), "", "");

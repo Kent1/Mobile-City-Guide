@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 /**
@@ -17,10 +20,48 @@ public class TagDB extends DB {
   /** Tag for log */
   private static final String tag = "TagDB";
 
+  /** MyDB */
+  private static final String TABLE_TAG = "Tag";
+  private static final String COL_TAG = "Tag";
+  private static final String COL_BOOL = "Bool";
+
+  /** Request to create table */
+  private static final String CREATE_BDD = "CREATE TABLE " + TABLE_TAG + " ("
+      + COL_TAG + " varchar(30), " + COL_BOOL + " BOOLEAN );";
+
   /**
    * Constructor
    */
-  public TagDB() {
+  public TagDB(Context context) {
+    super(context, CREATE_BDD);
+  }
+
+  /**
+   * get the tag list from the distant DB and retrieve it in the SQLiteDB
+   */
+  public void retrieveTagList() {
+    ArrayList<String> list = this.getTagList();
+    this.open();
+    Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
+        null, null, null, null, null);
+    cursor.moveToFirst();
+    for (int i = 0; i < cursor.getCount(); i++) {
+      String tag = cursor.getString(0);
+      if (!list.remove(tag)) {
+        ContentValues values = new ContentValues();
+        values.put(COL_TAG, tag);
+        values.put(COL_BOOL, true);
+        db.insert(TABLE_TAG, null, values);
+      }
+    }
+    cursor.close();
+    for (String tag : list) {
+      ContentValues values = new ContentValues();
+      values.put(COL_TAG, tag);
+      values.put(COL_BOOL, true);
+      db.insert(TABLE_TAG, null, values);
+    }
+    this.close();
   }
 
   /**
@@ -31,19 +72,19 @@ public class TagDB extends DB {
   public ArrayList<String> getTagList() {
     String query = "SELECT * FROM TAGList";
     JSONArray jsonArray = this.query(query);
-    ArrayList<String> str = new ArrayList<String>();
+    ArrayList<String> list = new ArrayList<String>();
     JSONObject json = null;
     if (jsonArray != null) {
       try {
         for (int i = 0; i < jsonArray.length(); i++) {
           json = jsonArray.getJSONObject(i);
-          str.add(json.getString("TAG"));
+          list.add(json.getString("TAG"));
         }
       } catch (JSONException e) {
         Log.e(tag, "JSONException : " + e.getMessage());
       }
     }
-    return str;
+    return list;
   }
 
   /**
@@ -68,4 +109,24 @@ public class TagDB extends DB {
     }
     return retour;
   }
+
+  /**
+   * Return if the tag if display or not, that's mean if the bool tag is true or
+   * false
+   */
+  public boolean isTagSelected(String tag) {
+    if (tag == null)
+      return true;
+    this.open();
+    Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
+        COL_TAG + " = " + tag, null, null, null, null);
+    if (cursor.getCount() == 0)
+      return true;
+    cursor.moveToFirst();
+    boolean retour = cursor.getString(0).equals(tag);
+    cursor.close();
+    this.close();
+    return retour;
+  }
+
 }
