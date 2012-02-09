@@ -5,23 +5,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Class who manage SQLite DB storing the ranking made.
+ * Class who manage SQLiteDB.
  * 
  * @author Quentin Loos
  */
 public class MyDB extends SQLiteOpenHelper {
   /** DBName */
   private static final String DBName = "MobileCityGuideDB";
-
+  /** Query for create table */
   private final String createDB;
 
   /**
    * Constructor
    * 
    * @param context
-   * @param dbname
-   * @param factory
-   * @param dbversion
+   * @param createDB
    */
   public MyDB(Context context, String createDB) {
     super(context, DBName, null, 1);
@@ -51,5 +49,6 @@ public class MyDB extends SQLiteOpenHelper {
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     db.execSQL("DROP TABLE TagDB");
     db.execSQL("DROP TABLE RankingDB");
+    onCreate(db);
   }
 }

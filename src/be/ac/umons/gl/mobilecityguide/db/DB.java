@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 /**
- * Class for using the DB.
+ * Abstract Class for using the distant and locale DB.
  * 
  * @author Quentin Loos
  */
@@ -51,7 +51,7 @@ public abstract class DB {
   }
 
   /**
-   * Open the SQLiteDB
+   * Create and/or open a database that will be used for reading and writing.
    */
   public void open() {
     db = myDB.getWritableDatabase();
@@ -65,7 +65,7 @@ public abstract class DB {
   }
 
   /**
-   * Execute query and return the result in a JSONArray
+   * Execute query to distant DB and return the result in a JSONArray
    * 
    * @param query
    *          the query submitted to the DB

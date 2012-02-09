@@ -20,7 +20,7 @@ public class TagDB extends DB {
   /** Tag for log */
   private static final String tag = "TagDB";
 
-  /** MyDB */
+  /** MyDB Variables */
   private static final String TABLE_TAG = "TagDB";
   private static final String COL_TAG = "Tag";
   private static final String COL_BOOL = "Bool";
@@ -71,7 +71,7 @@ public class TagDB extends DB {
   }
 
   /**
-   * Return the list of tags available
+   * Return the list of tags available in the distant DB
    * 
    * @return List of tags
    */
@@ -168,10 +168,10 @@ public class TagDB extends DB {
    *          The status of the tag
    */
   public void selectTag(String tag, boolean bool) {
-    this.open();
     ContentValues values = new ContentValues();
     values.put(COL_TAG, tag);
     values.put(COL_BOOL, bool);
+    this.open();
     db.update(TABLE_TAG, values, COL_TAG + " = \"" + tag + "\"", null);
     this.close();
   }

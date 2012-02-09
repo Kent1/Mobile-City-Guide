@@ -7,7 +7,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
-import be.ac.umons.gl.mobilecityguide.db.DescriptionsDB;
+import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.RankingDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
@@ -20,7 +20,7 @@ public class POIDisplayActivity extends Activity {
   private float myRank;
 
   private RankingDB rdb;
-  private DescriptionsDB ddb;
+  private POIDB pdb;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class POIDisplayActivity extends Activity {
       this.finish();
 
     rdb = new RankingDB(this);
-    ddb = new DescriptionsDB();
+    pdb = new POIDB();
 
     poi = ((POIParcelable) (getIntent().getParcelableExtra("poi"))).getPoi();
 
@@ -46,7 +46,7 @@ public class POIDisplayActivity extends Activity {
     address.setText(poi.getAddress());
 
     description = (TextView) findViewById(R.id.description);
-    description.setText(ddb.getDescription(poi.getId()));
+    description.setText(pdb.getDescription(poi.getId()));
 
     price = (TextView) findViewById(R.id.price);
     price.setText(poi.getPrice() + " €");
