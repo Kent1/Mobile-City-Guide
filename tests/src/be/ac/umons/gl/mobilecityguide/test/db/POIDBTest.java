@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package be.ac.umons.gl.mobilecityguide.test.db;
 
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
 /**
- * Test Class for POIDB
+ * Test class for POIDB
  * 
  * @author Quentin Loos
  */
@@ -22,6 +25,7 @@ public class POIDBTest extends AndroidTestCase {
    */
   @Override
   protected void setUp() throws Exception {
+    super.setUp();
     db = new POIDB();
     poi = null;
   }
@@ -38,6 +42,7 @@ public class POIDBTest extends AndroidTestCase {
 
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(int)}
+   * .
    */
   public final void testGetPOIInt() {
     poi = db.getPOI(1);
@@ -59,10 +64,22 @@ public class POIDBTest extends AndroidTestCase {
 
   /**
    * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getDescription(int)}.
+   */
+  public final void testGetDescription() {
+    String description = db.getDescription(1);
+    assertTrue(description
+        .contains("The pentagone is a building belonging to university of Mons."));
+  }
+
+  /**
+   * Test method for
    * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(double, double, double, double)}
+   * .
    */
   public final void testGetPOIDoubleDoubleDoubleDouble() {
     ArrayList<POI> poi = db.getPOI(50, 3, 1, 1);
     assertTrue(!poi.isEmpty());
   }
+
 }
