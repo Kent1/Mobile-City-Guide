@@ -1,7 +1,5 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -39,17 +37,13 @@ public class MainActivity extends MapActivity {
    */
   private int iterator;
 
-  /** The Context of the MainActivity */
-  Context context;
-
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
 
   /** The <code>List</code> of every <code>POI</code>s around the user. */
   private List<POI> pois;
 
-  /** The <code>List</code> with the non-wanted tags. */
-  private HashMap<String, Boolean> filter;
+  /** The <code>TagDB</code> for get the tag list. */
   private TagDB tagDB;
 
   /** The <code>LocationHelperr</code> for GPS localization. */
@@ -81,15 +75,10 @@ public class MainActivity extends MapActivity {
 
     super.onCreate(savedInstanceState);
 
-    context = this;
-
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
-    ArrayList<String> tagList = tagDB.getTagList();
-    filter = new HashMap<String, Boolean>();
 
-    for (String str : tagList)
-      filter.put(str, true);
+    poidb = new POIDB();
 
     setContentView(R.layout.main);
     mapView = (MapView) findViewById(R.id.mapview);
@@ -98,7 +87,7 @@ public class MainActivity extends MapActivity {
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
 
-    locationHelper = new LocationHelper();
+    locationHelper = new LocationHelper(this);
   }
 
   @Override
@@ -114,6 +103,13 @@ public class MainActivity extends MapActivity {
   }
 
   @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == 1)
+      this.loadPOIs();
+  }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.mainmenu, menu);
@@ -124,12 +120,11 @@ public class MainActivity extends MapActivity {
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
     case R.id.itemTagFilter:
-      Intent intent = new Intent(context, TagListActivity.class);
-      intent.putExtra("filter", filter);
-      this.startActivity(intent);
+      this.startActivity(new Intent(this, TagListActivity.class));
       return true;
     case R.id.itemPreferences:
-      this.startActivity(new Intent(this, PreferencesActivity.class));
+      this.startActivityForResult(new Intent(this, PreferencesActivity.class),
+          0);
       return true;
     case R.id.itemClose:
       finish();
@@ -139,7 +134,6 @@ public class MainActivity extends MapActivity {
   }
 
   public void loadPOIs() {
-    poidb = new POIDB();
 
     GeoPoint p = myLocation.getMyLocation();
 
@@ -151,10 +145,11 @@ public class MainActivity extends MapActivity {
 
     pois = poidb.getPOI(latitude, longitude, lat_span * 2, lon_span * 2);
 
-    itemizedOverlay = new POIItemizedOverlay(marker, context);
+    mapOverlays.remove(itemizedOverlay);
+    itemizedOverlay = new POIItemizedOverlay(marker, this);
 
     for (POI poi : pois) {
-      if (poi.getTag() == null || filter.get(poi.getTag())) {
+      if (tagDB.isTagSelected(poi.getTag())) {
         POIOverlayItem item = new POIOverlayItem(new GeoPoint(
             (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
             "", "");
@@ -175,7 +170,7 @@ public class MainActivity extends MapActivity {
 
   public class LocationHelper implements LocationListener {
 
-    public LocationHelper() {
+    public LocationHelper(Context context) {
 
       locationManager = (LocationManager) context
           .getSystemService(Context.LOCATION_SERVICE);
@@ -214,7 +209,7 @@ public class MainActivity extends MapActivity {
 
       for (POI poi : pois2) {
         pois.add(poi);
-        if (poi.getTag() == null || filter.get(poi.getTag())) {
+        if (tagDB.isTagSelected(poi.getTag())) {
           POIOverlayItem item = new POIOverlayItem(
               new GeoPoint((int) (poi.getLatitude() * 1E6),
                   (int) (poi.getLongitude() * 1E6)), "", "");

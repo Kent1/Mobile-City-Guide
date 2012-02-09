@@ -40,5 +40,9 @@
         android:name=".gui.POIDisplayActivity">
     </activity>
     
+    <activity
+        android:label="@string/app_name"
+        android:name=".gui.TagListActivity">
+    </activity>
   </application>
 </manifest>

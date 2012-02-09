@@ -4,4 +4,6 @@
     <string name="itemClose">Close</string>
     <string name="itemPreferences">Preferences</string>
     <string name="itemTagFilter">Tag filter</string>
+    
+    <string name="noItem">There\'s no item.</string>
 </resources>
