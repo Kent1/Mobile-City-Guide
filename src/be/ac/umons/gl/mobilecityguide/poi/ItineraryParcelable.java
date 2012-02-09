@@ -33,7 +33,7 @@ public class ItineraryParcelable implements Parcelable{
     
     itinerary = new Itinerary();
     
-    List<POIParcelable> list = source.readArrayList(null);
+    List<POIParcelable> list = source.readArrayList(POIParcelable.class.getClassLoader());
     List<POI> temp = new ArrayList<POI>();
     
     for(POIParcelable parcel : list)
