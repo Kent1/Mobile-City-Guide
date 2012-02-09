@@ -2,7 +2,6 @@ package be.ac.umons.gl.mobilecityguide.gui;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import be.ac.umons.gl.mobilecityguide.db.TagDB;
  */
 public class TagListActivity extends ListActivity {
   private LayoutInflater mInflater;
-  private Intent i;
   private TagDB tagDB;
 
   @Override
