@@ -1,6 +1,7 @@
 package be.ac.umons.gl.mobilecityguide.poi;
 
 import java.util.ArrayList;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -12,13 +13,16 @@ import com.google.android.maps.OverlayItem;
 /**
  * @author Allard Hugo
  */
-public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 
-  /** Contains all the <code>POIOverlayItem</code> */
+  /** Contains all the <code>POIOverlayItem</code>. */
   private final ArrayList<POIOverlayItem> mOverlays = new ArrayList<POIOverlayItem>();
 
-  /** The context of the application */
+  /** The <code>Context</code> of the application. */
   private final Context context;
+  
+  /** The current <code>Itinerary</code>. */
+  private Itinerary itinerary;
 
   /**
    * Constructs a <code>POIItemizedOverlay</code> with the specified marker.
@@ -28,10 +32,11 @@ public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
    * @param context
    *          the <code>Context</code> of the application.
    */
-  public POIItemizedOverlay(Drawable defaultMarker, Context context) {
+  public POIItemizedOverlay(Drawable defaultMarker, Context context, Itinerary itinerary){
 
     super(boundCenterBottom(defaultMarker));
     this.context = context;
+    this.itinerary = itinerary;
   }
 
   /**
@@ -40,49 +45,31 @@ public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
    * @param overlay
    *          the new item to add.
    */
-  public void addOverlay(POIOverlayItem item) {
+  public void addOverlay(POIOverlayItem item){
 
     mOverlays.add(item);
     populate();
   }
 
   @Override
-  protected OverlayItem createItem(int i) {
+  protected OverlayItem createItem(int i){
 
     return mOverlays.get(i);
   }
 
   @Override
-  public int size() {
+  public int size(){
 
     return mOverlays.size();
   }
 
-  /*
-   * Maybe a different way to draw the marker.
-   * 
-   * @Override public void draw(Canvas canvas, MapView mapView, boolean shadow){
-   * 
-   * if(!shadow){
-   * 
-   * for(int i = 0; i < mOverlays.size(); i++){
-   * 
-   * POIOverlayItem item = mOverlays.get(i);
-   * 
-   * Point point = mapView.getProjection().toPixels(item.getPoint(), null);
-   * 
-   * Paint paint = new Paint(); paint.setTextAlign(Paint.Align.CENTER);
-   * paint.setARGB(150, 0, 0, 0);
-   * 
-   * canvas.drawText(item.getName(), point.x, point.y, paint); } } }
-   */
-
   @Override
-  protected boolean onTap(int index) {
+  protected boolean onTap(int index){
 
     Intent intent = new Intent(context, POIDisplayActivity.class);
     intent.putExtra("poi", new POIParcelable(mOverlays.get(index).getPoi()));
-    context.startActivity(intent);
+    intent.putExtra("itinerary", new ItineraryParcelable(itinerary));
+    ((Activity) context).startActivityForResult(intent, 1);
 
     return true;
   }

@@ -1,7 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
 import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -17,10 +16,11 @@ import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.gui.TagListActivity;
+import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
+import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -43,6 +43,9 @@ public class MainActivity extends MapActivity {
   /** The <code>List</code> of every <code>POI</code>s around the user. */
   private List<POI> pois;
 
+  /** The current <code>Itinerary</code>. */
+  private Itinerary itinerary;
+  
   /** The <code>TagDB</code> for get the tag list. */
   private TagDB tagDB;
 
@@ -67,7 +70,7 @@ public class MainActivity extends MapActivity {
   /** The <code>List</code> with the <code>Overlay</code>s of this map. */
   private List<Overlay> mapOverlays;
 
-  /** The radius in wich we load POIs */
+  /** The radius in which we load POIs */
   private double lat_span, lon_span;
 
   @Override
@@ -75,6 +78,8 @@ public class MainActivity extends MapActivity {
 
     super.onCreate(savedInstanceState);
 
+    itinerary = new Itinerary();
+    
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
 
@@ -141,7 +146,7 @@ public class MainActivity extends MapActivity {
     pois = poidb.getPOI(latitude, longitude, lat_span * 2, lon_span * 2);
 
     mapOverlays.remove(itemizedOverlay);
-    itemizedOverlay = new POIItemizedOverlay(marker, this);
+    itemizedOverlay = new POIItemizedOverlay(marker, this, itinerary);
 
     for (POI poi : pois) {
       if (tagDB.isTagSelected(poi.getTag())) {
@@ -187,6 +192,11 @@ public class MainActivity extends MapActivity {
       });
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+      
+      itinerary = ((ItineraryParcelable) data.getExtras().getParcelable("itinerary")).getItinerary();
+    }
+    
     @Override
     public void onLocationChanged(Location location) {
       if (iterator++ < RELOAD_RATE) // TODO reload rate from preferences?

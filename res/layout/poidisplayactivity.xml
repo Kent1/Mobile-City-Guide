@@ -122,7 +122,12 @@
     <Button android:id="@+id/add" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button" />
+        android:text="@string/add" />
+    
+    <Button android:id="@+id/remove" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove" />
     
   </LinearLayout>
 </ScrollView>

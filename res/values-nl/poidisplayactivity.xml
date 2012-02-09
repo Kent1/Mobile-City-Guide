@@ -6,5 +6,7 @@
     <string name="price">Prijs :</string>
     <string name="duration">Duur :</string>
     <string name="minutes">minuten</string>
-    <string name="button">Add/Remove</string>
+    <string name="add">Toevoegen</string>
+    <string name="remove">Verwijderen</string>
+    <string name="toast">U wijst een score van</string>
 </resources>

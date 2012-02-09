@@ -6,5 +6,7 @@
     <string name="price">Prix :</string>
     <string name="duration">Durée :</string>
     <string name="minutes">minutes</string>
-    <string name="button">Ajouter/Supprimer</string>
+    <string name="add">Ajouter à l\'itinéraire</string>
+    <string name="remove">Retirer de l\'itinéraire</string>
+    <string name="toast">Vous attribuez une note de</string>
 </resources>
