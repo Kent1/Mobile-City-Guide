@@ -23,16 +23,10 @@ public class TagListActivity extends ListActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(this.getListView());
-
-    i = new Intent();
-    setResult(0, i);
 
     tagDB = new TagDB(this);
 
     mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-    new TagDB(this);
 
     this.setListAdapter(new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_checked, tagDB.getTagListMyDB()) {
@@ -52,7 +46,7 @@ public class TagListActivity extends ListActivity {
         c.setText(getItem(position));
         c.setChecked(tagDB.isTagSelected(getItem(position)));
 
-        return row;
+        return c;
       }
     });
   }
@@ -60,8 +54,7 @@ public class TagListActivity extends ListActivity {
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
     CheckedTextView c = (CheckedTextView) v;
+    tagDB.selectTag((String) c.getText(), !c.isChecked());
     c.setChecked(!c.isChecked());
-    tagDB.selectTag((String) c.getText(), c.isChecked());
-    setResult(1, i);
   }
 }

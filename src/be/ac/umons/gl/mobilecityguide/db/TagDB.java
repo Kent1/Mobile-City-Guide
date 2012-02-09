@@ -153,7 +153,7 @@ public class TagDB extends DB {
     if (cursor.getCount() == 0)
       return true;
     cursor.moveToFirst();
-    boolean retour = cursor.getString(0).equals(tag);
+    boolean retour = (cursor.getInt(1) > 0 ? true : false);
     cursor.close();
     this.close();
     return retour;

@@ -94,19 +94,13 @@ public class MainActivity extends MapActivity {
   public void onResume() {
     super.onResume();
     locationHelper.enableLocation();
+    loadPOIs();
   }
 
   @Override
   public void onStop() {
     super.onStop();
     locationHelper.disableLocation();
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == 1)
-      this.loadPOIs();
   }
 
   @Override
@@ -123,8 +117,7 @@ public class MainActivity extends MapActivity {
       this.startActivity(new Intent(this, TagListActivity.class));
       return true;
     case R.id.itemPreferences:
-      this.startActivityForResult(new Intent(this, PreferencesActivity.class),
-          0);
+      this.startActivity(new Intent(this, PreferencesActivity.class));
       return true;
     case R.id.itemClose:
       finish();
@@ -136,6 +129,8 @@ public class MainActivity extends MapActivity {
   public void loadPOIs() {
 
     GeoPoint p = myLocation.getMyLocation();
+    if (p == null)
+      p = mapView.getMapCenter();
 
     double latitude = p.getLatitudeE6() / 1E6;
     double longitude = p.getLongitudeE6() / 1E6;
