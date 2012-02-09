@@ -49,5 +49,7 @@ public class MyDB extends SQLiteOpenHelper {
    */
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    db.execSQL("DROP TABLE TagDB");
+    db.execSQL("DROP TABLE RankingDB");
   }
 }

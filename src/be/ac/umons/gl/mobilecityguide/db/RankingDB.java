@@ -24,14 +24,19 @@ public class RankingDB extends DB {
   private static final String COL_RANK = "Rank";
 
   /** Request to create table */
-  private static final String CREATE_BDD = "CREATE TABLE " + TABLE_RANK + " ("
-      + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK + " DOUBLE );";
+  private static final String CREATE_BDD = "CREATE TABLE IF NOT EXISTS "
+      + TABLE_RANK + " (" + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK
+      + " DOUBLE );";
 
   /**
    * Constructor
    */
   public RankingDB(Context context) {
     super(context, CREATE_BDD);
+    // Android fais de la merde dans les DB ou quoi ?
+    this.open();
+    myDB.onCreate(db);
+    this.close();
   }
 
   /**
@@ -132,6 +137,6 @@ public class RankingDB extends DB {
       db.insert(TABLE_RANK, null, values);
     else
       db.update(TABLE_RANK, values, COL_ID + " = " + id, null);
-    myDB.close();
+    this.close();
   }
 }

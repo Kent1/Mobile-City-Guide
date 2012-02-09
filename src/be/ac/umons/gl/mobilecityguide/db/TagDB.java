@@ -26,14 +26,19 @@ public class TagDB extends DB {
   private static final String COL_BOOL = "Bool";
 
   /** Request to create table */
-  private static final String CREATE_BDD = "CREATE TABLE " + TABLE_TAG + " ("
-      + COL_TAG + " varchar(30), " + COL_BOOL + " BOOLEAN );";
+  private static final String CREATE_BDD = "CREATE TABLE IF NOT EXISTS "
+      + TABLE_TAG + " (" + COL_TAG + " varchar(30), " + COL_BOOL
+      + " BOOLEAN );";
 
   /**
    * Constructor
    */
   public TagDB(Context context) {
     super(context, CREATE_BDD);
+    // Android fais de la merde dans les DB ou quoi ?
+    this.open();
+    myDB.onCreate(db);
+    this.close();
   }
 
   /**
@@ -53,6 +58,7 @@ public class TagDB extends DB {
         values.put(COL_BOOL, true);
         db.insert(TABLE_TAG, null, values);
       }
+      cursor.moveToNext();
     }
     cursor.close();
     for (String tag : list) {
@@ -111,15 +117,39 @@ public class TagDB extends DB {
   }
 
   /**
+   * Return the list of tag in SQLiteDB
+   * 
+   * @return tag list
+   */
+  public ArrayList<String> getTagListMyDB() {
+    ArrayList<String> list = new ArrayList<String>();
+    this.open();
+    Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
+        null, null, null, null, null);
+    cursor.moveToFirst();
+    for (int i = 0; i < cursor.getCount(); i++) {
+      list.add(cursor.getString(0));
+      cursor.moveToNext();
+    }
+    cursor.close();
+    this.close();
+    return list;
+  }
+
+  /**
    * Return if the tag if display or not, that's mean if the bool tag is true or
    * false
+   * 
+   * @param tag
+   *          The tag
+   * @return true if the tags is selected
    */
   public boolean isTagSelected(String tag) {
     if (tag == null)
       return true;
     this.open();
     Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
-        COL_TAG + " = " + tag, null, null, null, null);
+        COL_TAG + " = \"" + tag + "\"", null, null, null, null);
     if (cursor.getCount() == 0)
       return true;
     cursor.moveToFirst();
@@ -129,4 +159,20 @@ public class TagDB extends DB {
     return retour;
   }
 
+  /**
+   * Set if the tag is to display or not
+   * 
+   * @param tag
+   *          The tag to change status
+   * @param bool
+   *          The status of the tag
+   */
+  public void selectTag(String tag, boolean bool) {
+    this.open();
+    ContentValues values = new ContentValues();
+    values.put(COL_TAG, tag);
+    values.put(COL_BOOL, bool);
+    db.update(TABLE_TAG, values, COL_TAG + " = \"" + tag + "\"", null);
+    this.close();
+  }
 }
