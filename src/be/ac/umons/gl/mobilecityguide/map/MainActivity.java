@@ -162,6 +162,11 @@ public class MainActivity extends MapActivity {
       mapOverlays.add(itemizedOverlay);
   }
 
+  protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    
+    itinerary = ((ItineraryParcelable) data.getExtras().getParcelable("itinerary")).getItinerary();
+  }
+  
   @Override
   protected boolean isRouteDisplayed() {
 
@@ -190,11 +195,6 @@ public class MainActivity extends MapActivity {
           loadPOIs();
         }
       });
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-      
-      itinerary = ((ItineraryParcelable) data.getExtras().getParcelable("itinerary")).getItinerary();
     }
     
     @Override
