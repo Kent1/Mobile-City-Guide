@@ -28,7 +28,7 @@ public class POIDisplayActivity extends Activity{
   private POI poi;
   private TextView name, address, description, price, duration;
   private RatingBar ratingBar, ratingBarIndicator;
-  private Button add, remove;
+  private Button button;
   private float myRank;
   private Itinerary itinerary;
   private RankingDB rdb;
@@ -79,35 +79,38 @@ public class POIDisplayActivity extends Activity{
       }
     });
     
-    add = (Button) findViewById(R.id.add);
-    remove = (Button) findViewById(R.id.remove);
+    button = (Button) findViewById(R.id.button);
     
-    add.setOnClickListener(new OnClickListener(){
-      
-      @Override
-      public void onClick(View v){
-        
-        itinerary.add(poi);
-        remove.setVisibility(View.VISIBLE);
-        add.setVisibility(View.INVISIBLE);
-      }
-    });
+    if(!itinerary.contains(poi)){
+      button.setText(R.string.add);
+      button.setOnClickListener(new Add());
+    }
+    else{
+      button.setText(R.string.remove);
+      button.setOnClickListener(new Remove());
+    }
+  }
+  
+  class Add implements OnClickListener{
 
-    remove.setOnClickListener(new OnClickListener(){
+    @Override
+    public void onClick(View v){
       
-      @Override
-      public void onClick(View v){
-        
-        itinerary.remove(poi);
-        add.setVisibility(View.VISIBLE);
-        remove.setVisibility(View.INVISIBLE);
-      }
-    });
-    
-    if(itinerary.contains(poi))
-      add.setVisibility(View.INVISIBLE);
-    else
-      remove.setVisibility(View.INVISIBLE);
+      itinerary.add(poi);
+      button.setText(R.string.remove);
+      button.setOnClickListener(new Remove());
+    }
+  }
+  
+  class Remove implements OnClickListener{
+
+    @Override
+    public void onClick(View v){
+      
+      itinerary.remove(poi);
+      button.setText(R.string.add);
+      button.setOnClickListener(new Add());
+    }
   }
 
   @Override
