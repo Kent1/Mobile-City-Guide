@@ -96,8 +96,10 @@ public class RankingDB extends DB {
     db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_RANK, new String[] { COL_ID, COL_RANK },
         COL_ID + " = " + id, null, null, null, null);
-    if (cursor.getCount() == 0)
+    if (cursor.getCount() == 0) {
+      db.close();
       return 0.;
+    }
     cursor.moveToFirst();
     double retour = cursor.getDouble(1);
     cursor.close();
