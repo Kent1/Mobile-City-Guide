@@ -11,7 +11,8 @@
     
     <!-- ItineraryActivity -->
     <!-- Main Menu -->
-    <string name="itemAdd">Add</string>
+    <string name="itemDeleteItinerary">Delete itinerary</string>
+    <string name="itemNewItinerary">New Itinerary</string>
     <!-- Context Menu -->
     <string name="itemRemove">Remove</string>
     

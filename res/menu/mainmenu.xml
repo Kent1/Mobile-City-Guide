@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
-  <item android:id="@+id/itemPOIList" android:title="@string/itemPOIList"></item><item android:id="@+id/itemTagFilter" android:title="@string/itemTagFilter"></item><item android:title="@string/itemPreferences" android:id="@+id/itemPreferences"></item>
+  <item android:id="@+id/itemItinerary" android:title="@string/itemItinerary"></item><item android:id="@+id/itemPOIList" android:title="@string/itemPOIList"></item><item android:id="@+id/itemTagFilter" android:title="@string/itemTagFilter"></item><item android:title="@string/itemPreferences" android:id="@+id/itemPreferences"></item>
   <item android:title="@string/itemClose" android:id="@+id/itemClose"></item>
-  <item android:id="@+id/itemItinerary" android:title="@string/itemItinerary"></item>
+  
   
   
     

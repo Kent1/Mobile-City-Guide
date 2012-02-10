@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,26 @@ public class ItineraryActivity extends ListActivity {
     i.putExtra("poi", new POIParcelable(itinerary.getList().get(position)));
     i.putExtra("itinerary", new ItineraryParcelable(itinerary));
     startActivity(i);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.itinerarymenu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    switch (item.getItemId()) {
+    case R.id.itemNewItinerary:
+      // Start here activity creation
+    case R.id.itemDeleteItinerary:
+      itinerary = new Itinerary();
+      array.clear();
+      return true;
+    }
+    return super.onMenuItemSelected(featureId, item);
   }
 
   @Override
