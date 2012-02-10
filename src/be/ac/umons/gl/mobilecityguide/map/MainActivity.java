@@ -36,13 +36,8 @@ import com.google.android.maps.Overlay;
 
 public class MainActivity extends MapActivity {
 
-  private static final int RELOAD_RATE = 20;
-
-  /**
-   * Used to reload the <code>POI</code>s every RELOAD_RATE call of
-   * <code>onLocationChanged</code>.
-   */
-  private int iterator;
+  /** Refresh value in km */
+  private final int REFRESH_VALUE = 1;
 
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
@@ -83,6 +78,9 @@ public class MainActivity extends MapActivity {
   /** The preference of the user */
   private SharedPreferences prefs;
 
+  /** Initial location */
+  private GeoPoint initLocation;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
 
@@ -103,6 +101,8 @@ public class MainActivity extends MapActivity {
     mapView.getController().setZoom(16);
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
+
+    initLocation = mapView.getMapCenter();
 
     locationHelper = new LocationHelper(this);
   }
@@ -222,6 +222,7 @@ public class MainActivity extends MapActivity {
         public void run() {
           mapOverlays.add(myLocation);
           mapView.getController().animateTo(myLocation.getMyLocation());
+          initLocation = myLocation.getMyLocation();
           loadPOIs();
         }
       });
@@ -229,32 +230,17 @@ public class MainActivity extends MapActivity {
 
     @Override
     public void onLocationChanged(Location location) {
-      if (iterator++ < RELOAD_RATE) // TODO reload rate from preferences?
+      if (myLocation.getMyLocation() == null)
         return;
 
-      iterator = 0;
+      if (DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
+          initLocation.getLatitudeE6() / 1E6, myLocation.getMyLocation()
+              .getLongitudeE6() / 1E6, myLocation.getMyLocation()
+              .getLatitudeE6() / 1E6) > REFRESH_VALUE) {
 
-      GeoPoint p = myLocation.getMyLocation();
-
-      double latitude = p.getLatitudeE6() / 1E6;
-      double longitude = p.getLongitudeE6() / 1E6;
-
-      List<POI> pois2 = poidb.getPOI(latitude, longitude, lat_span * 2,
-          lon_span * 2);
-
-      for (POI poi : pois2) {
-        pois.add(poi);
-        if (tagDB.isTagSelected(poi.getTag())) {
-          POIOverlayItem item = new POIOverlayItem(
-              new GeoPoint((int) (poi.getLatitude() * 1E6),
-                  (int) (poi.getLongitude() * 1E6)), "", "");
-          item.setPoi(poi);
-          itemizedOverlay.addOverlay(item);
-        }
+        loadPOIs();
+        initLocation = myLocation.getMyLocation();
       }
-
-      if (itemizedOverlay.size() != 0)
-        mapOverlays.add(itemizedOverlay);
     }
 
     @Override
