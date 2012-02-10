@@ -77,7 +77,7 @@ public class POIDisplayActivity extends Activity {
           boolean fromUser) {
 
         Toast.makeText(POIDisplayActivity.this,
-            getString(R.string.toast) + rating + "/5", Toast.LENGTH_SHORT)
+            getString(R.string.toast) + " " + rating + "/5", Toast.LENGTH_SHORT)
             .show();
       }
     });
