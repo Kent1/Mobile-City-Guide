@@ -33,10 +33,6 @@ public class RankingDB extends DB {
    */
   public RankingDB(Context context) {
     super(context, CREATE_BDD);
-    // Android fais de la merde dans les DB ou quoi ?
-    db = myDB.getWritableDatabase();
-    myDB.onCreate(db);
-    db.close();
   }
 
   /**
