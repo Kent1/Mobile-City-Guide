@@ -36,9 +36,9 @@ public class TagDB extends DB {
   public TagDB(Context context) {
     super(context, CREATE_BDD);
     // Android fais de la merde dans les DB ou quoi ?
-    this.open();
+    db = myDB.getWritableDatabase();
     myDB.onCreate(db);
-    this.close();
+    db.close();
   }
 
   /**
@@ -46,7 +46,7 @@ public class TagDB extends DB {
    */
   public void retrieveTagList() {
     ArrayList<String> list = this.getTagList();
-    this.open();
+    db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
         null, null, null, null, null);
     cursor.moveToFirst();
@@ -67,7 +67,7 @@ public class TagDB extends DB {
       values.put(COL_BOOL, true);
       db.insert(TABLE_TAG, null, values);
     }
-    this.close();
+    db.close();
   }
 
   /**
@@ -123,7 +123,7 @@ public class TagDB extends DB {
    */
   public ArrayList<String> getTagListMyDB() {
     ArrayList<String> list = new ArrayList<String>();
-    this.open();
+    db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
         null, null, null, null, null);
     cursor.moveToFirst();
@@ -132,7 +132,7 @@ public class TagDB extends DB {
       cursor.moveToNext();
     }
     cursor.close();
-    this.close();
+    db.close();
     return list;
   }
 
@@ -147,15 +147,17 @@ public class TagDB extends DB {
   public boolean isTagSelected(String tag) {
     if (tag == null)
       return true;
-    this.open();
+    db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
         COL_TAG + " = \"" + tag + "\"", null, null, null, null);
-    if (cursor.getCount() == 0)
+    if (cursor.getCount() == 0) {
+      db.close();
       return true;
+    }
     cursor.moveToFirst();
     boolean retour = (cursor.getInt(1) > 0 ? true : false);
     cursor.close();
-    this.close();
+    db.close();
     return retour;
   }
 
@@ -171,8 +173,8 @@ public class TagDB extends DB {
     ContentValues values = new ContentValues();
     values.put(COL_TAG, tag);
     values.put(COL_BOOL, bool);
-    this.open();
+    db = myDB.getWritableDatabase();
     db.update(TABLE_TAG, values, COL_TAG + " = \"" + tag + "\"", null);
-    this.close();
+    db.close();
   }
 }

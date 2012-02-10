@@ -51,20 +51,6 @@ public abstract class DB {
   }
 
   /**
-   * Create and/or open a database that will be used for reading and writing.
-   */
-  public void open() {
-    db = myDB.getWritableDatabase();
-  }
-
-  /**
-   * Close the SQLiteDB
-   */
-  public void close() {
-    db.close();
-  }
-
-  /**
    * Execute query to distant DB and return the result in a JSONArray
    * 
    * @param query

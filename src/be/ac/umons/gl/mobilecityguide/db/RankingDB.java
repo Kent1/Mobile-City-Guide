@@ -34,9 +34,9 @@ public class RankingDB extends DB {
   public RankingDB(Context context) {
     super(context, CREATE_BDD);
     // Android fais de la merde dans les DB ou quoi ?
-    this.open();
+    db = myDB.getWritableDatabase();
     myDB.onCreate(db);
-    this.close();
+    db.close();
   }
 
   /**
@@ -93,7 +93,7 @@ public class RankingDB extends DB {
    * @return My rank of the POI. 0 if we haven't already vote
    */
   public double getMyRank(int id) {
-    this.open();
+    db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_RANK, new String[] { COL_ID, COL_RANK },
         COL_ID + " = " + id, null, null, null, null);
     if (cursor.getCount() == 0)
@@ -101,7 +101,7 @@ public class RankingDB extends DB {
     cursor.moveToFirst();
     double retour = cursor.getDouble(1);
     cursor.close();
-    this.close();
+    db.close();
     return retour;
   }
 
@@ -132,11 +132,11 @@ public class RankingDB extends DB {
     ContentValues values = new ContentValues();
     values.put(COL_ID, id);
     values.put(COL_RANK, rank);
-    this.open();
+    db = myDB.getWritableDatabase();
     if (oldRank == 0)
       db.insert(TABLE_RANK, null, values);
     else
       db.update(TABLE_RANK, values, COL_ID + " = " + id, null);
-    this.close();
+    db.close();
   }
 }

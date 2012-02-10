@@ -31,20 +31,6 @@ public class DBTest extends AndroidTestCase {
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.DB#open()}.
-   */
-  public final void testOpen() {
-    // Nothing to do
-  }
-
-  /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.DB#close()}.
-   */
-  public final void testClose() {
-    // Nothing to do
-  }
-
-  /**
    * Test method for
    * {@link be.ac.umons.gl.mobilecityguide.db.DB#query(java.lang.String)}.
    */
