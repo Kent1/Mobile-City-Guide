@@ -1,6 +1,7 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
 import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,13 +15,14 @@ import android.view.MenuItem;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
+import be.ac.umons.gl.mobilecityguide.gui.FilterActivity;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
-import be.ac.umons.gl.mobilecityguide.gui.TagListActivity;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -45,7 +47,7 @@ public class MainActivity extends MapActivity {
 
   /** The current <code>Itinerary</code>. */
   private Itinerary itinerary;
-  
+
   /** The <code>TagDB</code> for get the tag list. */
   private TagDB tagDB;
 
@@ -79,7 +81,7 @@ public class MainActivity extends MapActivity {
     super.onCreate(savedInstanceState);
 
     itinerary = new Itinerary();
-    
+
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
 
@@ -119,7 +121,7 @@ public class MainActivity extends MapActivity {
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
     case R.id.itemTagFilter:
-      this.startActivity(new Intent(this, TagListActivity.class));
+      this.startActivity(new Intent(this, FilterActivity.class));
       return true;
     case R.id.itemPreferences:
       this.startActivity(new Intent(this, PreferencesActivity.class));
@@ -162,11 +164,13 @@ public class MainActivity extends MapActivity {
       mapOverlays.add(itemizedOverlay);
   }
 
-  protected void onActivityResult(int requestCode, int resultCode, Intent data){
-    
-    itinerary = ((ItineraryParcelable) data.getExtras().getParcelable("itinerary")).getItinerary();
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    itinerary = ((ItineraryParcelable) data.getExtras().getParcelable(
+        "itinerary")).getItinerary();
   }
-  
+
   @Override
   protected boolean isRouteDisplayed() {
 
@@ -196,7 +200,7 @@ public class MainActivity extends MapActivity {
         }
       });
     }
-    
+
     @Override
     public void onLocationChanged(Location location) {
       if (iterator++ < RELOAD_RATE) // TODO reload rate from preferences?

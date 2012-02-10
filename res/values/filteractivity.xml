@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag">Tag Filter</string>
+    <string name="rank">Rank Filter</string>
+    <string name="histo">Historical Filter</string>
+    
+    <string name="star0">No filter</string>
+    <string name="star1">1 star</string>
+    <string name="star2">2 stars</string>
+    <string name="star3">3 stars</string>
+    <string name="star4">4 stars</string>
+    <string name="star5">5 stars</string>
+        
+</resources>

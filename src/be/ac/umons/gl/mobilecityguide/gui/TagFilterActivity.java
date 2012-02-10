@@ -14,7 +14,7 @@ import be.ac.umons.gl.mobilecityguide.db.TagDB;
 /**
  * @author Quentin Loos
  */
-public class TagListActivity extends ListActivity {
+public class TagFilterActivity extends ListActivity {
   private LayoutInflater mInflater;
   private TagDB tagDB;
 

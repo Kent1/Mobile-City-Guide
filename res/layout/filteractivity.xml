@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:gravity="center_vertical"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rank"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:gravity="center_vertical"
+        android:textSize="40dp" />
+
+    <CheckedTextView
+        android:id="@+id/histo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/histo"
+        android:checkMark="?android:attr/textCheckMark"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:gravity="center_vertical"
+        android:textSize="40dp" />
+
+</LinearLayout>
