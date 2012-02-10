@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mobile City Guide</string>
+    
+    <!-- Main Menu -->
     <string name="itemClose">Close</string>
     <string name="itemPreferences">Preferences</string>
     <string name="itemTagFilter">Tag filter</string>
     <string name="itemPOIList">POI List</string>
     <string name="itemItinerary">Itinerary</string>
+    
+    <!-- ItineraryActivity -->
+    <!-- Main Menu -->
+    <string name="itemAdd">Add</string>
+    <!-- Context Menu -->
+    <string name="itemRemove">Remove</string>
     
     <string name="noItem">There\'s no item.</string>
 </resources>

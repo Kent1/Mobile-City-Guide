@@ -134,7 +134,7 @@ public class MainActivity extends MapActivity {
       Intent intent = new Intent(this, ItineraryActivity.class);
       ItineraryParcelable ip = new ItineraryParcelable(itinerary);
       intent.putExtra("itinerary", ip);
-      this.startActivity(intent);
+      this.startActivityForResult(intent, 1);
       return true;
     case R.id.itemPOIList:
       Intent i = new Intent(this, POIListActivity.class);
