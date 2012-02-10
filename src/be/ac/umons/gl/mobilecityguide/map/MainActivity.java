@@ -142,7 +142,8 @@ public class MainActivity extends MapActivity {
       for (POI poi : pois)
         list.add(new POIParcelable(poi));
       i.putExtra("POIs", list);
-      this.startActivity(i);
+      i.putExtra("itinerary", new ItineraryParcelable(itinerary));
+      this.startActivityForResult(i, 1);
       return true;
     case R.id.itemTagFilter:
       this.startActivity(new Intent(this, FilterActivity.class));
