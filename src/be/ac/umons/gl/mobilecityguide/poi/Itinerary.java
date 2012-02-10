@@ -7,12 +7,10 @@ import java.util.List;
 /**
  * An <code>Itinerary</code> is a <code>List</code> of <code>POI</code>s.
  */
-public class Itinerary implements Iterator<POI> {
+public class Itinerary implements Iterable<POI> {
 
   /** Contains all the <code>POI</code>s for this <code>Itinerary</code>. */
   private List<POI> list;
-  /** Itinerary's Iterator */
-  private final Iterator<POI> iterator;
 
   /**
    * Constructs a new empty instance of <code>Itinerary</code>.
@@ -20,7 +18,6 @@ public class Itinerary implements Iterator<POI> {
   public Itinerary() {
 
     list = new ArrayList<POI>();
-    iterator = list.iterator();
   }
 
   public void optimize() {
@@ -105,17 +102,7 @@ public class Itinerary implements Iterator<POI> {
   }
 
   @Override
-  public boolean hasNext() {
-    return iterator.hasNext();
-  }
-
-  @Override
-  public POI next() {
-    return iterator.next();
-  }
-
-  @Override
-  public void remove() {
-    iterator.remove();
+  public Iterator<POI> iterator() {
+    return list.iterator();
   }
 }
