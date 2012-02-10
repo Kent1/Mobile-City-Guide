@@ -1,5 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -17,12 +18,14 @@ import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.gui.FilterActivity;
+import be.ac.umons.gl.mobilecityguide.gui.POIListActivity;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
+import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -126,6 +129,14 @@ public class MainActivity extends MapActivity {
   @Override
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
+    case R.id.itemPOIList:
+      Intent i = new Intent(this, POIListActivity.class);
+      ArrayList<POIParcelable> list = new ArrayList<POIParcelable>();
+      for (POI poi : pois)
+        list.add(new POIParcelable(poi));
+      i.putExtra("POIs", list);
+      this.startActivity(i);
+      return true;
     case R.id.itemTagFilter:
       this.startActivity(new Intent(this, FilterActivity.class));
       return true;

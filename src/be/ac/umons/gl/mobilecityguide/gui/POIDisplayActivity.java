@@ -13,17 +13,18 @@ import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.RankingDB;
-import be.ac.umons.gl.mobilecityguide.poi.POI;
-import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
+import be.ac.umons.gl.mobilecityguide.poi.POI;
+import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 /**
- * This <code>Activity</code> displays the informations for a specific <code>POI</code>.
+ * This <code>Activity</code> displays the informations for a specific
+ * <code>POI</code>.
  * 
  * @author Allard Hugo
  */
-public class POIDisplayActivity extends Activity{
+public class POIDisplayActivity extends Activity {
 
   private POI poi;
   private TextView name, address, description, price, duration;
@@ -35,7 +36,7 @@ public class POIDisplayActivity extends Activity{
   private POIDB pdb;
 
   @Override
-  public void onCreate(Bundle savedInstanceState){
+  public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.poidisplayactivity);
@@ -44,8 +45,9 @@ public class POIDisplayActivity extends Activity{
     pdb = new POIDB();
 
     poi = ((POIParcelable) (getIntent().getParcelableExtra("poi"))).getPoi();
-    itinerary = ((ItineraryParcelable) (getIntent().getParcelableExtra("itinerary"))).getItinerary();
-    
+    itinerary = ((ItineraryParcelable) (getIntent()
+        .getParcelableExtra("itinerary"))).getItinerary();
+
     name = (TextView) findViewById(R.id.name);
     name.setText(poi.getName());
 
@@ -68,45 +70,45 @@ public class POIDisplayActivity extends Activity{
 
     ratingBar = (RatingBar) findViewById(R.id.rating);
     ratingBar.setRating(myRank);
-    ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
-      
+    ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+
       @Override
-      public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
-        
+      public void onRatingChanged(RatingBar ratingBar, float rating,
+          boolean fromUser) {
+
         Toast.makeText(POIDisplayActivity.this,
             getString(R.string.toast) + rating + "/5", Toast.LENGTH_SHORT)
             .show();
       }
     });
-    
+
     button = (Button) findViewById(R.id.button);
-    
-    if(!itinerary.contains(poi)){
+
+    if (!itinerary.contains(poi)) {
       button.setText(R.string.add);
       button.setOnClickListener(new Add());
-    }
-    else{
+    } else {
       button.setText(R.string.remove);
       button.setOnClickListener(new Remove());
     }
   }
-  
-  class Add implements OnClickListener{
+
+  class Add implements OnClickListener {
 
     @Override
-    public void onClick(View v){
-      
+    public void onClick(View v) {
+
       itinerary.add(poi);
       button.setText(R.string.remove);
       button.setOnClickListener(new Remove());
     }
   }
-  
-  class Remove implements OnClickListener{
+
+  class Remove implements OnClickListener {
 
     @Override
-    public void onClick(View v){
-      
+    public void onClick(View v) {
+
       itinerary.remove(poi);
       button.setText(R.string.add);
       button.setOnClickListener(new Add());
@@ -114,15 +116,15 @@ public class POIDisplayActivity extends Activity{
   }
 
   @Override
-  public void finish(){
-    
-    if(myRank != ratingBar.getRating())
+  public void finish() {
+
+    if (myRank != ratingBar.getRating())
       rdb.rank(poi.getId(), ratingBar.getRating(), myRank);
-    
+
     Intent data = new Intent();
     data.putExtra("itinerary", new ItineraryParcelable(itinerary));
     setResult(1, data);
-    
+
     super.finish();
   }
 }

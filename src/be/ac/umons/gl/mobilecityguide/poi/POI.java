@@ -5,67 +5,72 @@ package be.ac.umons.gl.mobilecityguide.poi;
  * 
  * @author Allard Hugo & Quentin Loos
  */
-public class POI{
-  
+public class POI {
+
   /** The Id of this <code>POI</code> in the database. */
   private int id;
-  
+
   /** The duration of this <code>POI</code> in minutes. */
   private int duration;
-  
+
   /** The number of votes for this <code>POI</code>. */
   private int votes;
-  
+
   /** The price of this <code>POI</code>. */
   private double price;
-  
+
   /** The global ranking for this <code>POI</code>. */
   private double rank;
-  
+
   /** The latitude for this <code>POI</code> in degrees. */
   private double latitude;
-  
+
   /** The longitude for this <code>POI</code> in degrees. */
   private double longitude;
-  
+
   /** The name of this <code>POI</code>. */
   private String name;
-  
+
   /** The address of this <code>POI</code>. */
   private String address;
-  
+
   /** The description of this <code>POI</code>. */
   private String description;
-  
+
   /** The tag of this <code>POI</code>. */
   private String tag;
-  
+
   /**
    * Constructs a new empty instance of <code>POI</code>.
    */
-  public POI(){
-    
+  public POI() {
+
   }
-  
+
   /**
    * Constructs a new instance of <code>POI</code> with the given ID.
    * 
-   * @param id the id of this <code>POI</code>.
+   * @param id
+   *          the id of this <code>POI</code>.
    */
-  public POI(int id){
-    
+  public POI(int id) {
+
     this.id = id;
   }
-  
+
   /**
-   * Constructs a new instance of <code>POI</code> with the given ID and location.
+   * Constructs a new instance of <code>POI</code> with the given ID and
+   * location.
    * 
-   * @param id the id of this <code>POI</code>.
-   * @param latitude the latitude (in degrees) of this <code>POI</code>.
-   * @param longitude the longitude (in degrees) of this <code>POI</code>.
+   * @param id
+   *          the id of this <code>POI</code>.
+   * @param latitude
+   *          the latitude (in degrees) of this <code>POI</code>.
+   * @param longitude
+   *          the longitude (in degrees) of this <code>POI</code>.
    */
-  public POI(int id, double latitude, double longitude){
-    
+  public POI(int id, double latitude, double longitude) {
+
     this.id = id;
     this.setLatitude(latitude);
     this.setLongitude(longitude);
@@ -76,38 +81,40 @@ public class POI{
    * 
    * @return the Id of this <code>POI</code>.
    */
-  public int getId(){
-    
+  public int getId() {
+
     return id;
   }
-  
+
   /**
    * Sets the Id of this <code>POI</code>.
-   *
-   * @param id Id the ID in the database.
+   * 
+   * @param id
+   *          Id the ID in the database.
    */
-  public void setId(int id){
-    
+  public void setId(int id) {
+
     this.id = id;
   }
-  
+
   /**
    * Gets the duration for this <code>POI</code>.
    * 
    * @return the duration in minutes.
    */
-  public int getDuration(){
-    
+  public int getDuration() {
+
     return duration;
   }
 
   /**
    * Sets the duration of this <code>POI</code>.
    * 
-   * @param duration the duration in minutes.
+   * @param duration
+   *          the duration in minutes.
    */
-  public void setDuration(int duration){
-    
+  public void setDuration(int duration) {
+
     this.duration = duration;
   }
 
@@ -116,18 +123,19 @@ public class POI{
    * 
    * @return the number of votes.
    */
-  public int getVotes(){
-    
+  public int getVotes() {
+
     return votes;
   }
 
   /**
    * Sets the total number of votes of this <code>POI</code>.
    * 
-   * @param votes the number of votes.
+   * @param votes
+   *          the number of votes.
    */
-  public void setVotes(int votes){
-    
+  public void setVotes(int votes) {
+
     this.votes = votes;
   }
 
@@ -136,18 +144,19 @@ public class POI{
    * 
    * @return the price in euros.
    */
-  public double getPrice(){
-    
+  public double getPrice() {
+
     return price;
   }
 
   /**
    * Sets the price of this <code>POI</code>.
    * 
-   * @param price the price in euros.
+   * @param price
+   *          the price in euros.
    */
-  public void setPrice(double price){
-    
+  public void setPrice(double price) {
+
     this.price = price;
   }
 
@@ -156,23 +165,24 @@ public class POI{
    * 
    * @return the global ranking.
    */
-  public double getRank(){
-    
+  public double getRank() {
+
     return rank;
   }
 
   /**
    * Sets the global ranking of this <code>POI</code>.
    * 
-   * @param rank the global ranking.
+   * @param rank
+   *          the global ranking.
    */
-  public void setRank(double rank){
-    
-    if(rank < 0)
+  public void setRank(double rank) {
+
+    if (rank < 0)
       rank = 0;
-    else if(rank > 5)
+    else if (rank > 5)
       rank = 5;
-    
+
     this.rank = rank;
   }
 
@@ -181,18 +191,19 @@ public class POI{
    * 
    * @return the name of this <code>POI</code>.
    */
-  public String getName(){
-    
+  public String getName() {
+
     return name;
   }
 
   /**
    * Sets the name of this <code>POI</code>.
    * 
-   * @param name the name this <code>POI</code>.
+   * @param name
+   *          the name this <code>POI</code>.
    */
-  public void setName(String name){
-    
+  public void setName(String name) {
+
     this.name = name;
   }
 
@@ -201,18 +212,19 @@ public class POI{
    * 
    * @return the description of this <code>POI</code>.
    */
-  public String getDescription(){
-    
+  public String getDescription() {
+
     return description;
   }
 
   /**
    * Sets the description of this <code>POI</code>.
    * 
-   * @param description the description.
+   * @param description
+   *          the description.
    */
-  public void setDescription(String description){
-    
+  public void setDescription(String description) {
+
     this.description = description;
   }
 
@@ -221,18 +233,19 @@ public class POI{
    * 
    * @return the address of this <code>POI</code>.
    */
-  public String getAddress(){
-    
+  public String getAddress() {
+
     return address;
   }
 
   /**
    * Sets the address of this <code>POI</code>.
    * 
-   * @param address the address of this <code>POI</code>.
+   * @param address
+   *          the address of this <code>POI</code>.
    */
-  public void setAddress(String address){
-    
+  public void setAddress(String address) {
+
     this.address = address;
   }
 
@@ -241,38 +254,40 @@ public class POI{
    * 
    * @return the <code>List</code> of tags of this <code>POI</code>.
    */
-  public String getTag(){
-    
+  public String getTag() {
+
     return tag;
   }
 
   /**
    * Sets the <code>List</code> of tags of this <code>POI</code>.
    * 
-   * @param tags a <code>List</code> of <code>String</code>.
+   * @param tags
+   *          a <code>List</code> of <code>String</code>.
    */
-  public void setTag(String tag){
-    
+  public void setTag(String tag) {
+
     this.tag = tag;
   }
-  
+
   /**
    * Gets the latitude of this <code>POI</code>.
    * 
    * @return the latitude of this <code>POI</code> in degrees.
    */
-  public double getLatitude(){
-    
+  public double getLatitude() {
+
     return latitude;
   }
 
   /**
    * Sets the latitude of this <code>POI</code>.
    * 
-   * @param latitude the latitude of this <code>POI</code> in degrees.
+   * @param latitude
+   *          the latitude of this <code>POI</code> in degrees.
    */
-  public void setLatitude(double latitude){
-    
+  public void setLatitude(double latitude) {
+
     this.latitude = latitude;
   }
 
@@ -281,41 +296,43 @@ public class POI{
    * 
    * @return the longitude of this <code>POI</code> in degrees.
    */
-  public double getLongitude(){
-    
+  public double getLongitude() {
+
     return longitude;
   }
 
   /**
    * Sets the longitude of this <code>POI</code>.
    * 
-   * @param longitude the longitude of this <code>POI</code> in degrees.
+   * @param longitude
+   *          the longitude of this <code>POI</code> in degrees.
    */
-  public void setLongitude(double longitude){
-    
+  public void setLongitude(double longitude) {
+
     this.longitude = longitude;
   }
-  
-  /* (non-Javadoc)
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see java.lang.Object#equals()
    */
   @Override
-  public boolean equals(Object o){
-    
-    if(o != null && o instanceof POI)
+  public boolean equals(Object o) {
+
+    if (o != null && o instanceof POI)
       return this.id == ((POI) o).getId();
     else
       return false;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "POI [id=" + id + ", duration=" + duration + ", votes=" + votes
-        + ", price=" + price + ", rank=" + rank + ", latitude=" + latitude
-        + ", longitude=" + longitude + ", name=" + name + ", address="
-        + address + ", description=" + description + ", tag=" + tag + "]";
+    return name;
   }
 }
