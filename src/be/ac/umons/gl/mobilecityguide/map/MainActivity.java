@@ -18,6 +18,7 @@ import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.gui.FilterActivity;
+import be.ac.umons.gl.mobilecityguide.gui.ItineraryActivity;
 import be.ac.umons.gl.mobilecityguide.gui.POIListActivity;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
@@ -129,6 +130,12 @@ public class MainActivity extends MapActivity {
   @Override
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
+    case R.id.itemItinerary:
+      Intent intent = new Intent(this, ItineraryActivity.class);
+      ItineraryParcelable ip = new ItineraryParcelable(itinerary);
+      intent.putExtra("itinerary", ip);
+      this.startActivity(intent);
+      return true;
     case R.id.itemPOIList:
       Intent i = new Intent(this, POIListActivity.class);
       ArrayList<POIParcelable> list = new ArrayList<POIParcelable>();
