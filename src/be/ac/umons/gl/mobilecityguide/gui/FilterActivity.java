@@ -28,7 +28,7 @@ public class FilterActivity extends Activity {
 
     context = this;
 
-    prefs = getPreferences(Context.MODE_PRIVATE);
+    prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
 
     // Tag Filter
     TextView tag = (TextView) this.findViewById(R.id.tag);

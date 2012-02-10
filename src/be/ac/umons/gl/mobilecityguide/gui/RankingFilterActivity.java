@@ -1,7 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.gui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ public class RankingFilterActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    prefs = getPreferences(Context.MODE_PRIVATE);
+    prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
     int radio = prefs.getInt("rankRadioGroup", 0);
 
     setContentView(R.layout.rankingfilteractivity);
@@ -30,7 +29,27 @@ public class RankingFilterActivity extends Activity {
       @Override
       public void onCheckedChanged(RadioGroup group, int checkedId) {
         Editor edit = prefs.edit();
-        edit.putInt("rankRadioGroup", checkedId);
+        int rank;
+        switch (checkedId) {
+        case R.id.radio1:
+          rank = 1;
+          break;
+        case R.id.radio2:
+          rank = 2;
+          break;
+        case R.id.radio3:
+          rank = 3;
+          break;
+        case R.id.radio4:
+          rank = 4;
+          break;
+        case R.id.radio5:
+          rank = 5;
+          break;
+        default:
+          rank = 0;
+        }
+        edit.putInt("rankRadioGroup", rank);
         edit.commit();
       }
 

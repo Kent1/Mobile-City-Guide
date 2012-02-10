@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -75,10 +76,15 @@ public class MainActivity extends MapActivity {
   /** The radius in which we load POIs */
   private double lat_span, lon_span;
 
+  /** The preference of the user */
+  private SharedPreferences prefs;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
+
+    prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
 
     itinerary = new Itinerary();
 
@@ -151,7 +157,8 @@ public class MainActivity extends MapActivity {
     itemizedOverlay = new POIItemizedOverlay(marker, this, itinerary);
 
     for (POI poi : pois) {
-      if (tagDB.isTagSelected(poi.getTag())) {
+      if (tagDB.isTagSelected(poi.getTag())
+          && poi.getRank() >= prefs.getInt("rankRadioGroup", 0)) {
         POIOverlayItem item = new POIOverlayItem(new GeoPoint(
             (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
             "", "");
