@@ -55,7 +55,7 @@ public class ItineraryActivity extends ListActivity {
     Intent i = new Intent(this, POIDisplayActivity.class);
     i.putExtra("poi", new POIParcelable(itinerary.getList().get(position)));
     i.putExtra("itinerary", new ItineraryParcelable(itinerary));
-    startActivityForResult(i, 2);
+    startActivityForResult(i, R.id.itemPOIDisplay);
   }
 
   @Override

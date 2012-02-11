@@ -124,7 +124,6 @@ public class MainActivity extends MapActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
-    // RequestCode 1 for ItemizedOverlay ..
     case R.id.itemPOIDisplay:
     case R.id.itemPOIList:
     case R.id.itemItinerary:
