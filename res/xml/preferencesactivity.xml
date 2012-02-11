@@ -3,7 +3,14 @@
 	<PreferenceCategory
             android:title="@string/categoryMap">
             
-		
+		<EditTextPreference android:key="radius"
+        	android:title="@string/radius" android:inputType="number"
+       		android:dialogTitle="@string/radiusDialog" />
+ 
+    	<EditTextPreference android:key="refreshvalue"
+        	android:title="@string/refreshvalue" android:inputType="number"
+        	android:dialogTitle="@string/refreshvalueDialog" />
+	    
 	    
     </PreferenceCategory>
     

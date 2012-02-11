@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="categoryMap">Map</string>
+    
+    <string name="radius">Radius of loading POI</string>
+    <string name="radiusDialog">Radius in km :</string>
+    
+    <string name="refreshvalue">Refresh Value of POI</string>
+    <string name="refreshvalueDialog">Moving value necessary for reload POI in km :</string>
 </resources>

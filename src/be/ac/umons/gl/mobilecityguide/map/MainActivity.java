@@ -37,10 +37,10 @@ import com.google.android.maps.Overlay;
 public class MainActivity extends MapActivity {
 
   /** Refresh value in km */
-  private final int REFRESH_VALUE = 1;
+  private int refreshValue;
 
   /** The radius in which we load POIs in km */
-  private final int RADIUS = 1;
+  private int radius;
 
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
@@ -87,6 +87,8 @@ public class MainActivity extends MapActivity {
     super.onCreate(savedInstanceState);
 
     prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
+    radius = Integer.parseInt(prefs.getString("radius", "5"));
+    refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
 
     itinerary = new Itinerary();
 
@@ -110,6 +112,8 @@ public class MainActivity extends MapActivity {
   @Override
   public void onResume() {
     super.onResume();
+    radius = Integer.parseInt(prefs.getString("radius", "5"));
+    refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
     locationHelper.enableLocation();
     loadPOIs();
   }
@@ -167,7 +171,7 @@ public class MainActivity extends MapActivity {
     double latitude = p.getLatitudeE6() / 1E6;
     double longitude = p.getLongitudeE6() / 1E6;
 
-    pois = poidb.getPOI(latitude, longitude, RADIUS);
+    pois = poidb.getPOI(latitude, longitude, radius);
 
     mapOverlays.remove(itemizedOverlay);
     itemizedOverlay = new POIItemizedOverlay(marker, this, itinerary);
@@ -233,7 +237,7 @@ public class MainActivity extends MapActivity {
       if (DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
           initLocation.getLatitudeE6() / 1E6, myLocation.getMyLocation()
               .getLongitudeE6() / 1E6, myLocation.getMyLocation()
-              .getLatitudeE6() / 1E6) > REFRESH_VALUE) {
+              .getLatitudeE6() / 1E6) > refreshValue) {
 
         loadPOIs();
         initLocation = myLocation.getMyLocation();
