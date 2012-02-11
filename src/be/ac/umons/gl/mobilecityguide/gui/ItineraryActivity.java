@@ -71,7 +71,7 @@ public class ItineraryActivity extends ListActivity {
     case R.id.itemNewItinerary:
       // Start here activity creation
     case R.id.itemDeleteItinerary:
-      itinerary = new Itinerary();
+      itinerary.clear();
       array.clear();
       return true;
     }
