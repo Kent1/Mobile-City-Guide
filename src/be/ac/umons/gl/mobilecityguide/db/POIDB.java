@@ -117,7 +117,6 @@ public class POIDB extends DB {
     String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
         + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
         + "WHERE " + whereClause;
-    Log.e(tag, query);
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     ArrayList<POI> retour = new ArrayList<POI>();
