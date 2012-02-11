@@ -10,7 +10,10 @@
     	<EditTextPreference android:key="refreshvalue"
         	android:title="@string/refreshvalue" android:inputType="number"
         	android:dialogTitle="@string/refreshvalueDialog" />
-	    
+    	
+    	<CheckBoxPreference android:title="@string/satellite"
+    	    android:summary="@string/satelliteSummary"
+            android:key="satellite" />
 	    
     </PreferenceCategory>
     

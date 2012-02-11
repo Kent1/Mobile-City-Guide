@@ -7,4 +7,7 @@
     
     <string name="refreshvalue">Refresh Value of POI</string>
     <string name="refreshvalueDialog">Moving value necessary for reload POI in km :</string>
+    
+    <string name="satellite">Satellite View</string>
+    <string name="satelliteSummary">Show map on satellite view or not</string>
 </resources>

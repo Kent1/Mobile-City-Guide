@@ -102,6 +102,7 @@ public class MainActivity extends MapActivity {
     mapView = (MapView) findViewById(R.id.mapview);
     mapView.setBuiltInZoomControls(true);
     mapView.getController().setZoom(16);
+    mapView.setSatellite(prefs.getBoolean("satellite", false));
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
 
@@ -136,6 +137,7 @@ public class MainActivity extends MapActivity {
     case R.id.itemPreferences:
       radius = Integer.parseInt(prefs.getString("radius", "5"));
       refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
+      mapView.setSatellite(prefs.getBoolean("satellite", false));
       return;
     }
   }
