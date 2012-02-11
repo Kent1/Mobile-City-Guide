@@ -32,12 +32,22 @@ public class ItineraryActivity extends ListActivity {
     itinerary = ((ItineraryParcelable) getIntent().getParcelableExtra(
         "itinerary")).getItinerary();
 
+    this.registerForContextMenu(this.getListView());
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
     array = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1,
         itinerary.getList());
-
     this.setListAdapter(array);
+  }
 
-    this.registerForContextMenu(this.getListView());
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    itinerary = ((ItineraryParcelable) data.getExtras().getParcelable(
+        "itinerary")).getItinerary();
   }
 
   @Override
@@ -45,7 +55,7 @@ public class ItineraryActivity extends ListActivity {
     Intent i = new Intent(this, POIDisplayActivity.class);
     i.putExtra("poi", new POIParcelable(itinerary.getList().get(position)));
     i.putExtra("itinerary", new ItineraryParcelable(itinerary));
-    startActivity(i);
+    startActivityForResult(i, 2);
   }
 
   @Override

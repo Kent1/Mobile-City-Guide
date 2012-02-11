@@ -19,6 +19,7 @@ import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.gui.FilterActivity;
 import be.ac.umons.gl.mobilecityguide.gui.ItineraryActivity;
+import be.ac.umons.gl.mobilecityguide.gui.POIDisplayActivity;
 import be.ac.umons.gl.mobilecityguide.gui.POIListActivity;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
@@ -112,16 +113,32 @@ public class MainActivity extends MapActivity {
   @Override
   public void onResume() {
     super.onResume();
-    radius = Integer.parseInt(prefs.getString("radius", "5"));
-    refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
-    locationHelper.enableLocation();
-    loadPOIs();
   }
 
   @Override
-  public void onStop() {
-    super.onStop();
+  public void onDestroy() {
+    super.onDestroy();
     locationHelper.disableLocation();
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+    // RequestCode 1 for ItemizedOverlay ..
+    case R.id.itemPOIDisplay:
+    case R.id.itemPOIList:
+    case R.id.itemItinerary:
+      itinerary = ((ItineraryParcelable) data.getExtras().getParcelable(
+          "itinerary")).getItinerary();
+      return;
+    case R.id.itemFilter:
+      loadPOIs();
+      return;
+    case R.id.itemPreferences:
+      radius = Integer.parseInt(prefs.getString("radius", "5"));
+      refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
+      return;
+    }
   }
 
   @Override
@@ -138,7 +155,7 @@ public class MainActivity extends MapActivity {
       Intent intent = new Intent(this, ItineraryActivity.class);
       ItineraryParcelable ip = new ItineraryParcelable(itinerary);
       intent.putExtra("itinerary", ip);
-      this.startActivityForResult(intent, 1);
+      this.startActivityForResult(intent, R.id.itemItinerary);
       return true;
     case R.id.itemPOIList:
       Intent i = new Intent(this, POIListActivity.class);
@@ -147,13 +164,15 @@ public class MainActivity extends MapActivity {
         list.add(new POIParcelable(poi));
       i.putExtra("POIs", list);
       i.putExtra("itinerary", new ItineraryParcelable(itinerary));
-      this.startActivityForResult(i, 1);
+      this.startActivityForResult(i, R.id.itemPOIList);
       return true;
-    case R.id.itemTagFilter:
-      this.startActivity(new Intent(this, FilterActivity.class));
+    case R.id.itemFilter:
+      this.startActivityForResult(new Intent(this, FilterActivity.class),
+          R.id.itemFilter);
       return true;
     case R.id.itemPreferences:
-      this.startActivity(new Intent(this, PreferencesActivity.class));
+      this.startActivityForResult(new Intent(this, PreferencesActivity.class),
+          R.id.itemPreferences);
       return true;
     case R.id.itemClose:
       finish();
@@ -174,7 +193,7 @@ public class MainActivity extends MapActivity {
     pois = poidb.getPOI(latitude, longitude, radius);
 
     mapOverlays.remove(itemizedOverlay);
-    itemizedOverlay = new POIItemizedOverlay(marker, this, itinerary);
+    itemizedOverlay = new POIItemizedOverlay(marker, this);
 
     for (POI poi : pois) {
       if (tagDB.isTagSelected(poi.getTag())
@@ -191,11 +210,11 @@ public class MainActivity extends MapActivity {
       mapOverlays.add(itemizedOverlay);
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    itinerary = ((ItineraryParcelable) data.getExtras().getParcelable(
-        "itinerary")).getItinerary();
+  public void displayPOI(POI poi) {
+    Intent intent = new Intent(this, POIDisplayActivity.class);
+    intent.putExtra("poi", new POIParcelable(poi));
+    intent.putExtra("itinerary", new ItineraryParcelable(itinerary));
+    this.startActivityForResult(intent, R.id.itemPOIDisplay);
   }
 
   @Override

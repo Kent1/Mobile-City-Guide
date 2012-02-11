@@ -5,7 +5,7 @@
     <!-- Main Menu -->
     <string name="itemClose">Close</string>
     <string name="itemPreferences">Preferences</string>
-    <string name="itemTagFilter">Tag filter</string>
+    <string name="itemFilter">Filter</string>
     <string name="itemPOIList">POI List</string>
     <string name="itemItinerary">Itinerary</string>
     
