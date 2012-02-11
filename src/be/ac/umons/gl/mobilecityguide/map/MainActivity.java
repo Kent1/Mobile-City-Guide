@@ -39,6 +39,9 @@ public class MainActivity extends MapActivity {
   /** Refresh value in km */
   private final int REFRESH_VALUE = 1;
 
+  /** The radius in which we load POIs in km */
+  private final int RADIUS = 1;
+
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
 
@@ -71,9 +74,6 @@ public class MainActivity extends MapActivity {
 
   /** The <code>List</code> with the <code>Overlay</code>s of this map. */
   private List<Overlay> mapOverlays;
-
-  /** The radius in which we load POIs */
-  private double lat_span, lon_span;
 
   /** The preference of the user */
   private SharedPreferences prefs;
@@ -167,10 +167,7 @@ public class MainActivity extends MapActivity {
     double latitude = p.getLatitudeE6() / 1E6;
     double longitude = p.getLongitudeE6() / 1E6;
 
-    lat_span = mapView.getLatitudeSpan() / 1E6;
-    lon_span = mapView.getLongitudeSpan() / 1E6;
-
-    pois = poidb.getPOI(latitude, longitude, lat_span * 2, lon_span * 2);
+    pois = poidb.getPOI(latitude, longitude, RADIUS);
 
     mapOverlays.remove(itemizedOverlay);
     itemizedOverlay = new POIItemizedOverlay(marker, this, itinerary);

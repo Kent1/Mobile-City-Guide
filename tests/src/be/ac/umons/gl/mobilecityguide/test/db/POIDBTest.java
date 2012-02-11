@@ -78,7 +78,7 @@ public class POIDBTest extends AndroidTestCase {
    * .
    */
   public final void testGetPOIDoubleDoubleDoubleDouble() {
-    ArrayList<POI> poi = db.getPOI(50, 3, 1, 1);
+    ArrayList<POI> poi = db.getPOI(50.463, 3.9551, 1);
     assertTrue(!poi.isEmpty());
   }
 

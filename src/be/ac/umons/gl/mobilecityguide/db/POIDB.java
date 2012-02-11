@@ -109,13 +109,15 @@ public class POIDB extends DB {
    * @param range
    * @return
    */
-  public ArrayList<POI> getPOI(double latitude, double longitude,
-      double lat_span, double lon_span) {
+  public ArrayList<POI> getPOI(double latitude, double longitude, int radius) {
+    String whereClause = "(6371*acos(sin(radians(" + latitude
+        + ")) * sin(radians(`latitude`)) + cos(radians(" + latitude
+        + ")) * cos(radians(`latitude`)) * cos(radians(" + longitude
+        + " - `longitude`)))) <= " + radius;
     String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
-        + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id WHERE latitude <= "
-        + (latitude + lat_span) + " AND latitude >= " + (latitude - lat_span)
-        + " AND longitude <= " + (longitude + lon_span) + " AND longitude >= "
-        + (longitude - lon_span);
+        + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
+        + "WHERE " + whereClause;
+    Log.e(tag, query);
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     ArrayList<POI> retour = new ArrayList<POI>();
