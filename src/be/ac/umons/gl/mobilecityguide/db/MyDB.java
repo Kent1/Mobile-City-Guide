@@ -12,18 +12,51 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyDB extends SQLiteOpenHelper {
   /** DBName */
   private static final String DBName = "MobileCityGuideDB";
-  /** Query for create table */
-  private final String createDB;
+  /** Instance of myDB */
+  private static MyDB instance;
+
+  /** Request to create table Tag */
+  private static final String TABLE_TAG = "TagDB";
+  private static final String COL_TAG = "Tag";
+  private static final String COL_BOOL = "Bool";
+
+  private static final String CREATE_TABLETAG = "CREATE TABLE " + TABLE_TAG
+      + " (" + COL_TAG + " varchar(30), " + COL_BOOL + " BOOLEAN );";
+
+  /** Request to create table Rank */
+  private static final String TABLE_RANK = "RankingDB";
+  private static final String COL_ID = "Id";
+  private static final String COL_RANK = "Rank";
+
+  private static final String CREATE_TABLERANK = "CREATE TABLE " + TABLE_RANK
+      + " (" + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK + " DOUBLE );";
 
   /**
    * Constructor
    * 
    * @param context
+   *          The context of activity
    * @param createDB
+   *          The SQL query to createDB if it does'nt exist
    */
-  public MyDB(Context context, String createDB) {
+  private MyDB(Context context) {
     super(context, DBName, null, 1);
-    this.createDB = createDB;
+  }
+
+  /**
+   * Return an instance of MyDB
+   * 
+   * @param context
+   *          The context of activity
+   * @param createDB
+   *          The SQL query to createDB if it does'nt exist
+   * @return
+   */
+  public static MyDB getInstance(Context context) {
+    if (instance == null) {
+      instance = new MyDB(context);
+    }
+    return instance;
   }
 
   /*
@@ -35,7 +68,8 @@ public class MyDB extends SQLiteOpenHelper {
    */
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL(createDB);
+    db.execSQL(CREATE_TABLETAG);
+    db.execSQL(CREATE_TABLERANK);
   }
 
   /*

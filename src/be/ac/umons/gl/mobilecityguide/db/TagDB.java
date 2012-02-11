@@ -25,16 +25,11 @@ public class TagDB extends DB {
   private static final String COL_TAG = "Tag";
   private static final String COL_BOOL = "Bool";
 
-  /** Request to create table */
-  private static final String CREATE_BDD = "CREATE TABLE IF NOT EXISTS "
-      + TABLE_TAG + " (" + COL_TAG + " varchar(30), " + COL_BOOL
-      + " BOOLEAN );";
-
   /**
    * Constructor
    */
   public TagDB(Context context) {
-    super(context, CREATE_BDD);
+    super(context);
   }
 
   /**

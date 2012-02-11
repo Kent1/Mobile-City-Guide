@@ -46,8 +46,8 @@ public abstract class DB {
   /**
    * Constructor with SQLiteDB
    */
-  public DB(Context context, String CreateDB) {
-    myDB = new MyDB(context, CreateDB);
+  public DB(Context context) {
+    myDB = MyDB.getInstance(context);
   }
 
   /**

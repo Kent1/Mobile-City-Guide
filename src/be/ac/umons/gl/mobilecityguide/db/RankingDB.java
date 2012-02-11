@@ -23,16 +23,11 @@ public class RankingDB extends DB {
   private static final String COL_ID = "Id";
   private static final String COL_RANK = "Rank";
 
-  /** Request to create table */
-  private static final String CREATE_BDD = "CREATE TABLE IF NOT EXISTS "
-      + TABLE_RANK + " (" + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK
-      + " DOUBLE );";
-
   /**
    * Constructor
    */
   public RankingDB(Context context) {
-    super(context, CREATE_BDD);
+    super(context);
   }
 
   /**
