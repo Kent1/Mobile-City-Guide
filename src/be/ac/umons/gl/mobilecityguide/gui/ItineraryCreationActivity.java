@@ -22,6 +22,7 @@ import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 /**
  * This <code>Activity</code> is use to generate a new <code>Itinerary</code>.
@@ -47,7 +48,7 @@ public class ItineraryCreationActivity extends ListActivity{
   private LayoutInflater mInflater;
   private Button generate, all, none;
   private RatingBar minRank;
-  private EditText maxTime;
+  private EditText maxTime, maxPrice;
   
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -93,6 +94,7 @@ public class ItineraryCreationActivity extends ListActivity{
 
     minRank = (RatingBar) findViewById(R.id.rating);
     maxTime = (EditText) findViewById(R.id.time);
+    maxPrice = (EditText) findViewById(R.id.price);
     generate = (Button) findViewById(R.id.generate);
     all = (Button) findViewById(R.id.all);
     none = (Button) findViewById(R.id.clear);
@@ -102,8 +104,13 @@ public class ItineraryCreationActivity extends ListActivity{
       @Override
       public void onClick(View v){
 
-        generate();
-        finish();
+        if(maxTime.length() > 0 && maxPrice.length() > 0){
+          
+          generate();
+          finish();
+        }
+        else
+          Toast.makeText(ItineraryCreationActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
       }
     });
     
@@ -162,9 +169,11 @@ public class ItineraryCreationActivity extends ListActivity{
     
     int i = 0;
     int time = 0;
+    double price = 0;
     
     try{
       time = Integer.parseInt(maxTime.getText().toString());
+      price = Double.parseDouble(maxPrice.getText().toString());
     }
     catch(Exception e){
       finish();
@@ -184,10 +193,11 @@ public class ItineraryCreationActivity extends ListActivity{
       
       i = (int) (Math.random() * pois.size());
       
-      if(pois.get(i).getDuration() <= time){
+      if(pois.get(i).getDuration() <= time && pois.get(i).getPrice() <= price){
         
         itinerary.add(pois.get(i));
         time -= pois.get(i).getDuration();
+        price -= pois.get(i).getPrice();
         pois.remove(i);
       }
       else

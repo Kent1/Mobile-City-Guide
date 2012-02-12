@@ -3,8 +3,10 @@
     <string name="itinerary">Itinerary</string>
     <string name="generate">Generate</string>
     <string name="time">Maximum duration:</string>
+    <string name="maxprice">Maximum price:</string>
     <string name="rating">Minimum rating:</string>
     <string name="tags">Tags</string>
     <string name="all">All</string>
     <string name="none">Clear</string>
+    <string name="error">Please, fill all the fields.</string>
 </resources>

@@ -50,9 +50,31 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
-          android:text="0"
           android:numeric="integer" />
 
+    </LinearLayout>
+    
+    <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="#EBF2FA"
+      android:orientation="horizontal" >
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/maxprice"
+          android:textColor="#000000"
+          android:textSize="20dp"
+          android:layout_marginTop="5dp" />
+
+        <EditText
+          android:id="@+id/price"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:numeric="decimal" />
+        
     </LinearLayout>
     
     <LinearLayout
