@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="itinerary">Itinéraire</string>
+    <string name="generate">Générer</string>
+    <string name="time">Durée maximale:</string>
+    <string name="rating">Note minimale:</string>
+    <string name="tags">Tags</string>
+    <string name="all">Tous</string>
+    <string name="none">Aucun</string>
+</resources>
