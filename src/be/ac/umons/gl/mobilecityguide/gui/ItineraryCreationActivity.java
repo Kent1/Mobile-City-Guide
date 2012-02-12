@@ -56,6 +56,7 @@ public class ItineraryCreationActivity extends ListActivity{
 
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
+    filter = new ArrayList<String>();
     
     List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList("pois");
     for(POIParcelable parcel : temp)
@@ -96,9 +97,11 @@ public class ItineraryCreationActivity extends ListActivity{
       public void onClick(View v){
 
         generate();
+        finish();
       }
     });
     
+    //TODO
     all.setOnClickListener(new OnClickListener(){
 
       @Override
@@ -111,6 +114,7 @@ public class ItineraryCreationActivity extends ListActivity{
       }
     });
     
+    //TODO
     none.setOnClickListener(new OnClickListener(){
 
       @Override
@@ -128,8 +132,22 @@ public class ItineraryCreationActivity extends ListActivity{
   protected void onListItemClick(ListView l, View v, int position, long id){
     
     CheckedTextView c = (CheckedTextView) v;
-    tagDB.selectTag((String) c.getText(), !c.isChecked());
+    selectTag((String) c.getText(), !c.isChecked());
     c.setChecked(!c.isChecked());
+  }
+  
+  /**
+   * Adds or Remove a tag to the filter.
+   * 
+   * @param tag the specified tag.
+   * @param check adds the tag if <code>true</code>, removes it otherwise.
+   */
+  private void selectTag(String tag, boolean check){
+    
+    if(check)
+      filter.add(tag);
+    else
+      filter.remove(tag);
   }
 
   /**
@@ -138,21 +156,26 @@ public class ItineraryCreationActivity extends ListActivity{
   private void generate(){
     
     int i = 0;
-    int time = Integer.parseInt(maxTime.getText().toString());
+    int time = 0;
+    
+    try{
+      time = Integer.parseInt(maxTime.getText().toString());
+    }
+    catch(Exception e){
+      finish();
+    }
     
     // Filter the POIs
     while(i < pois.size()){
       
-      if(pois.get(i).getRank() < minRank.getRating())
-        pois.remove(i);
-      else if(filter.contains(pois.get(i).getTag()))
+      if(pois.get(i).getRank() < minRank.getRating() || filter.contains(pois.get(i).getTag()))
         pois.remove(i);
       else
         i++;
     }
     
     // Generate from the filtered POIs
-    while(time > 0 && pois.size() > 0){
+    while(time > 0 && pois.size() > 0 && itinerary.size() < 10){
       
       i = (int) (Math.random() * pois.size());
       
@@ -160,6 +183,7 @@ public class ItineraryCreationActivity extends ListActivity{
         
         itinerary.add(pois.get(i));
         time -= pois.get(i).getDuration();
+        pois.remove(i);
       }
       else
         pois.remove(i);
