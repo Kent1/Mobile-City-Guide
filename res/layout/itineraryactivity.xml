@@ -4,25 +4,25 @@
   android:layout_width="wrap_content" 
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:background="#EBF2FA">
+  android:background="@color/background">
     
     <RelativeLayout 
       android:id="@+id/header"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:background="#4556A6" >
+      android:background="@color/header" >
         
         <LinearLayout
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:background="#4556A6"
+          android:background="@color/header"
           android:orientation="horizontal" >
       
             <TextView 
               android:layout_width="wrap_content" 
               android:layout_height="wrap_content"
               android:text="@string/itinerary"
-              android:textColor="#EBF2FA"
+              android:textColor="@color/background"
               android:textSize="30dp"
               android:textStyle="bold"
               android:layout_marginTop="5dp"
@@ -45,7 +45,7 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:background="#4556A6">
+      android:background="@color/header">
         
         <Button
           android:id="@+id/display"
