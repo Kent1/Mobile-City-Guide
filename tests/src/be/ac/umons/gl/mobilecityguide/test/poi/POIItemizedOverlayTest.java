@@ -54,6 +54,7 @@ public class POIItemizedOverlayTest extends AndroidTestCase {
    */
   public final void testAddOverlay() {
     p.addOverlay(new POIOverlayItem(new GeoPoint(1, 2), "", ""));
-    assertEquals(p.getItem(0), new POIOverlayItem(new GeoPoint(1, 2), "", ""));
+    assertEquals(p.getItem(0).getPoi(), new POIOverlayItem(new GeoPoint(1, 2),
+        "", "").getPoi());
   }
 }
