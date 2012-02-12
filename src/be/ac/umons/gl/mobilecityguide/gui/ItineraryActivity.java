@@ -25,7 +25,7 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 public class ItineraryActivity extends ListActivity {
   Itinerary itinerary;
   ArrayAdapter<POI> array;
-  ArrayList<POIParcelable> pois; //TODO hugo modif
+  ArrayList<POIParcelable> pois;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class ItineraryActivity extends ListActivity {
     itinerary = ((ItineraryParcelable) getIntent().getParcelableExtra(
         "itinerary")).getItinerary();
 
-    pois = getIntent().getExtras().getParcelableArrayList("pois"); //TODO: hugo modif
+    pois = getIntent().getExtras().getParcelableArrayList("pois");
     
     this.registerForContextMenu(this.getListView());
   }
@@ -74,11 +74,11 @@ public class ItineraryActivity extends ListActivity {
     switch (item.getItemId()) {
     case R.id.itemNewItinerary:
       // Start here activity creation
-      Intent data = new Intent(this, ItineraryCreationActivity.class); // TODO: hugo modif
+      Intent data = new Intent(this, ItineraryCreationActivity.class);
       for(POIParcelable poi : pois)
         data.putExtra("pois", poi);
-      data.putParcelableArrayListExtra("pois", pois); //TODO: hugo modif
-      startActivityForResult(data, 1); //TODO: hugo modif
+      data.putParcelableArrayListExtra("pois", pois);
+      startActivityForResult(data, 1);
     case R.id.itemDeleteItinerary:
       itinerary.clear();
       array.clear();

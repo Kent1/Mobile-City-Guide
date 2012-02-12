@@ -159,7 +159,7 @@ public class MainActivity extends MapActivity {
       ArrayList<POIParcelable> parcel = new ArrayList<POIParcelable>();
       for(POI poi : pois)
         parcel.add(new POIParcelable(poi));
-      intent.putParcelableArrayListExtra("pois", parcel); //TODO modf hugo
+      intent.putParcelableArrayListExtra("pois", parcel);
       this.startActivityForResult(intent, R.id.itemItinerary);
       return true;
     case R.id.itemPOIList:
