@@ -1,12 +1,9 @@
-/**
- * 
- */
 package be.ac.umons.gl.mobilecityguide.test.poi;
 
-import be.ac.umons.gl.mobilecityguide.poi.POI;
-import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 import android.os.Parcel;
 import android.test.AndroidTestCase;
+import be.ac.umons.gl.mobilecityguide.poi.POI;
+import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 /**
  * Test Class for POIParcelable
@@ -16,43 +13,53 @@ import android.test.AndroidTestCase;
 public class POIParcelableTest extends AndroidTestCase {
   POI poi;
   POIParcelable poip;
-  /* (non-Javadoc)
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see android.test.AndroidTestCase#setUp()
    */
+  @Override
   protected void setUp() throws Exception {
     super.setUp();
     poi = new POI(1);
     poip = new POIParcelable(poi);
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see android.test.AndroidTestCase#tearDown()
    */
+  @Override
   protected void tearDown() throws Exception {
     super.tearDown();
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#getPOI()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#getPOI()}.
    */
-  public void testGetPOI(){
-    assertEquals(poi,poip.getPoi());
+  public void testGetPOI() {
+    assertEquals(poi, poip.getPoi());
   }
-  
+
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#setPOI()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#setPOI()}.
    */
-  public void testSetPOI(){
+  public void testSetPOI() {
     POI poi2 = new POI(2);
     poip.setPoi(poi2);
     assertFalse(poi.equals(poi2));
-    assertEquals(poi2,poip.getPoi());
+    assertEquals(poi2, poip.getPoi());
   }
-  
+
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#writeToParcel()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POIParcelable#writeToParcel()}.
    */
-  public void testWriteToParcel(){
+  public void testWriteToParcel() {
     Parcel dest = Parcel.obtain();
     poip.writeToParcel(dest, 0);
     dest.setDataPosition(0);
