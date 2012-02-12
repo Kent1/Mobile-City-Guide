@@ -47,7 +47,7 @@ public class MainActivity extends MapActivity {
   private MapView mapView;
 
   /** The <code>List</code> of every <code>POI</code>s around the user. */
-  private List<POI> pois;
+  private List<POI> pois = new ArrayList<POI>();
 
   /** The current <code>Itinerary</code>. */
   private Itinerary itinerary;
