@@ -38,10 +38,12 @@ public class ItineraryCreationActivity extends ListActivity{
   
   /** The tag filter. */
   private List<String> filter;
+  private boolean[] state;
   
   /** The list of tags. */
   private TagDB tagDB;
   
+  private ArrayAdapter<String> adapter;
   private LayoutInflater mInflater;
   private Button generate, all, none;
   private RatingBar minRank;
@@ -54,19 +56,20 @@ public class ItineraryCreationActivity extends ListActivity{
     
     setContentView(R.layout.itinerarycreationactivity);
 
+    tagDB = new TagDB(this);
+    
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
     filter = new ArrayList<String>();
-    
+    state = new boolean[tagDB.getTagListMyDB().size()];
+
     List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList("pois");
     for(POIParcelable parcel : temp)
       pois.add(parcel.getPoi());
-    
-    tagDB = new TagDB(this);
 
     mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    this.setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, tagDB.getTagListMyDB()){
+    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, tagDB.getTagListMyDB()){
       
       @Override
       public View getView(int position, View convertView, ViewGroup parent){
@@ -79,10 +82,13 @@ public class ItineraryCreationActivity extends ListActivity{
 
         CheckedTextView c = (CheckedTextView) row.findViewById(android.R.id.text1);
         c.setText(getItem(position));
+        c.setChecked(state[position]);
         
         return c;
       }
-    });
+    };
+    
+    this.setListAdapter(adapter);
 
 
     minRank = (RatingBar) findViewById(R.id.rating);
@@ -101,7 +107,6 @@ public class ItineraryCreationActivity extends ListActivity{
       }
     });
     
-    //TODO
     all.setOnClickListener(new OnClickListener(){
 
       @Override
@@ -110,11 +115,13 @@ public class ItineraryCreationActivity extends ListActivity{
         int size = getListView().getAdapter().getCount();
 
         for(int i = 0; i < size; i++)
-          getListView().setItemChecked(i, true);
+          state[i] = true;
+        
+        filter = new ArrayList<String>();
+        adapter.notifyDataSetChanged();
       }
     });
     
-    //TODO
     none.setOnClickListener(new OnClickListener(){
 
       @Override
@@ -123,7 +130,10 @@ public class ItineraryCreationActivity extends ListActivity{
         int size = getListView().getAdapter().getCount();
         
         for(int i = 0; i < size; i++)
-          getListView().setItemChecked(i, false);
+          state[i] = false;
+        
+        filter = tagDB.getTagListMyDB();
+        adapter.notifyDataSetChanged();
       }
     });
   }
@@ -132,22 +142,17 @@ public class ItineraryCreationActivity extends ListActivity{
   protected void onListItemClick(ListView l, View v, int position, long id){
     
     CheckedTextView c = (CheckedTextView) v;
-    selectTag((String) c.getText(), !c.isChecked());
-    c.setChecked(!c.isChecked());
-  }
-  
-  /**
-   * Adds or Remove a tag to the filter.
-   * 
-   * @param tag the specified tag.
-   * @param check adds the tag if <code>true</code>, removes it otherwise.
-   */
-  private void selectTag(String tag, boolean check){
+    String tag = (String) c.getText();
+    int i = tagDB.getTagListMyDB().indexOf((String) c.getText());
     
-    if(check)
+    if(!state[i])
       filter.add(tag);
     else
       filter.remove(tag);
+    
+    state[i] = !state[i];
+    
+    adapter.notifyDataSetChanged();
   }
 
   /**
