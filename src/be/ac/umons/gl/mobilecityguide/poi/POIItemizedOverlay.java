@@ -7,12 +7,11 @@ import android.graphics.drawable.Drawable;
 import be.ac.umons.gl.mobilecityguide.map.MainActivity;
 
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.OverlayItem;
 
 /**
  * @author Allard Hugo
  */
-public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
 
   /** Contains all the <code>POIOverlayItem</code>. */
   private final ArrayList<POIOverlayItem> mOverlays = new ArrayList<POIOverlayItem>();
@@ -47,7 +46,7 @@ public class POIItemizedOverlay extends ItemizedOverlay<OverlayItem> {
   }
 
   @Override
-  protected OverlayItem createItem(int i) {
+  protected POIOverlayItem createItem(int i) {
 
     return mOverlays.get(i);
   }
