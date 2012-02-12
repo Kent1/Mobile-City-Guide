@@ -36,6 +36,7 @@ public class DBTest extends AndroidTestCase {
    */
   public final void testQuery() {
     // Nothing to do
+    // I don't know how to test an abstract class
   }
 
 }
