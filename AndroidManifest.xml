@@ -50,19 +50,24 @@
         android:name=".gui.TagFilterActivity">
     </activity>
     
-     <activity
+    <activity
         android:label="@string/app_name"
         android:name=".gui.RankingFilterActivity">
     </activity>
     
-     <activity
+    <activity
         android:label="@string/app_name"
         android:name=".gui.POIListActivity">
     </activity>
     
-     <activity
+    <activity
         android:label="@string/app_name"
         android:name=".gui.ItineraryActivity">
+    </activity>
+    
+    <activity
+        android:label="@string/app_name"
+        android:name=".gui.ItineraryCreationActivity">
     </activity>
     
   </application>

@@ -156,6 +156,10 @@ public class MainActivity extends MapActivity {
       Intent intent = new Intent(this, ItineraryActivity.class);
       ItineraryParcelable ip = new ItineraryParcelable(itinerary);
       intent.putExtra("itinerary", ip);
+      ArrayList<POIParcelable> parcel = new ArrayList<POIParcelable>();
+      for(POI poi : pois)
+        parcel.add(new POIParcelable(poi));
+      intent.putParcelableArrayListExtra("pois", parcel); //TODO modf hugo
       this.startActivityForResult(intent, R.id.itemItinerary);
       return true;
     case R.id.itemPOIList:

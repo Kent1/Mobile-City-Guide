@@ -11,7 +11,6 @@
       android:background="#4556A6"
       android:orientation="horizontal" >
       
-        <!-- Topper -->
         <TextView 
           android:layout_width="wrap_content" 
           android:layout_height="wrap_content"
@@ -27,7 +26,8 @@
             android:id="@+id/generate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/generate" />
+            android:text="@string/generate"
+            android:layout_marginBottom="2dp" />
 
     </LinearLayout>
     
@@ -50,7 +50,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
-          android:text="0" />
+          android:text="0"
+          android:numeric="integer" />
 
     </LinearLayout>
     
@@ -115,10 +116,8 @@
         
     <ListView
       android:id="@android:id/list"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="#000000"
-      android:background="#EBF2FA" >
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content" >
         
     </ListView>
 

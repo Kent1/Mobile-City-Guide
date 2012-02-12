@@ -1,5 +1,6 @@
 package be.ac.umons.gl.mobilecityguide.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.TagDB;
@@ -54,8 +55,9 @@ public class ItineraryCreationActivity extends ListActivity{
     setContentView(R.layout.itinerarycreationactivity);
 
     itinerary = new Itinerary();
+    pois = new ArrayList<POI>();
     
-    List<POIParcelable> temp = (List<POIParcelable>) getIntent().getExtras().getParcelable("pois");
+    List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList("pois");
     for(POIParcelable parcel : temp)
       pois.add(parcel.getPoi());
     
@@ -81,7 +83,7 @@ public class ItineraryCreationActivity extends ListActivity{
       }
     });
 
-        
+
     minRank = (RatingBar) findViewById(R.id.rating);
     maxTime = (EditText) findViewById(R.id.time);
     generate = (Button) findViewById(R.id.generate);
@@ -103,7 +105,7 @@ public class ItineraryCreationActivity extends ListActivity{
       public void onClick(View v){
 
         int size = getListView().getAdapter().getCount();
-        
+
         for(int i = 0; i < size; i++)
           getListView().setItemChecked(i, true);
       }
@@ -129,7 +131,7 @@ public class ItineraryCreationActivity extends ListActivity{
     tagDB.selectTag((String) c.getText(), !c.isChecked());
     c.setChecked(!c.isChecked());
   }
-  
+
   /**
    * Generates a new <code>Itinerary</code> with the specified preferences.
    */
