@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
@@ -22,30 +26,66 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 /**
  * @author Quentin Loos
  */
-public class ItineraryActivity extends ListActivity {
-  Itinerary itinerary;
-  ArrayAdapter<POI> array;
-  ArrayList<POIParcelable> pois = new ArrayList<POIParcelable>();
+public class ItineraryActivity extends ListActivity{
+  
+  private Itinerary itinerary;
+  private ArrayAdapter<POI> array;
+  private ArrayList<POIParcelable> pois = new ArrayList<POIParcelable>();
+  private Button info, display;
+  private TextView empty;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState){
+    
     super.onCreate(savedInstanceState);
 
-    itinerary = ((ItineraryParcelable) getIntent().getParcelableExtra(
-        "itinerary")).getItinerary();
+    setContentView(R.layout.itineraryactivity);
+    
+    empty = (TextView) findViewById(R.id.empty);
+    info = (Button) findViewById(R.id.info);
+    display = (Button) findViewById(R.id.display);
 
+    itinerary = ((ItineraryParcelable) getIntent().getParcelableExtra("itinerary")).getItinerary();
+
+    info.setOnClickListener(new OnClickListener(){
+      @Override
+      public void onClick(View v){
+        
+        if(itinerary.size() > 0)
+          Toast.makeText(ItineraryActivity.this, getString(R.string.totalprice) + " " + itinerary.getPrice() + "€ \n" + getString(R.string.totaltime) + " " + getString(R.string.minutes), Toast.LENGTH_SHORT).show();
+        else
+          Toast.makeText(ItineraryActivity.this, getString(R.string.empty), Toast.LENGTH_SHORT).show();
+      }
+    });
+    
+    display.setOnClickListener(new OnClickListener(){
+      @Override
+      public void onClick(View v){
+
+        if(itinerary.size() > 0)
+          ;//TODO display itinerary on map!
+        else
+          Toast.makeText(ItineraryActivity.this, getString(R.string.empty), Toast.LENGTH_SHORT).show();
+      }
+    });
     pois = getIntent().getExtras().getParcelableArrayList("pois");
     
     this.registerForContextMenu(this.getListView());
   }
 
   @Override
-  protected void onResume() {
+  protected void onResume(){
+    
     super.onResume();
 
     array = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1,
         itinerary.getList());
     this.setListAdapter(array);
+    
+    if(itinerary.size() > 0)
+      empty.setVisibility(View.INVISIBLE);
+    else
+      empty.setVisibility(View.VISIBLE);
   }
 
   @Override

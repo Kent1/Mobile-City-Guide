@@ -10,6 +10,12 @@
     <string name="itemItinerary">Itinerary</string>
     
     <!-- ItineraryActivity -->
+    <string name="empty">Empty itinerary</string>
+    <string name="display">Display on map</string>
+    <string name="info">Info</string>
+    <string name="totalprice">Total price:</string>
+    <string name="totaltime">Total duration:</string>
+    
     <!-- Main Menu -->
     <string name="itemDeleteItinerary">Delete itinerary</string>
     <string name="itemNewItinerary">New Itinerary</string>
