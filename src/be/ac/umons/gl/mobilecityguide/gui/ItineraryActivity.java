@@ -52,7 +52,7 @@ public class ItineraryActivity extends ListActivity{
       public void onClick(View v){
         
         if(itinerary.size() > 0)
-          Toast.makeText(ItineraryActivity.this, getString(R.string.totalprice) + " " + itinerary.getPrice() + "€ \n" + getString(R.string.totaltime) + " " + getString(R.string.minutes), Toast.LENGTH_SHORT).show();
+          Toast.makeText(ItineraryActivity.this, getString(R.string.totalprice) + " " + itinerary.getPrice() + "€ \n" + getString(R.string.totaltime) + " " + itinerary.getDuration() + " " + getString(R.string.minutes), Toast.LENGTH_SHORT).show();
         else
           Toast.makeText(ItineraryActivity.this, getString(R.string.empty), Toast.LENGTH_SHORT).show();
       }
