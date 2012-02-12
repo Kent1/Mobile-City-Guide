@@ -25,7 +25,7 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 public class ItineraryActivity extends ListActivity {
   Itinerary itinerary;
   ArrayAdapter<POI> array;
-  ArrayList<POIParcelable> pois;
+  ArrayList<POIParcelable> pois = new ArrayList<POIParcelable>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
