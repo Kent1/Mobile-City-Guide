@@ -24,7 +24,7 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
  * 
  * @author Allard Hugo
  */
-public class POIDisplayActivity extends Activity {
+public class POIDisplayActivity extends Activity{
 
   private POI poi;
   private TextView name, address, description, price, duration;
@@ -36,7 +36,7 @@ public class POIDisplayActivity extends Activity {
   private POIDB pdb;
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState){
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.poidisplayactivity);
@@ -70,11 +70,11 @@ public class POIDisplayActivity extends Activity {
 
     ratingBar = (RatingBar) findViewById(R.id.rating);
     ratingBar.setRating(myRank);
-    ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+    ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
 
       @Override
       public void onRatingChanged(RatingBar ratingBar, float rating,
-          boolean fromUser) {
+          boolean fromUser){
 
         Toast.makeText(POIDisplayActivity.this,
             getString(R.string.toast) + " " + rating + "/5", Toast.LENGTH_SHORT)
@@ -93,10 +93,10 @@ public class POIDisplayActivity extends Activity {
     }
   }
 
-  class Add implements OnClickListener {
+  class Add implements OnClickListener{
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
 
       itinerary.add(poi);
       button.setText(R.string.remove);
@@ -104,10 +104,10 @@ public class POIDisplayActivity extends Activity {
     }
   }
 
-  class Remove implements OnClickListener {
+  class Remove implements OnClickListener{
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
 
       itinerary.remove(poi);
       button.setText(R.string.add);
@@ -116,7 +116,7 @@ public class POIDisplayActivity extends Activity {
   }
 
   @Override
-  public void finish() {
+  public void finish(){
 
     if (myRank != ratingBar.getRating())
       rdb.rank(poi.getId(), ratingBar.getRating(), myRank);
