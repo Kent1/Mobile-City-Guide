@@ -1,5 +1,7 @@
 package be.ac.umons.gl.mobilecityguide.gui;
 
+import java.util.ArrayList;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,8 +28,10 @@ public class TagFilterActivity extends ListActivity {
 
     mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+    ArrayList<String> list = tagDB.getTagListMyDB();
+
     this.setListAdapter(new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_checked, tagDB.getTagListMyDB()) {
+        android.R.layout.simple_list_item_checked, list) {
       @Override
       public View getView(int position, View convertView, ViewGroup parent) {
         View row;
