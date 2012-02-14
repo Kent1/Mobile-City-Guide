@@ -26,7 +26,7 @@ public class POIDBTest extends AndroidTestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    db = new POIDB();
+    db = new POIDB(this.mContext);
     poi = null;
   }
 
@@ -41,10 +41,21 @@ public class POIDBTest extends AndroidTestCase {
   }
 
   /**
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#retrievePOIList(double, double, int)}
+   * .
+   */
+  public final void testRetrievePOIList() {
+    ArrayList<POI> list = db.retrievePOIList(50.463, 3.9551, 2);
+    assertTrue(!list.isEmpty());
+  }
+
+  /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(int)}
    * .
    */
   public final void testGetPOIInt() {
+    db.retrievePOIList(50.463, 3.9551, 2);
     poi = db.getPOI(1);
     assertTrue(poi != null);
     assertTrue(poi.getId() == 1);
@@ -57,19 +68,10 @@ public class POIDBTest extends AndroidTestCase {
    * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(java.lang.String)}.
    */
   public final void testGetPOIString() {
+    db.retrievePOIList(50.463, 3.9551, 2);
     poi = db.getPOI("Pentagone");
     assertTrue(poi != null);
     assertTrue(poi.getId() == 1);
-  }
-
-  /**
-   * Test method for
-   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getDescription(int)}.
-   */
-  public final void testGetDescription() {
-    String description = db.getDescription(1);
-    assertTrue(description
-        .contains("The pentagone is a building belonging to university of Mons."));
   }
 
   /**
