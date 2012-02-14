@@ -15,21 +15,44 @@ public class MyDB extends SQLiteOpenHelper {
   /** Instance of myDB */
   private static MyDB instance;
 
+  /** Request to create table POI */
+  private static final String TABLE_POI = "POIDB";
+  private static final String POI_COL_ID = "Id";
+  private static final String POI_COL_NAME = "Name";
+  private static final String POI_COL_LON = "Longitude";
+  private static final String POI_COL_LAT = "Latitude";
+  private static final String POI_COL_ADD = "Address";
+  private static final String POI_COL_TAG = "Tag";
+  private static final String POI_COL_PRI = "Price";
+  private static final String POI_COL_DUR = "Duration";
+  private static final String POI_COL_RAN = "Ranking";
+  private static final String POI_COL_DES = "Description";
+  private static final String POI_COL_VIS = "Visited";
+
+  private static final String CREATE_TABLEPOI = "CREATE TABLE " + TABLE_POI
+      + " (" + POI_COL_ID + " INTEGER PRIMARY KEY, " + POI_COL_NAME
+      + " VARCHAR(30), " + POI_COL_LON + " DOUBLE, " + POI_COL_LAT
+      + " DOUBLE, " + POI_COL_ADD + " VARCHAR(300), " + POI_COL_TAG
+      + " VARCHAR(30), " + POI_COL_PRI + " DOUBLE, " + POI_COL_DUR
+      + " INTEGER, " + POI_COL_RAN + " DOUBLE, " + POI_COL_DES
+      + " VARCHAR(500), " + POI_COL_VIS + " BOOLEAN );";
+
   /** Request to create table Tag */
   private static final String TABLE_TAG = "TagDB";
-  private static final String COL_TAG = "Tag";
-  private static final String COL_BOOL = "Bool";
+  private static final String TAG_COL_TAG = "Tag";
+  private static final String TAG_COL_BOOL = "Bool";
 
   private static final String CREATE_TABLETAG = "CREATE TABLE " + TABLE_TAG
-      + " (" + COL_TAG + " varchar(30), " + COL_BOOL + " BOOLEAN );";
+      + " (" + TAG_COL_TAG + " varchar(30), " + TAG_COL_BOOL + " BOOLEAN );";
 
   /** Request to create table Rank */
   private static final String TABLE_RANK = "RankingDB";
-  private static final String COL_ID = "Id";
-  private static final String COL_RANK = "Rank";
+  private static final String RANK_COL_ID = "Id";
+  private static final String RANK_COL_RANK = "Rank";
 
   private static final String CREATE_TABLERANK = "CREATE TABLE " + TABLE_RANK
-      + " (" + COL_ID + " INTEGER PRIMARY KEY, " + COL_RANK + " DOUBLE );";
+      + " (" + RANK_COL_ID + " INTEGER PRIMARY KEY, " + RANK_COL_RANK
+      + " DOUBLE );";
 
   /**
    * Constructor
@@ -70,6 +93,7 @@ public class MyDB extends SQLiteOpenHelper {
   public void onCreate(SQLiteDatabase db) {
     db.execSQL(CREATE_TABLETAG);
     db.execSQL(CREATE_TABLERANK);
+    db.execSQL(CREATE_TABLEPOI);
   }
 
   /*
@@ -83,6 +107,7 @@ public class MyDB extends SQLiteOpenHelper {
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     db.execSQL("DROP TABLE TagDB");
     db.execSQL("DROP TABLE RankingDB");
+    db.execSQL("DROP TABLE POIDB");
     onCreate(db);
   }
 }
