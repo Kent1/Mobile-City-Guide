@@ -3,13 +3,9 @@ package be.ac.umons.gl.mobilecityguide.map;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,16 +28,9 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 
 public class MainActivity extends MapActivity {
-
-  /** Refresh value in km */
-  private int refreshValue;
-
-  /** The radius in which we load POIs in km */
-  private int radius;
 
   /** The <code>MapView</code> for this map. */
   private MapView mapView;
@@ -54,15 +43,6 @@ public class MainActivity extends MapActivity {
 
   /** The <code>TagDB</code> for get the tag list. */
   private TagDB tagDB;
-
-  /** The <code>LocationHelperr</code> for GPS localization. */
-  private LocationHelper locationHelper;
-
-  /** The <code>LocationManager</code> for GPS localization. */
-  private LocationManager locationManager;
-
-  /** The <code>Overlay</code> for user's location. */
-  private MyLocationOverlay myLocation;
 
   /** The <code>POIDB</code> to fetch <code>POI</code>s from the database. */
   private POIDB poidb;
@@ -79,8 +59,8 @@ public class MainActivity extends MapActivity {
   /** The preference of the user */
   private SharedPreferences prefs;
 
-  /** Initial location */
-  private GeoPoint initLocation;
+  /** The <code>LocationHelperr</code> for GPS localization. */
+  private LocationHelper locationHelper;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -88,8 +68,6 @@ public class MainActivity extends MapActivity {
     super.onCreate(savedInstanceState);
 
     prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
-    radius = Integer.parseInt(prefs.getString("radius", "5"));
-    refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
 
     itinerary = new Itinerary();
 
@@ -105,15 +83,13 @@ public class MainActivity extends MapActivity {
     mapView.setSatellite(prefs.getBoolean("satellite", false));
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
-
-    initLocation = mapView.getMapCenter();
-
-    locationHelper = new LocationHelper(this);
   }
 
   @Override
-  public void onResume() {
-    super.onResume();
+  public void onStart() {
+    super.onStart();
+    locationHelper = new LocationHelper(this, mapView);
+    this.loadPOIs();
   }
 
   @Override
@@ -135,8 +111,6 @@ public class MainActivity extends MapActivity {
       loadPOIs();
       return;
     case R.id.itemPreferences:
-      radius = Integer.parseInt(prefs.getString("radius", "5"));
-      refreshValue = Integer.parseInt(prefs.getString("refreshvalue", "1"));
       mapView.setSatellite(prefs.getBoolean("satellite", false));
       return;
     }
@@ -157,7 +131,7 @@ public class MainActivity extends MapActivity {
       ItineraryParcelable ip = new ItineraryParcelable(itinerary);
       intent.putExtra("itinerary", ip);
       ArrayList<POIParcelable> parcel = new ArrayList<POIParcelable>();
-      for(POI poi : pois)
+      for (POI poi : pois)
         parcel.add(new POIParcelable(poi));
       intent.putParcelableArrayListExtra("pois", parcel);
       this.startActivityForResult(intent, R.id.itemItinerary);
@@ -188,14 +162,13 @@ public class MainActivity extends MapActivity {
 
   public void loadPOIs() {
 
-    GeoPoint p = myLocation.getMyLocation();
-    if (p == null)
-      p = mapView.getMapCenter();
+    GeoPoint p = locationHelper.getMyLocation();
 
     double latitude = p.getLatitudeE6() / 1E6;
     double longitude = p.getLongitudeE6() / 1E6;
 
-    pois = poidb.getPOI(latitude, longitude, radius);
+    pois = poidb.getPOI(latitude, longitude,
+        Integer.parseInt(prefs.getString("radius", "5")));
 
     mapOverlays.remove(itemizedOverlay);
     itemizedOverlay = new POIItemizedOverlay(marker, this);
@@ -226,69 +199,5 @@ public class MainActivity extends MapActivity {
   protected boolean isRouteDisplayed() {
 
     return false;
-  }
-
-  public class LocationHelper implements LocationListener {
-
-    public LocationHelper(Context context) {
-
-      locationManager = (LocationManager) context
-          .getSystemService(Context.LOCATION_SERVICE);
-
-      // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-      // 60000, 0, this);
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-          10000, 0, this);
-
-      myLocation = new MyLocationOverlay(context, mapView);
-      myLocation.enableMyLocation();
-      myLocation.runOnFirstFix(new Runnable() {
-        @Override
-        public void run() {
-          mapOverlays.add(myLocation);
-          mapView.getController().animateTo(myLocation.getMyLocation());
-          initLocation = myLocation.getMyLocation();
-          loadPOIs();
-        }
-      });
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-      if (myLocation.getMyLocation() == null)
-        return;
-
-      if (DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
-          initLocation.getLatitudeE6() / 1E6, myLocation.getMyLocation()
-              .getLongitudeE6() / 1E6, myLocation.getMyLocation()
-              .getLatitudeE6() / 1E6) > refreshValue) {
-
-        loadPOIs();
-        initLocation = myLocation.getMyLocation();
-      }
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    public void enableLocation() {
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-          10000, 0, locationHelper);
-      myLocation.enableMyLocation();
-    }
-
-    public void disableLocation() {
-      locationManager.removeUpdates(locationHelper);
-      myLocation.disableMyLocation();
-    }
   }
 }
