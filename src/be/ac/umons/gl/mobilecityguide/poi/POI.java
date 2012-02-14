@@ -40,6 +40,9 @@ public class POI {
   /** The tag of this <code>POI</code>. */
   private String tag;
 
+  /** Is we have already visite this <code>POI</code> or not */
+  private boolean visited;
+
   /**
    * Constructs a new empty instance of <code>POI</code>.
    */
@@ -310,6 +313,24 @@ public class POI {
   public void setLongitude(double longitude) {
 
     this.longitude = longitude;
+  }
+
+  /**
+   * Gets if we have already visited this <code>POI</code>.
+   * 
+   * @return visited
+   */
+  public boolean isVisited() {
+    return visited;
+  }
+
+  /**
+   * Sets if we have already visited this <code>POI</code>.
+   * 
+   * @param visited
+   */
+  public void setVisited(boolean visited) {
+    this.visited = visited;
   }
 
   /*

@@ -66,17 +66,17 @@ public class MainActivity extends MapActivity {
   public void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
 
     prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
+
+    poidb = new POIDB(this);
 
     itinerary = new Itinerary();
 
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
 
-    poidb = new POIDB();
-
-    setContentView(R.layout.main);
     mapView = (MapView) findViewById(R.id.mapview);
     mapView.setBuiltInZoomControls(true);
     mapView.getController().setZoom(16);

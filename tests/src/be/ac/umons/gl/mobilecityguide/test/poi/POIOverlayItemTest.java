@@ -12,7 +12,7 @@ import com.google.android.maps.GeoPoint;
  */
 public class POIOverlayItemTest extends AndroidTestCase {
   POIOverlayItem poiOverlayItem;
-  POIDB poiDB = new POIDB();
+  POIDB poiDB;
 
   /*
    * (non-Javadoc)
@@ -23,6 +23,7 @@ public class POIOverlayItemTest extends AndroidTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     poiOverlayItem = new POIOverlayItem(new GeoPoint(1, 2), "", "");
+    poiDB = new POIDB(this.mContext);
   }
 
   /*

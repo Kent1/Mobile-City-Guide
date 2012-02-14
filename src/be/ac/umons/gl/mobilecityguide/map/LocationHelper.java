@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import be.ac.umons.gl.mobilecityguide.db.POIDB;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -67,7 +68,10 @@ public class LocationHelper implements LocationListener {
             .getLongitudeE6() / 1E6,
         myLocation.getMyLocation().getLatitudeE6() / 1E6) > Integer
         .parseInt(prefs.getString("refreshvalue", "1"))) {
-
+      double lon = myLocation.getMyLocation().getLongitudeE6() / 1E6;
+      double lat = myLocation.getMyLocation().getLatitudeE6() / 1E6;
+      new POIDB(context).retrievePOIList(lon, lat,
+          Integer.parseInt(prefs.getString("radius", "5")));
       ((MainActivity) context).loadPOIs();
       initLocation = myLocation.getMyLocation();
     }
