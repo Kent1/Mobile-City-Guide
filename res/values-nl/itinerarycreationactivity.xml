@@ -6,7 +6,7 @@
     <string name="maxprice">Maximale prijs:</string>
     <string name="rating">Minimale rating:</string>
     <string name="tags">Labels</string>
-    <string name="all">Alle</string>
-    <string name="none">Geen</string>
+    <string name="filter">Kies een filter</string>
+    <string name="modifyfilter">Wijzig Filter</string>
     <string name="error">Vul aub alle velden in.</string> 
 </resources>

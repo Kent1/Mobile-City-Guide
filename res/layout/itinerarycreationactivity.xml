@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" 
+  android:layout_width="fill_parent"
   android:layout_height="fill_parent"
+  android:background="@color/background"
   android:orientation="vertical">
   
     <LinearLayout
@@ -41,7 +42,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/time"
-          android:textColor="#000000"
+          android:textColor="@color/main_text"
           android:textSize="20dp"
           android:layout_marginTop="5dp" />
 
@@ -64,7 +65,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/maxprice"
-          android:textColor="#000000"
+          android:textColor="@color/main_text"
           android:textSize="20dp"
           android:layout_marginTop="5dp" />
 
@@ -87,9 +88,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/rating"
-          android:textColor="#000000"
+          android:textColor="@color/main_text"
           android:textSize="20dp"
           android:layout_marginTop="5dp" />
+       
        <RatingBar
           android:id="@+id/rating"
           style="@android:style/Animation"
@@ -103,44 +105,18 @@
     </LinearLayout>
     
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/header"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
-            android:textStyle="bold"
-            android:text="@string/tags"
-            android:textColor="@color/background"
-            android:textSize="25dp" />
-
-        <Button
-            android:id="@+id/clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.04"
-            android:text="@string/none"
-            android:layout_marginTop="5dp" />
-
-        <Button
-            android:id="@+id/all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.07"
-            android:text="@string/all"
-            android:layout_marginTop="5dp" />
-    </LinearLayout>
-        
-    <ListView
-      android:id="@android:id/list"
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content" >
-        
-    </ListView>
+      android:layout_height="wrap_content"
+      android:background="@color/background"
+      android:orientation="vertical" >
+       
+		    <Button
+		      android:id="@+id/filter"
+		      android:layout_width="fill_parent"
+		      android:layout_height="wrap_content"
+		      android:text="@string/filter"
+		      android:layout_marginTop="10dp" />
+	    
+	    </LinearLayout>
 
 </LinearLayout>

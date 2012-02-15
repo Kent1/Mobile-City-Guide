@@ -6,7 +6,7 @@
     <string name="maxprice">Maximum price:</string>
     <string name="rating">Minimum rating:</string>
     <string name="tags">Tags</string>
-    <string name="all">All</string>
-    <string name="none">Clear</string>
+    <string name="filter">Choose a filter</string>
+    <string name="modifyfilter">Modify filter</string>
     <string name="error">Please, fill all the fields.</string>
 </resources>

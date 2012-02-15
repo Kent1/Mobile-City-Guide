@@ -2,24 +2,16 @@ package be.ac.umons.gl.mobilecityguide.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.ListActivity;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
-import be.ac.umons.gl.mobilecityguide.db.TagDB;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
@@ -30,7 +22,7 @@ import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
  * 
  * @author Allard Hugo
  */
-public class ItineraryCreationActivity extends ListActivity {
+public class ItineraryCreationActivity extends Activity {
 
   /** The generated <code>Itinerary</code>. */
   private Itinerary itinerary;
@@ -38,16 +30,10 @@ public class ItineraryCreationActivity extends ListActivity {
   /** The <code>List</code> of the <code>POI</code>s around the user. */
   private List<POI> pois;
 
-  /** The tag filter. */
-  private List<String> filter;
-  private boolean[] state;
+  /** The wanted tags. */
+  private ArrayList<String> tags;
 
-  /** The list of tags. */
-  private TagDB tagDB;
-
-  private ArrayAdapter<String> adapter;
-  private LayoutInflater mInflater;
-  private Button generate, all, none;
+  private Button generate, toFilter;
   private RatingBar minRank;
   private EditText maxTime, maxPrice;
 
@@ -58,51 +44,20 @@ public class ItineraryCreationActivity extends ListActivity {
 
     setContentView(R.layout.itinerarycreationactivity);
 
-    tagDB = new TagDB(this);
-
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
-    filter = new ArrayList<String>();
-    ArrayList<String> tags = tagDB.getTagListMyDB();
-    state = new boolean[tags.size()];
+    tags = new ArrayList<String>();
 
     List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList(
         "pois");
     for (POIParcelable parcel : temp)
       pois.add(parcel.getPoi());
 
-    mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-    adapter = new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_checked, tags) {
-
-      @Override
-      public View getView(int position, View convertView, ViewGroup parent) {
-
-        View row;
-        if (convertView == null)
-          row = mInflater.inflate(android.R.layout.simple_list_item_checked,
-              null);
-        else
-          row = convertView;
-
-        CheckedTextView c = (CheckedTextView) row
-            .findViewById(android.R.id.text1);
-        c.setText(getItem(position));
-        c.setChecked(state[position]);
-
-        return c;
-      }
-    };
-
-    this.setListAdapter(adapter);
-
     minRank = (RatingBar) findViewById(R.id.rating);
     maxTime = (EditText) findViewById(R.id.time);
     maxPrice = (EditText) findViewById(R.id.price);
     generate = (Button) findViewById(R.id.generate);
-    all = (Button) findViewById(R.id.all);
-    none = (Button) findViewById(R.id.clear);
+    toFilter = (Button) findViewById(R.id.filter);
 
     generate.setOnClickListener(new OnClickListener() {
 
@@ -119,52 +74,16 @@ public class ItineraryCreationActivity extends ListActivity {
       }
     });
 
-    all.setOnClickListener(new OnClickListener() {
+    toFilter.setOnClickListener(new OnClickListener() {
 
       @Override
       public void onClick(View v) {
 
-        int size = getListView().getAdapter().getCount();
-
-        for (int i = 0; i < size; i++)
-          state[i] = true;
-
-        filter = new ArrayList<String>();
-        adapter.notifyDataSetChanged();
+        Intent i = new Intent(getApplicationContext(), TagFilterActivity.class);
+        i.putStringArrayListExtra("tags", tags);
+        startActivityForResult(i, 1);
       }
     });
-
-    none.setOnClickListener(new OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-
-        int size = getListView().getAdapter().getCount();
-
-        for (int i = 0; i < size; i++)
-          state[i] = false;
-
-        filter = tagDB.getTagListMyDB();
-        adapter.notifyDataSetChanged();
-      }
-    });
-  }
-
-  @Override
-  protected void onListItemClick(ListView l, View v, int position, long id) {
-
-    CheckedTextView c = (CheckedTextView) v;
-    String tag = (String) c.getText();
-    int i = tagDB.getTagListMyDB().indexOf(c.getText());
-
-    if (!state[i])
-      filter.add(tag);
-    else
-      filter.remove(tag);
-
-    state[i] = !state[i];
-
-    adapter.notifyDataSetChanged();
   }
 
   /**
@@ -184,10 +103,9 @@ public class ItineraryCreationActivity extends ListActivity {
     }
 
     // Filter the POIs
-    while (i < pois.size()) {
-
-      if (pois.get(i).getRank() < minRank.getRating()
-          || filter.contains(pois.get(i).getTag()))
+    while (i < pois.size()){
+      
+      if (pois.get(i).getRank() < minRank.getRating() || (tags.size() > 0 && !tags.contains(pois.get(i).getTag())))
         pois.remove(i);
       else
         i++;
@@ -207,6 +125,14 @@ public class ItineraryCreationActivity extends ListActivity {
       } else
         pois.remove(i);
     }
+  }
+  
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    
+    tags = ((ArrayList<String>) data.getExtras().getStringArrayList("tag"));
+    
+    toFilter.setText(R.string.modifyfilter);
   }
 
   @Override

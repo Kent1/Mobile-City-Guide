@@ -9,6 +9,10 @@
     <string name="itemPOIList">POI List</string>
     <string name="itemItinerary">Itinerary</string>
     
+    <!-- Tags -->
+    <string name="all">All</string>
+    <string name="none">Clear</string>
+    
     <!-- ItineraryActivity -->
     <string name="empty">Empty itinerary</string>
     <string name="display">Display on map</string>

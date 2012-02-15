@@ -56,7 +56,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/address"
-            android:textColor="#000000"
+            android:textColor="@color/main_text"
             android:textSize="20dp" />
 
           <TextView
@@ -70,7 +70,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/description"
-            android:textColor="#000000"
+            android:textColor="@color/main_text"
             android:textSize="20dp" />
           
           <TextView
@@ -85,7 +85,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/price"
-            android:textColor="#000000"
+            android:textColor="@color/main_text"
             android:textSize="20dp" />
           
           <TextView
@@ -99,7 +99,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/duration"
-            android:textColor="#000000"
+            android:textColor="@color/main_text"
             android:textSize="20dp" />
           
           <TextView
