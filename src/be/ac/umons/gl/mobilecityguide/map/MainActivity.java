@@ -69,11 +69,10 @@ public class MainActivity extends MapActivity {
     prefs = getSharedPreferences("MobileCityGuide", MODE_WORLD_READABLE);
 
     poidb = new POIDB(this);
-
-    itinerary = new Itinerary();
-
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
+
+    itinerary = new Itinerary();
 
     mapView = (MapView) findViewById(R.id.mapview);
     mapView.setBuiltInZoomControls(true);

@@ -53,6 +53,10 @@ public class LocationHelper implements LocationListener {
         mapView.getOverlays().add(myLocation);
         mapView.getController().animateTo(myLocation.getMyLocation());
         initLocation = myLocation.getMyLocation();
+        double lon = initLocation.getLongitudeE6() / 1E6;
+        double lat = initLocation.getLatitudeE6() / 1E6;
+        new POIDB(context).retrievePOIList(lat, lon,
+            Integer.parseInt(prefs.getString("radius", "5")));
         ((MainActivity) context).loadPOIs();
       }
     });
@@ -69,7 +73,7 @@ public class LocationHelper implements LocationListener {
         initLocation.getLatitudeE6() / 1E6, lon, lat) > Integer.parseInt(prefs
         .getString("refreshvalue", "1"))) {
 
-      new POIDB(context).retrievePOIList(lon, lat,
+      new POIDB(context).retrievePOIList(lat, lon,
           Integer.parseInt(prefs.getString("radius", "5")));
       initLocation = myLocation.getMyLocation();
       ((MainActivity) context).loadPOIs();

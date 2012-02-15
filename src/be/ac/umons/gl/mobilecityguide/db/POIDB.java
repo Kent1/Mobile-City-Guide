@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import be.ac.umons.gl.mobilecityguide.map.DistanceHelper;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
 /**
@@ -84,6 +85,7 @@ public class POIDB extends DB {
         COL_LON, COL_LAT, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
         COL_VIS }, COL_ID + " = " + id, null, null, null, null);
     if (cursor.getCount() == 0) {
+      cursor.close();
       db.close();
       return null;
     }
@@ -139,6 +141,9 @@ public class POIDB extends DB {
         + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
         + "JOIN Descriptions ON Descriptions.id=POI.id AND Descriptions.Language = \""
         + locale + "\" WHERE " + whereClause;
+    Log.e(tag, "" + latitude + ";" + longitude);
+    Log.e(tag,
+        "" + DistanceHelper.distance(latitude, longitude, 50.4632, 3.955117));
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     ArrayList<POI> retour = new ArrayList<POI>();
