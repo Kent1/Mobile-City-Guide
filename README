@@ -1,0 +1,17 @@
+Mobile City Guide
+-----------------
+
+Compilation
+-----------
+
+Le projet est compilable avec Ant.
+Si vous avez une erreur avec ant, faites un
+"android update project -p ./"
+
+Tests
+-----
+
+Le project de tests se trouve dans le dossier "tests/"
+Il se compile aussi avec ant, et on éxécute le test avec "ant tests".
+Si vous avez un problème avec ant, faites un
+"android update test-project -p ./ -m ../"
