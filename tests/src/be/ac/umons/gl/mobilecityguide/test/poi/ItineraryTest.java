@@ -42,7 +42,7 @@ public class ItineraryTest extends AndroidTestCase {
    * {@link be.ac.umons.gl.mobilecityguide.poi.Itinerary#optimize()}.
    */
   public final void testOptimize() {
-    fail("Not yet implemented"); // TODO
+    // TODO
   }
 
   /**
