@@ -13,9 +13,7 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
-import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
-import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 /**
  * This <code>Activity</code> is use to generate a new <code>Itinerary</code>.
@@ -47,10 +45,7 @@ public class ItineraryCreationActivity extends Activity {
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
 
-    List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList(
-        "pois");
-    for (POIParcelable parcel : temp)
-      pois.add(parcel.getPoi());
+    // pois = ..
 
     minRank = (RatingBar) findViewById(R.id.rating);
     maxTime = (EditText) findViewById(R.id.time);
@@ -140,7 +135,6 @@ public class ItineraryCreationActivity extends Activity {
   public void finish() {
 
     Intent data = new Intent();
-    data.putExtra("itinerary", new ItineraryParcelable(itinerary));
     setResult(1, data);
 
     super.finish();

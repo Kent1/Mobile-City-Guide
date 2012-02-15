@@ -19,11 +19,9 @@ import be.ac.umons.gl.mobilecityguide.gui.POIDisplayActivity;
 import be.ac.umons.gl.mobilecityguide.gui.POIListActivity;
 import be.ac.umons.gl.mobilecityguide.gui.PreferencesActivity;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
-import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
-import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -83,11 +81,7 @@ public class MainActivity extends MapActivity {
     mapView.setSatellite(prefs.getBoolean("satellite", false));
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
-  }
 
-  @Override
-  public void onStart() {
-    super.onStart();
     locationHelper = new LocationHelper(this, mapView);
     this.loadPOIs();
   }
@@ -104,8 +98,7 @@ public class MainActivity extends MapActivity {
     case R.id.itemPOIDisplay:
     case R.id.itemPOIList:
     case R.id.itemItinerary:
-      itinerary = ((ItineraryParcelable) data.getExtras().getParcelable(
-          "itinerary")).getItinerary();
+      // itinerary = (Itinerary) this.getApplicationContext();
       return;
     case R.id.itemFilter:
       loadPOIs();
@@ -128,21 +121,10 @@ public class MainActivity extends MapActivity {
     switch (item.getItemId()) {
     case R.id.itemItinerary:
       Intent intent = new Intent(this, ItineraryActivity.class);
-      ItineraryParcelable ip = new ItineraryParcelable(itinerary);
-      intent.putExtra("itinerary", ip);
-      ArrayList<POIParcelable> parcel = new ArrayList<POIParcelable>();
-      for (POI poi : pois)
-        parcel.add(new POIParcelable(poi));
-      intent.putParcelableArrayListExtra("pois", parcel);
       this.startActivityForResult(intent, R.id.itemItinerary);
       return true;
     case R.id.itemPOIList:
       Intent i = new Intent(this, POIListActivity.class);
-      ArrayList<POIParcelable> list = new ArrayList<POIParcelable>();
-      for (POI poi : pois)
-        list.add(new POIParcelable(poi));
-      i.putExtra("POIs", list);
-      i.putExtra("itinerary", new ItineraryParcelable(itinerary));
       this.startActivityForResult(i, R.id.itemPOIList);
       return true;
     case R.id.itemFilter:
@@ -190,8 +172,7 @@ public class MainActivity extends MapActivity {
 
   public void displayPOI(POI poi) {
     Intent intent = new Intent(this, POIDisplayActivity.class);
-    intent.putExtra("poi", new POIParcelable(poi));
-    intent.putExtra("itinerary", new ItineraryParcelable(itinerary));
+    intent.putExtra("poi", poi.getId());
     this.startActivityForResult(intent, R.id.itemPOIDisplay);
   }
 

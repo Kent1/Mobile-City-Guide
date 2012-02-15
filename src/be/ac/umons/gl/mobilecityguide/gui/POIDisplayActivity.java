@@ -14,9 +14,7 @@ import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.db.RankingDB;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
-import be.ac.umons.gl.mobilecityguide.poi.ItineraryParcelable;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
-import be.ac.umons.gl.mobilecityguide.poi.POIParcelable;
 
 /**
  * This <code>Activity</code> displays the informations for a specific
@@ -44,9 +42,8 @@ public class POIDisplayActivity extends Activity {
     rdb = new RankingDB(this);
     pdb = new POIDB(this);
 
-    poi = ((POIParcelable) (getIntent().getParcelableExtra("poi"))).getPoi();
-    itinerary = ((ItineraryParcelable) (getIntent()
-        .getParcelableExtra("itinerary"))).getItinerary();
+    poi = pdb.getPOI(getIntent().getIntExtra("poi", 0));
+    itinerary = (Itinerary) getApplicationContext();
 
     name = (TextView) findViewById(R.id.name);
     name.setText(poi.getName());
@@ -123,7 +120,6 @@ public class POIDisplayActivity extends Activity {
       rdb.rank(poi.getId(), ratingBar.getRating(), myRank);
 
     Intent data = new Intent();
-    data.putExtra("itinerary", new ItineraryParcelable(itinerary));
     setResult(1, data);
 
     super.finish();

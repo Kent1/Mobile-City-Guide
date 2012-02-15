@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Application;
+
 /**
  * An <code>Itinerary</code> is a <code>List</code> of <code>POI</code>s.
  * 
  * @author Allard Hugo
  */
-public class Itinerary implements Iterable<POI>{
+public class Itinerary extends Application implements Iterable<POI> {
 
   /** Contains all the <code>POI</code>s for this <code>Itinerary</code>. */
   private List<POI> list;
@@ -17,12 +19,12 @@ public class Itinerary implements Iterable<POI>{
   /**
    * Constructs a new empty instance of <code>Itinerary</code>.
    */
-  public Itinerary(){
+  public Itinerary() {
 
     list = new ArrayList<POI>();
   }
 
-  public void optimize(){
+  public void optimize() {
 
     // TODO TSP
   }
@@ -33,7 +35,7 @@ public class Itinerary implements Iterable<POI>{
    * @param poi
    *          the <code>POI</code> to add.
    */
-  public void add(POI poi){
+  public void add(POI poi) {
 
     list.add(poi);
   }
@@ -41,7 +43,7 @@ public class Itinerary implements Iterable<POI>{
   /**
    * Empties this <code>Itinerary</code>.
    */
-  public void clear(){
+  public void clear() {
 
     list.clear();
   }
@@ -54,38 +56,40 @@ public class Itinerary implements Iterable<POI>{
    * @return <code>true</code> if the <code>POI</code> is present,
    *         <code>false</code> otherwise.
    */
-  public boolean contains(POI poi){
+  public boolean contains(POI poi) {
 
     return list.contains(poi);
   }
-  
+
   /**
    * Computes the total duration of this <code>Itinerary</code>.
    * 
-   * @return the total duration of all <code>POI</code>s in this <code>Itinerary</code>.
+   * @return the total duration of all <code>POI</code>s in this
+   *         <code>Itinerary</code>.
    */
-  public int getDuration(){
-    
+  public int getDuration() {
+
     int duration = 0;
-    
-    for(POI poi : list)
+
+    for (POI poi : list)
       duration += poi.getDuration();
-        
+
     return duration;
   }
-  
+
   /**
    * Computes the total cost of this <code>Itinerary</code>.
    * 
-   * @return the total cost of all <code>POI</code>s in this <code>Itinerary</code>.
+   * @return the total cost of all <code>POI</code>s in this
+   *         <code>Itinerary</code>.
    */
-  public double getPrice(){
-    
+  public double getPrice() {
+
     double price = 0;
-    
-    for(POI poi : list)
+
+    for (POI poi : list)
       price += poi.getPrice();
-        
+
     return price;
   }
 
@@ -95,7 +99,7 @@ public class Itinerary implements Iterable<POI>{
    * @param poi
    *          the <code>POI</code> to remove.
    */
-  public void remove(POI poi){
+  public void remove(POI poi) {
 
     list.remove(poi);
   }
@@ -105,7 +109,7 @@ public class Itinerary implements Iterable<POI>{
    * 
    * @return the number of <code>POI</code>s in this <code>Itinerary</code>.
    */
-  public int size(){
+  public int size() {
 
     return list.size();
   }
@@ -116,7 +120,7 @@ public class Itinerary implements Iterable<POI>{
    * @param list
    *          a <code>List</code> representing an <code>Itinerary</code>.
    */
-  public void setList(List<POI> list){
+  public void setList(List<POI> list) {
 
     this.list = list;
   }
@@ -128,14 +132,14 @@ public class Itinerary implements Iterable<POI>{
    * @return a <code>Set</code> with all the <code>POI</code>s in this
    *         <code>Itinerary</code>.
    */
-  public List<POI> getList(){
+  public List<POI> getList() {
 
     return list;
   }
 
   @Override
-  public Iterator<POI> iterator(){
-    
+  public Iterator<POI> iterator() {
+
     return list.iterator();
   }
 }

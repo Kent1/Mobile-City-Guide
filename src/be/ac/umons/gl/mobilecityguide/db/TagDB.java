@@ -142,6 +142,7 @@ public class TagDB extends DB {
     Cursor cursor = db.query(TABLE_TAG, new String[] { COL_TAG, COL_BOOL },
         COL_TAG + " = \"" + tag + "\"", null, null, null, null);
     if (cursor.getCount() == 0) {
+      cursor.close();
       db.close();
       return true;
     }

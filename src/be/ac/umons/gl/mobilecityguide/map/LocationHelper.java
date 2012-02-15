@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 
 import com.google.android.maps.GeoPoint;
@@ -74,6 +75,7 @@ public class LocationHelper implements LocationListener {
           Integer.parseInt(prefs.getString("radius", "5")));
       ((MainActivity) context).loadPOIs();
       initLocation = myLocation.getMyLocation();
+      Log.e("coucou", "aaaaaaaaaaaaaaaaaaaa");
     }
   }
 

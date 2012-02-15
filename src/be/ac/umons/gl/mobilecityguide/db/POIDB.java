@@ -155,6 +155,22 @@ public class POIDB extends DB {
     return retour;
   }
 
+  public ArrayList<POI> getPOIList() {
+    ArrayList<POI> list = new ArrayList<POI>();
+    db = myDB.getWritableDatabase();
+    Cursor cursor = db.query(TABLE_POI, new String[] { COL_ID, COL_NAME,
+        COL_LON, COL_LAT, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
+        COL_VIS }, null, null, null, null, null);
+    cursor.moveToFirst();
+    for (int i = 0; i < cursor.getCount(); i++) {
+      list.add(cursorToPOI(cursor));
+      cursor.moveToNext();
+    }
+    cursor.close();
+    db.close();
+    return list;
+  }
+
   /**
    * Create POI from JSONObject
    * 
