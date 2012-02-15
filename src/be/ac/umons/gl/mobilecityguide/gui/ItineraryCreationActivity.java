@@ -2,6 +2,7 @@ package be.ac.umons.gl.mobilecityguide.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,8 +76,8 @@ public class ItineraryCreationActivity extends Activity {
 
         Intent i = new Intent(getApplicationContext(), TagFilterActivity.class);
         i.putStringArrayListExtra("tags", tags);
-          if(tags != null)
-            i.putExtra("flag", true);
+        if (tags != null)
+          i.putExtra("flag", true);
         startActivityForResult(i, 1);
       }
     });
@@ -99,9 +100,10 @@ public class ItineraryCreationActivity extends Activity {
     }
 
     // Filter the POIs
-    while (i < pois.size()){
-      
-      if (pois.get(i).getRank() < minRank.getRating() || (tags.size() > 0 && !tags.contains(pois.get(i).getTag())))
+    while (i < pois.size()) {
+
+      if (pois.get(i).getRank() < minRank.getRating()
+          || (tags.size() > 0 && !tags.contains(pois.get(i).getTag())))
         pois.remove(i);
       else
         i++;
@@ -122,21 +124,20 @@ public class ItineraryCreationActivity extends Activity {
         pois.remove(i);
     }
   }
-  
+
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    
-    tags = ((ArrayList<String>) data.getExtras().getStringArrayList("tag"));
-    
+
+    tags = data.getExtras().getStringArrayList("tag");
+
     toFilter.setText(R.string.modifyfilter);
   }
 
   @Override
-  public void finish() {
-
+  public void onBackPressed() {
     Intent data = new Intent();
     setResult(1, data);
 
-    super.finish();
+    super.onBackPressed();
   }
 }

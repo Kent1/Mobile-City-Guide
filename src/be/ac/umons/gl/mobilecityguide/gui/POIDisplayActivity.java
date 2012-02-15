@@ -114,14 +114,13 @@ public class POIDisplayActivity extends Activity {
   }
 
   @Override
-  public void finish() {
-
+  public void onBackPressed() {
     if (myRank != ratingBar.getRating())
       rdb.rank(poi.getId(), ratingBar.getRating(), myRank);
 
     Intent data = new Intent();
     setResult(1, data);
 
-    super.finish();
+    super.onBackPressed();
   }
 }

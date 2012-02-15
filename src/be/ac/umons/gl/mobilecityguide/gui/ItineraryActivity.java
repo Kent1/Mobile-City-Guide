@@ -146,10 +146,10 @@ public class ItineraryActivity extends ListActivity {
   }
 
   @Override
-  public void finish() {
+  public void onBackPressed() {
     Intent data = new Intent();
     setResult(1, data);
 
-    super.finish();
+    super.onBackPressed();
   }
 }
