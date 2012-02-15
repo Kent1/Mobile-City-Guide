@@ -46,7 +46,6 @@ public class ItineraryCreationActivity extends Activity {
 
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
-    tags = new ArrayList<String>();
 
     List<POIParcelable> temp = getIntent().getExtras().getParcelableArrayList(
         "pois");
@@ -81,6 +80,8 @@ public class ItineraryCreationActivity extends Activity {
 
         Intent i = new Intent(getApplicationContext(), TagFilterActivity.class);
         i.putStringArrayListExtra("tags", tags);
+          if(tags != null)
+            i.putExtra("flag", true);
         startActivityForResult(i, 1);
       }
     });

@@ -44,10 +44,10 @@ public class TagFilterActivity extends ListActivity{
     // On vient de ItineraryCreationActivity
     if(getIntent().hasExtra("tags")){
       
-      ArrayList<String> temp;
-      
       // On a déjà fait un premier filtre
-      if((temp = getIntent().getExtras().getStringArrayList("tags")).size() != 0){
+      if(getIntent().hasExtra("flag")){
+        
+        ArrayList<String> temp = getIntent().getExtras().getStringArrayList("tags");
         
         for(int i = 0; i < temp.size(); i++)
           state[list.indexOf(temp.get(i))] = true;
