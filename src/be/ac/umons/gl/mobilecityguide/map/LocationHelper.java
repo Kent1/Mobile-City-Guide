@@ -6,7 +6,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
 
 import com.google.android.maps.GeoPoint;
@@ -63,19 +62,17 @@ public class LocationHelper implements LocationListener {
   public void onLocationChanged(Location location) {
     if (myLocation.getMyLocation() == null)
       return;
+    double lon = myLocation.getMyLocation().getLongitudeE6() / 1E6;
+    double lat = myLocation.getMyLocation().getLatitudeE6() / 1E6;
 
     if (DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
-        initLocation.getLatitudeE6() / 1E6, myLocation.getMyLocation()
-            .getLongitudeE6() / 1E6,
-        myLocation.getMyLocation().getLatitudeE6() / 1E6) > Integer
-        .parseInt(prefs.getString("refreshvalue", "1"))) {
-      double lon = myLocation.getMyLocation().getLongitudeE6() / 1E6;
-      double lat = myLocation.getMyLocation().getLatitudeE6() / 1E6;
+        initLocation.getLatitudeE6() / 1E6, lon, lat) > Integer.parseInt(prefs
+        .getString("refreshvalue", "1"))) {
+
       new POIDB(context).retrievePOIList(lon, lat,
           Integer.parseInt(prefs.getString("radius", "5")));
-      ((MainActivity) context).loadPOIs();
       initLocation = myLocation.getMyLocation();
-      Log.e("coucou", "aaaaaaaaaaaaaaaaaaaa");
+      ((MainActivity) context).loadPOIs();
     }
   }
 

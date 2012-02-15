@@ -98,7 +98,6 @@ public class MainActivity extends MapActivity {
     case R.id.itemPOIDisplay:
     case R.id.itemPOIList:
     case R.id.itemItinerary:
-      // itinerary = (Itinerary) this.getApplicationContext();
       return;
     case R.id.itemFilter:
       loadPOIs();
@@ -144,13 +143,7 @@ public class MainActivity extends MapActivity {
 
   public void loadPOIs() {
 
-    GeoPoint p = locationHelper.getMyLocation();
-
-    double latitude = p.getLatitudeE6() / 1E6;
-    double longitude = p.getLongitudeE6() / 1E6;
-
-    pois = poidb.getPOI(latitude, longitude,
-        Integer.parseInt(prefs.getString("radius", "5")));
+    pois = poidb.getPOIList();
 
     mapOverlays.remove(itemizedOverlay);
     itemizedOverlay = new POIItemizedOverlay(marker, this);
