@@ -59,8 +59,6 @@ public class MyDB extends SQLiteOpenHelper {
    * 
    * @param context
    *          The context of activity
-   * @param createDB
-   *          The SQL query to createDB if it does'nt exist
    */
   private MyDB(Context context) {
     super(context, DBName, null, 1);
@@ -71,13 +69,11 @@ public class MyDB extends SQLiteOpenHelper {
    * 
    * @param context
    *          The context of activity
-   * @param createDB
-   *          The SQL query to createDB if it does'nt exist
-   * @return
+   * @return The instance of MyDB
    */
   public static MyDB getInstance(Context context) {
     if (instance == null) {
-      instance = new MyDB(context);
+      instance = new MyDB(context.getApplicationContext());
     }
     return instance;
   }

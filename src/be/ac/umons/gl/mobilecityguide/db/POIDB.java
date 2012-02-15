@@ -22,7 +22,7 @@ public class POIDB extends DB {
   /** Tag for log */
   private static final String tag = "POIDB";
 
-  /** MyDB Variables */
+  /** MyDB Columns */
   private static final String TABLE_POI = "POIDB";
   private static final String COL_ID = "Id";
   private static final String COL_NAME = "Name";
@@ -126,9 +126,8 @@ public class POIDB extends DB {
    * 
    * @param latitude
    * @param longitude
-   * @param lon_span
-   * @param range
-   * @return
+   * @param radius
+   * @return A list of POI in the range specified
    */
   public ArrayList<POI> getPOI(double latitude, double longitude, int radius) {
     String whereClause = "(6371*acos(sin(radians(" + latitude

@@ -20,7 +20,7 @@ public class TagDB extends DB {
   /** Tag for log */
   private static final String tag = "TagDB";
 
-  /** MyDB Variables */
+  /** MyDB Columns */
   private static final String TABLE_TAG = "TagDB";
   private static final String COL_TAG = "Tag";
   private static final String COL_BOOL = "Bool";

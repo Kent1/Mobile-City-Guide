@@ -33,8 +33,9 @@ public abstract class DB {
   private final String adress = "http://sgl.umons.ac.be/mobilecityguide/cible.php";
   /** Tag for log */
   private static final String tag = "DB";
-  /** MyDB */
+  /** MyDB SQLiteOpenHelper */
   protected MyDB myDB;
+  /** SQLite DB */
   protected SQLiteDatabase db;
 
   /**
