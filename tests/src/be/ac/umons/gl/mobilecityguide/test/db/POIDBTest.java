@@ -27,6 +27,7 @@ public class POIDBTest extends AndroidTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     db = new POIDB(this.mContext);
+    db.retrievePOIList(50.463, 3.9551, 2);
     poi = null;
   }
 
@@ -76,11 +77,10 @@ public class POIDBTest extends AndroidTestCase {
 
   /**
    * Test method for
-   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(double, double, double, double)}
-   * .
+   * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOIList()} .
    */
-  public final void testGetPOIDoubleDoubleDoubleDouble() {
-    ArrayList<POI> poi = db.getPOI(50.463, 3.9551, 1);
+  public final void testGetPOIList() {
+    ArrayList<POI> poi = db.getPOIList();
     assertTrue(!poi.isEmpty());
   }
 

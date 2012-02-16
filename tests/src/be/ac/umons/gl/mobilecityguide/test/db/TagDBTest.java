@@ -42,7 +42,7 @@ public class TagDBTest extends AndroidTestCase {
    */
   public final void testRetrieveTagList() {
     db.retrieveTagList();
-    assertTrue(db.getTagList().equals(db.getTagListMyDB()));
+    assertTrue(!db.getTagListMyDB().isEmpty());
   }
 
   /**
@@ -50,18 +50,9 @@ public class TagDBTest extends AndroidTestCase {
    * {@link be.ac.umons.gl.mobilecityguide.db.TagDB#getTagList()}.
    */
   public final void testGetTagList() {
-    ArrayList<String> tags = db.getTagList();
-    assertTrue(tags.size() > 0);
+    ArrayList<String> tags = db.getTagListMyDB();
+    assertTrue(!tags.isEmpty());
     assertTrue(tags.get(0).equals("administration"));
-  }
-
-  /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.db.TagDB#getTag(int)}
-   * .
-   */
-  public final void testGetTag() {
-    String tag = db.getTag(1);
-    assertEquals(tag, "education");
   }
 
   /**
