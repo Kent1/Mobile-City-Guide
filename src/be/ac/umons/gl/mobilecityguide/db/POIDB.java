@@ -11,7 +11,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import be.ac.umons.gl.mobilecityguide.map.DistanceHelper;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
 /**
@@ -74,7 +73,7 @@ public class POIDB extends DB {
   }
 
   /**
-   * get the POI with id specified
+   * get the POI with specified id in the SQLite DB
    * 
    * @param id
    * @return POI with id specified
@@ -131,7 +130,7 @@ public class POIDB extends DB {
    * @param radius
    * @return A list of POI in the range specified
    */
-  public ArrayList<POI> getPOI(double latitude, double longitude, int radius) {
+  private ArrayList<POI> getPOI(double latitude, double longitude, int radius) {
     String whereClause = "(6371*acos(sin(radians(" + latitude
         + ")) * sin(radians(`latitude`)) + cos(radians(" + latitude
         + ")) * cos(radians(`latitude`)) * cos(radians(" + longitude
@@ -141,9 +140,6 @@ public class POIDB extends DB {
         + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
         + "JOIN Descriptions ON Descriptions.id=POI.id AND Descriptions.Language = \""
         + locale + "\" WHERE " + whereClause;
-    Log.e(tag, "" + latitude + ";" + longitude);
-    Log.e(tag,
-        "" + DistanceHelper.distance(latitude, longitude, 50.4632, 3.955117));
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     ArrayList<POI> retour = new ArrayList<POI>();

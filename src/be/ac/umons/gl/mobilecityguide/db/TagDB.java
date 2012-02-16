@@ -66,7 +66,7 @@ public class TagDB extends DB {
    * 
    * @return List of tags
    */
-  public ArrayList<String> getTagList() {
+  private ArrayList<String> getTagList() {
     String query = "SELECT * FROM TAGList";
     JSONArray jsonArray = this.query(query);
     ArrayList<String> list = new ArrayList<String>();
@@ -82,29 +82,6 @@ public class TagDB extends DB {
       }
     }
     return list;
-  }
-
-  /**
-   * Return the tag of a specified POI
-   * 
-   * @param id
-   *          the id of the POI
-   * @return tag of the POI
-   */
-  public String getTag(int id) {
-    String query = "SELECT TAG FROM TAG WHERE id = " + id + " LIMIT 0,1";
-    JSONArray jsonArray = this.query(query);
-    JSONObject json = null;
-    String retour = null;
-    if (jsonArray != null) {
-      try {
-        json = jsonArray.getJSONObject(0);
-        retour = json.getString("TAG");
-      } catch (JSONException e) {
-        Log.e(tag, "JSONException : " + e.getMessage());
-      }
-    }
-    return retour;
   }
 
   /**

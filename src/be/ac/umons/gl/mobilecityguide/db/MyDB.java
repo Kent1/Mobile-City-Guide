@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @author Quentin Loos
  */
 public class MyDB extends SQLiteOpenHelper {
-  /** DBName */
+  /** DB Name */
   private static final String DBName = "MobileCityGuideDB";
   /** Instance of myDB */
   private static MyDB instance;
@@ -58,7 +58,7 @@ public class MyDB extends SQLiteOpenHelper {
    * Constructor
    * 
    * @param context
-   *          The context of activity
+   *          The context of application
    */
   private MyDB(Context context) {
     super(context, DBName, null, 1);
@@ -68,7 +68,7 @@ public class MyDB extends SQLiteOpenHelper {
    * Return an instance of MyDB
    * 
    * @param context
-   *          The context of activity
+   *          The context of application
    * @return The instance of MyDB
    */
   public static MyDB getInstance(Context context) {

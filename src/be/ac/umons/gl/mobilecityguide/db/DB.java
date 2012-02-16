@@ -24,15 +24,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 /**
- * Abstract Class for using the distant and locale DB.
+ * Abstract Class for managing the distant and locale DB.
  * 
  * @author Quentin Loos
  */
 public abstract class DB {
-  /** DB address */
-  private final String adress = "http://sgl.umons.ac.be/mobilecityguide/cible.php";
   /** Tag for log */
   private static final String tag = "DB";
+  /** Distante DB address */
+  private final String adress = "http://sgl.umons.ac.be/mobilecityguide/cible.php";
+
   /** MyDB SQLiteOpenHelper */
   protected MyDB myDB;
   /** SQLite DB */
