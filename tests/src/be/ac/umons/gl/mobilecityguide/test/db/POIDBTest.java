@@ -49,6 +49,7 @@ public class POIDBTest extends AndroidTestCase {
   public final void testRetrievePOIList() {
     ArrayList<POI> list = db.retrievePOIList(50.463, 3.9551, 2);
     assertTrue(!list.isEmpty());
+    assertEquals(list.get(0).getName(), "Pentagone");
   }
 
   /**
@@ -82,6 +83,7 @@ public class POIDBTest extends AndroidTestCase {
   public final void testGetPOIList() {
     ArrayList<POI> poi = db.getPOIList();
     assertTrue(!poi.isEmpty());
+    assertEquals(poi.get(0).getName(), "Pentagone");
   }
 
 }
