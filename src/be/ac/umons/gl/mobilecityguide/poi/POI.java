@@ -1,11 +1,13 @@
 package be.ac.umons.gl.mobilecityguide.poi;
 
+import com.google.android.maps.GeoPoint;
+
 /**
  * A <code>POI</code> is a place to visit.
  * 
  * @author Allard Hugo & Quentin Loos
  */
-public class POI {
+public class POI extends GeoPoint {
 
   /** The Id of this <code>POI</code> in the database. */
   private int id;
@@ -21,12 +23,6 @@ public class POI {
 
   /** The global ranking for this <code>POI</code>. */
   private double rank;
-
-  /** The latitude for this <code>POI</code> in degrees. */
-  private double latitude;
-
-  /** The longitude for this <code>POI</code> in degrees. */
-  private double longitude;
 
   /** The name of this <code>POI</code>. */
   private String name;
@@ -47,7 +43,7 @@ public class POI {
    * Constructs a new empty instance of <code>POI</code>.
    */
   public POI() {
-
+    super(0, 0);
   }
 
   /**
@@ -57,7 +53,7 @@ public class POI {
    *          the id of this <code>POI</code>.
    */
   public POI(int id) {
-
+    super(0, 0);
     this.id = id;
   }
 
@@ -73,10 +69,8 @@ public class POI {
    *          the longitude (in degrees) of this <code>POI</code>.
    */
   public POI(int id, double latitude, double longitude) {
-
+    super((int) (latitude * 1E6), (int) (longitude * 1E6));
     this.id = id;
-    this.setLatitude(latitude);
-    this.setLongitude(longitude);
   }
 
   /**
@@ -280,7 +274,7 @@ public class POI {
    */
   public double getLatitude() {
 
-    return latitude;
+    return this.getLatitude() / 1E6;
   }
 
   /**
@@ -291,7 +285,7 @@ public class POI {
    */
   public void setLatitude(double latitude) {
 
-    this.latitude = latitude;
+    this.setLatitude(latitude * 1E6);
   }
 
   /**
@@ -301,7 +295,7 @@ public class POI {
    */
   public double getLongitude() {
 
-    return longitude;
+    return this.getLongitudeE6() / 1E6;
   }
 
   /**
@@ -312,7 +306,7 @@ public class POI {
    */
   public void setLongitude(double longitude) {
 
-    this.longitude = longitude;
+    this.setLongitude(longitude / 1E6);
   }
 
   /**
