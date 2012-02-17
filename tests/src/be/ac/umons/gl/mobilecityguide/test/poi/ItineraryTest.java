@@ -51,7 +51,7 @@ public class ItineraryTest extends AndroidTestCase {
    * .
    */
   public final void testAdd() {
-    itinerary.add(new POI());
+    itinerary.add(new POI(1, 1, 1));
     assertEquals(itinerary.size(), 1);
   }
 
@@ -60,7 +60,7 @@ public class ItineraryTest extends AndroidTestCase {
    * {@link be.ac.umons.gl.mobilecityguide.poi.Itinerary#clear()}.
    */
   public final void testClear() {
-    itinerary.add(new POI());
+    itinerary.add(new POI(1, 1, 1));
     itinerary.clear();
     assertEquals(itinerary.size(), 0);
   }
@@ -71,8 +71,8 @@ public class ItineraryTest extends AndroidTestCase {
    * .
    */
   public final void testContains() {
-    itinerary.add(new POI(1));
-    assertTrue(itinerary.contains(new POI(1)));
+    itinerary.add(new POI(1, 1, 1));
+    assertTrue(itinerary.contains(new POI(1, 1, 1)));
   }
 
   /**
@@ -81,9 +81,9 @@ public class ItineraryTest extends AndroidTestCase {
    * .
    */
   public final void testRemove() {
-    itinerary.add(new POI(1));
-    itinerary.remove(new POI(1));
-    assertTrue(!itinerary.contains(new POI(1)));
+    itinerary.add(new POI(1, 1, 1));
+    itinerary.remove(new POI(1, 1, 1));
+    assertTrue(!itinerary.contains(new POI(1, 1, 1)));
   }
 
   /**
@@ -91,8 +91,8 @@ public class ItineraryTest extends AndroidTestCase {
    * .
    */
   public final void testSize() {
-    itinerary.add(new POI(1));
-    itinerary.add(new POI(2));
+    itinerary.add(new POI(1, 1, 1));
+    itinerary.add(new POI(2, 1, 2));
     assertEquals(itinerary.size(), 2);
   }
 
@@ -103,10 +103,10 @@ public class ItineraryTest extends AndroidTestCase {
    */
   public final void testSetList() {
     ArrayList<POI> list = new ArrayList<POI>();
-    list.add(new POI(1));
+    list.add(new POI(1, 1, 1));
     itinerary.setList(list);
     assertEquals(itinerary.size(), 1);
-    assertTrue(itinerary.contains(new POI(1)));
+    assertTrue(itinerary.contains(new POI(1, 1, 1)));
   }
 
   /**
@@ -115,7 +115,7 @@ public class ItineraryTest extends AndroidTestCase {
    */
   public final void testGetList() {
     ArrayList<POI> list = new ArrayList<POI>();
-    list.add(new POI(1));
+    list.add(new POI(1, 1, 1));
     itinerary.setList(list);
     assertEquals(itinerary.getList(), list);
   }

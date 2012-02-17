@@ -40,24 +40,6 @@ public class POI extends GeoPoint {
   private boolean visited;
 
   /**
-   * Constructs a new empty instance of <code>POI</code>.
-   */
-  public POI() {
-    super(0, 0);
-  }
-
-  /**
-   * Constructs a new instance of <code>POI</code> with the given ID.
-   * 
-   * @param id
-   *          the id of this <code>POI</code>.
-   */
-  public POI(int id) {
-    super(0, 0);
-    this.id = id;
-  }
-
-  /**
    * Constructs a new instance of <code>POI</code> with the given ID and
    * location.
    * 
@@ -278,17 +260,6 @@ public class POI extends GeoPoint {
   }
 
   /**
-   * Sets the latitude of this <code>POI</code>.
-   * 
-   * @param latitude
-   *          the latitude of this <code>POI</code> in degrees.
-   */
-  public void setLatitude(double latitude) {
-
-    this.setLatitude(latitude * 1E6);
-  }
-
-  /**
    * Gets the longitude of this <code>POI</code>.
    * 
    * @return the longitude of this <code>POI</code> in degrees.
@@ -296,17 +267,6 @@ public class POI extends GeoPoint {
   public double getLongitude() {
 
     return this.getLongitudeE6() / 1E6;
-  }
-
-  /**
-   * Sets the longitude of this <code>POI</code>.
-   * 
-   * @param longitude
-   *          the longitude of this <code>POI</code> in degrees.
-   */
-  public void setLongitude(double longitude) {
-
-    this.setLongitude(longitude / 1E6);
   }
 
   /**

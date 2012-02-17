@@ -26,8 +26,8 @@ public class POIDB extends DB {
   private static final String TABLE_POI = "POIDB";
   private static final String COL_ID = "Id";
   private static final String COL_NAME = "Name";
-  private static final String COL_LON = "Longitude";
   private static final String COL_LAT = "Latitude";
+  private static final String COL_LON = "Longitude";
   private static final String COL_ADD = "Address";
   private static final String COL_TAG = "Tag";
   private static final String COL_PRI = "Price";
@@ -57,8 +57,8 @@ public class POIDB extends DB {
       ContentValues values = new ContentValues();
       values.put(COL_ID, poi.getId());
       values.put(COL_NAME, poi.getName());
-      values.put(COL_LON, poi.getLongitude());
       values.put(COL_LAT, poi.getLatitude());
+      values.put(COL_LON, poi.getLongitude());
       values.put(COL_ADD, poi.getAddress());
       values.put(COL_TAG, poi.getTag());
       values.put(COL_PRI, poi.getPrice());
@@ -81,7 +81,7 @@ public class POIDB extends DB {
   public POI getPOI(int id) {
     db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_POI, new String[] { COL_ID, COL_NAME,
-        COL_LON, COL_LAT, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
+        COL_LAT, COL_LON, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
         COL_VIS }, COL_ID + " = " + id, null, null, null, null);
     if (cursor.getCount() == 0) {
       cursor.close();
@@ -185,12 +185,13 @@ public class POIDB extends DB {
    * @throws JSONException
    */
   private POI JSONToPOI(JSONObject json) throws JSONException {
-    POI poi = new POI();
     int id = json.getInt("Id");
-    poi.setId(id);
+    double longitude = json.getDouble("Longitude");
+    double latitude = json.getDouble("Latitude");
+
+    POI poi = new POI(id, latitude, longitude);
+
     poi.setName(json.getString("Name"));
-    poi.setLongitude(json.getDouble("Longitude"));
-    poi.setLatitude(json.getDouble("Latitude"));
     poi.setAddress(json.getString("Address"));
     poi.setTag(json.getString("TAG"));
     poi.setPrice(json.getDouble("Price"));
@@ -207,12 +208,13 @@ public class POIDB extends DB {
    * @param cursor
    */
   private POI cursorToPOI(Cursor cursor) {
-    POI poi = new POI();
     int id = cursor.getInt(0);
-    poi.setId(id);
+    double latitude = cursor.getDouble(3);
+    double longitude = cursor.getDouble(2);
+
+    POI poi = new POI(id, latitude, longitude);
+
     poi.setName(cursor.getString(1));
-    poi.setLongitude(cursor.getDouble(2));
-    poi.setLatitude(cursor.getDouble(3));
     poi.setAddress(cursor.getString(4));
     poi.setTag(cursor.getString(5));
     poi.setPrice(cursor.getDouble(6));

@@ -1,18 +1,18 @@
 package be.ac.umons.gl.mobilecityguide.test.poi;
 
+import android.test.AndroidTestCase;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
-import android.test.*;
 
 /**
  * @author Allard Hugo
  */
-public class POITest extends AndroidTestCase{
+public class POITest extends AndroidTestCase {
 
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getId()}.
    */
-  public void testGetId(){
-    POI poi = new POI();
+  public void testGetId() {
+    POI poi = new POI(1, 1, 1);
     poi.setId(1);
     assertEquals(poi.getId(), 1);
   }
@@ -20,26 +20,28 @@ public class POITest extends AndroidTestCase{
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setId(int)}.
    */
-  public void testSetId(){
-    POI poi = new POI();
+  public void testSetId() {
+    POI poi = new POI(1, 1, 1);
     poi.setId(1);
     assertEquals(poi.getId(), 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getDuration()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#getDuration()}.
    */
-  public void testGetDuration(){
-    POI poi = new POI();
+  public void testGetDuration() {
+    POI poi = new POI(1, 1, 1);
     poi.setDuration(1);
     assertEquals(poi.getDuration(), 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setDuration(int)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setDuration(int)}.
    */
-  public void testSetDuration(){
-    POI poi = new POI();
+  public void testSetDuration() {
+    POI poi = new POI(1, 1, 1);
     poi.setDuration(1);
     assertEquals(poi.getDuration(), 1);
   }
@@ -47,17 +49,18 @@ public class POITest extends AndroidTestCase{
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getVotes()}.
    */
-  public void testGetVotes(){
-    POI poi = new POI();
+  public void testGetVotes() {
+    POI poi = new POI(1, 1, 1);
     poi.setVotes(1);
     assertEquals(poi.getVotes(), 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setVotes(int)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setVotes(int)}.
    */
-  public void testSetVotes(){
-    POI poi = new POI();
+  public void testSetVotes() {
+    POI poi = new POI(1, 1, 1);
     poi.setVotes(1);
     assertEquals(poi.getVotes(), 1);
   }
@@ -65,17 +68,18 @@ public class POITest extends AndroidTestCase{
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getPrice()}.
    */
-  public void testGetPrice(){
-    POI poi = new POI();
+  public void testGetPrice() {
+    POI poi = new POI(1, 1, 1);
     poi.setPrice(1);
     assertTrue(poi.getPrice() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setPrice(double)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setPrice(double)}.
    */
-  public void testSetPrice(){
-    POI poi = new POI();
+  public void testSetPrice() {
+    POI poi = new POI(1, 1, 1);
     poi.setPrice(1);
     assertTrue(poi.getPrice() == 1);
   }
@@ -83,17 +87,18 @@ public class POITest extends AndroidTestCase{
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getRank()}.
    */
-  public void testGetRank(){
-    POI poi = new POI();
+  public void testGetRank() {
+    POI poi = new POI(1, 1, 1);
     poi.setRank(1);
     assertTrue(poi.getRank() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setRank(double)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setRank(double)}.
    */
-  public void testSetRank(){
-    POI poi = new POI();
+  public void testSetRank() {
+    POI poi = new POI(1, 1, 1);
     poi.setRank(1);
     assertTrue(poi.getRank() == 1);
   }
@@ -101,101 +106,89 @@ public class POITest extends AndroidTestCase{
   /**
    * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getName()}.
    */
-  public void testGetName(){
-    POI poi = new POI();
+  public void testGetName() {
+    POI poi = new POI(1, 1, 1);
     poi.setName("test");
     assertEquals(poi.getName(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setName(java.lang.String)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setName(java.lang.String)}.
    */
-  public void testSetName(){
-    POI poi = new POI();
+  public void testSetName() {
+    POI poi = new POI(1, 1, 1);
     poi.setName("test");
     assertEquals(poi.getName(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getDescription()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#getDescription()}.
    */
-  public void testGetDescription(){
-    POI poi = new POI();
+  public void testGetDescription() {
+    POI poi = new POI(1, 1, 1);
     poi.setDescription("test");
     assertEquals(poi.getDescription(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setDescription(java.lang.String)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setDescription(java.lang.String)}
+   * .
    */
-  public void testSetDescription(){
-    POI poi = new POI();
+  public void testSetDescription() {
+    POI poi = new POI(1, 1, 1);
     poi.setDescription("test");
     assertEquals(poi.getDescription(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getAddress()}.
+   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getAddress()}
+   * .
    */
-  public void testGetAddress(){
-    POI poi = new POI();
+  public void testGetAddress() {
+    POI poi = new POI(1, 1, 1);
     poi.setAddress("test");
     assertEquals(poi.getAddress(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setAddress(java.lang.String)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#setAddress(java.lang.String)}
+   * .
    */
-  public void testSetAddress(){
-    POI poi = new POI();
+  public void testSetAddress() {
+    POI poi = new POI(1, 1, 1);
     poi.setAddress("test");
     assertEquals(poi.getAddress(), "test");
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getLatitude()}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#getLatitude()}.
    */
-  public void testGetLatitude(){
-    POI poi = new POI();
-    poi.setLatitude(1);
+  public void testGetLatitude() {
+    POI poi = new POI(1, 1, 1);
     assertTrue(poi.getLatitude() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setLatitude(double)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#getLongitude()}.
    */
-  public void testSetLatitude(){
-    POI poi = new POI();
-    poi.setLatitude(1);
-    assertTrue(poi.getLatitude() == 1);
-  }
-
-  /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#getLongitude()}.
-   */
-  public void testGetLongitude(){
-    POI poi = new POI();
-    poi.setLongitude(1);
+  public void testGetLongitude() {
+    POI poi = new POI(1, 1, 1);
     assertTrue(poi.getLongitude() == 1);
   }
 
   /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#setLongitude(double)}.
+   * Test method for
+   * {@link be.ac.umons.gl.mobilecityguide.poi.POI#equals(java.lang.Object)}.
    */
-  public void testSetLongitude(){
-    POI poi = new POI();
-    poi.setLongitude(1);
-    assertTrue(poi.getLongitude() == 1);
-  }
-
-  /**
-   * Test method for {@link be.ac.umons.gl.mobilecityguide.poi.POI#equals(java.lang.Object)}.
-   */
-  public void testEqualsObject(){
-    POI poi = new POI();
-    POI poi2 = new POI();
-    poi.setId(1);
-    poi2.setId(1);
+  public void testEqualsObject() {
+    POI poi = new POI(1, 1, 1);
+    POI poi2 = new POI(1, 1, 1);
     assertTrue(poi.equals(poi2));
   }
 }
