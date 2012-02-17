@@ -256,7 +256,7 @@ public class POI extends GeoPoint {
    */
   public double getLatitude() {
 
-    return this.getLatitude() / 1E6;
+    return this.getLatitudeE6() / 1E6;
   }
 
   /**
