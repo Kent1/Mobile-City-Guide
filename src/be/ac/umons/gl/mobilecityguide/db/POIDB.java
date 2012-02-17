@@ -156,6 +156,11 @@ public class POIDB extends DB {
     return retour;
   }
 
+  /**
+   * Return All the POI in the SQLite DB in a list
+   * 
+   * @return list of POI
+   */
   public ArrayList<POI> getPOIList() {
     ArrayList<POI> list = new ArrayList<POI>();
     db = myDB.getWritableDatabase();
