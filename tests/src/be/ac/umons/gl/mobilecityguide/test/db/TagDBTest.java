@@ -24,6 +24,7 @@ public class TagDBTest extends AndroidTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     db = new TagDB(this.mContext);
+    db.retrieveTagList();
   }
 
   /*

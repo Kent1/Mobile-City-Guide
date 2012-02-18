@@ -139,7 +139,9 @@ public class POIDB extends DB {
     String query = "SELECT * FROM POI JOIN TAG ON TAG.id=POI.id "
         + "JOIN Infos ON Infos.id=POI.id JOIN Ranking ON Ranking.id=POI.id "
         + "JOIN Descriptions ON Descriptions.id=POI.id AND Descriptions.Language = \""
-        + locale + "\" WHERE " + whereClause;
+        + "fr" + "\" WHERE " + whereClause;
+    // Faudrait compléter les descriptions pour pouvoir effectuer qu'une seule
+    // requete ..
     JSONArray jsonArray = this.query(query);
     JSONObject json = null;
     ArrayList<POI> retour = new ArrayList<POI>();
@@ -165,7 +167,7 @@ public class POIDB extends DB {
     ArrayList<POI> list = new ArrayList<POI>();
     db = myDB.getWritableDatabase();
     Cursor cursor = db.query(TABLE_POI, new String[] { COL_ID, COL_NAME,
-        COL_LON, COL_LAT, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
+        COL_LAT, COL_LON, COL_ADD, COL_TAG, COL_PRI, COL_DUR, COL_RAN, COL_DES,
         COL_VIS }, null, null, null, null, null);
     cursor.moveToFirst();
     for (int i = 0; i < cursor.getCount(); i++) {

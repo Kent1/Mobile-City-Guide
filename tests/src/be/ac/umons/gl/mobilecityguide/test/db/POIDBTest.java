@@ -27,7 +27,7 @@ public class POIDBTest extends AndroidTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     db = new POIDB(this.mContext);
-    db.retrievePOIList(50.463, 3.9551, 2);
+    db.retrievePOIList(50.463, 3.9551, 20);
     poi = null;
   }
 
@@ -47,9 +47,10 @@ public class POIDBTest extends AndroidTestCase {
    * .
    */
   public final void testRetrievePOIList() {
-    ArrayList<POI> list = db.retrievePOIList(50.463, 3.9551, 2);
+    ArrayList<POI> list = db.retrievePOIList(50.463, 3.9551, 20);
     assertTrue(!list.isEmpty());
     assertEquals(list.get(0).getName(), "Pentagone");
+    assertEquals(list.get(1).getName(), "Warocqu\u00e9");
   }
 
   /**
@@ -57,7 +58,6 @@ public class POIDBTest extends AndroidTestCase {
    * .
    */
   public final void testGetPOIInt() {
-    db.retrievePOIList(50.463, 3.9551, 2);
     poi = db.getPOI(1);
     assertTrue(poi != null);
     assertTrue(poi.getId() == 1);
@@ -70,7 +70,6 @@ public class POIDBTest extends AndroidTestCase {
    * {@link be.ac.umons.gl.mobilecityguide.db.POIDB#getPOI(java.lang.String)}.
    */
   public final void testGetPOIString() {
-    db.retrievePOIList(50.463, 3.9551, 2);
     poi = db.getPOI("Pentagone");
     assertTrue(poi != null);
     assertTrue(poi.getId() == 1);
@@ -84,6 +83,7 @@ public class POIDBTest extends AndroidTestCase {
     ArrayList<POI> poi = db.getPOIList();
     assertTrue(!poi.isEmpty());
     assertEquals(poi.get(0).getName(), "Pentagone");
+    assertEquals(db.getPOI(2).getName(), "Warocqu\u00e9");
   }
 
 }
