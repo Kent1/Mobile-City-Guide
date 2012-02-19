@@ -211,8 +211,8 @@ public class POIDB extends DB {
    */
   private POI cursorToPOI(Cursor cursor) {
     int id = cursor.getInt(0);
-    double latitude = cursor.getDouble(3);
-    double longitude = cursor.getDouble(2);
+    double latitude = cursor.getDouble(2);
+    double longitude = cursor.getDouble(3);
 
     POI poi = new POI(id, latitude, longitude);
 
