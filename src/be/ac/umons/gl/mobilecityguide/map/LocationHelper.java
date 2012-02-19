@@ -52,30 +52,22 @@ public class LocationHelper implements LocationListener {
       public void run() {
         mapView.getOverlays().add(myLocation);
         mapView.getController().animateTo(myLocation.getMyLocation());
-        initLocation = myLocation.getMyLocation();
-        double lon = initLocation.getLongitudeE6() / 1E6;
-        double lat = initLocation.getLatitudeE6() / 1E6;
-        new POIDB(context).retrievePOIList(lat, lon,
-            Integer.parseInt(prefs.getString("radius", "5")));
-        ((MainActivity) context).loadPOIs();
       }
     });
   }
 
   @Override
   public void onLocationChanged(Location location) {
-    if (myLocation.getMyLocation() == null)
-      return;
-    double lon = myLocation.getMyLocation().getLongitudeE6() / 1E6;
-    double lat = myLocation.getMyLocation().getLatitudeE6() / 1E6;
+    double lat = location.getLatitude();
+    double lon = location.getLongitude();
 
-    if (DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
-        initLocation.getLatitudeE6() / 1E6, lon, lat) > Integer.parseInt(prefs
-        .getString("refreshvalue", "1"))) {
-
+    if (myLocation.getMyLocation() == null
+        || DistanceHelper.distance(initLocation.getLongitudeE6() / 1E6,
+            initLocation.getLatitudeE6() / 1E6, lon, lat) > Integer
+            .parseInt(prefs.getString("refreshvalue", "1"))) {
       new POIDB(context).retrievePOIList(lat, lon,
           Integer.parseInt(prefs.getString("radius", "5")));
-      initLocation = myLocation.getMyLocation();
+      initLocation = new GeoPoint((int) (lat * 1E6), (int) (lon * 1E6));
       ((MainActivity) context).loadPOIs();
     }
   }
