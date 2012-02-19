@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
+import be.ac.umons.gl.mobilecityguide.db.POIDB;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 
@@ -45,8 +46,9 @@ public class ItineraryCreationActivity extends Activity {
 
     itinerary = new Itinerary();
     pois = new ArrayList<POI>();
-
-    // pois = ..
+    
+    POIDB db = new POIDB(getApplicationContext());
+    pois = db.getPOIList();
 
     minRank = (RatingBar) findViewById(R.id.rating);
     maxTime = (EditText) findViewById(R.id.time);
