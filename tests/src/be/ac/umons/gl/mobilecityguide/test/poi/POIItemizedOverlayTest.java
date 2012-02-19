@@ -3,10 +3,9 @@ package be.ac.umons.gl.mobilecityguide.test.poi;
 import android.graphics.drawable.Drawable;
 import android.test.AndroidTestCase;
 import be.ac.umons.gl.mobilecityguide.R;
+import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
-
-import com.google.android.maps.GeoPoint;
 
 /**
  * @author Quentin Loos
@@ -43,7 +42,7 @@ public class POIItemizedOverlayTest extends AndroidTestCase {
    */
   public final void testSize() {
     assertEquals(p.size(), 0);
-    p.addOverlay(new POIOverlayItem(new GeoPoint(1, 2), "", ""));
+    p.addOverlay(new POIOverlayItem(new POI(1, 0, 0), "", ""));
     assertEquals(p.size(), 1);
   }
 
@@ -53,8 +52,8 @@ public class POIItemizedOverlayTest extends AndroidTestCase {
    * .
    */
   public final void testAddOverlay() {
-    p.addOverlay(new POIOverlayItem(new GeoPoint(1, 2), "", ""));
-    assertEquals(p.getItem(0).getPoi(), new POIOverlayItem(new GeoPoint(1, 2),
+    p.addOverlay(new POIOverlayItem(new POI(1, 1, 2), "", ""));
+    assertEquals(p.getItem(0).getPoi(), new POIOverlayItem(new POI(1, 1, 2),
         "", "").getPoi());
   }
 }
