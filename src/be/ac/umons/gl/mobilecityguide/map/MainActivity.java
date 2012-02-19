@@ -23,7 +23,6 @@ import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -150,10 +149,7 @@ public class MainActivity extends MapActivity {
     for (POI poi : pois) {
       if (tagDB.isTagSelected(poi.getTag())
           && poi.getRank() >= prefs.getInt("rankRadioGroup", 0)) {
-        POIOverlayItem item = new POIOverlayItem(new GeoPoint(
-            (int) (poi.getLatitude() * 1E6), (int) (poi.getLongitude() * 1E6)),
-            "", "");
-        item.setPoi(poi);
+        POIOverlayItem item = new POIOverlayItem(poi, "", "");
         itemizedOverlay.addOverlay(item);
       }
     }
