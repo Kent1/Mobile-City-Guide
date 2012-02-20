@@ -14,7 +14,7 @@ import com.google.android.maps.ItemizedOverlay;
 public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
 
   /** Contains all the <code>POIOverlayItem</code>. */
-  private final ArrayList<POIOverlayItem> mOverlays = new ArrayList<POIOverlayItem>();
+  private final ArrayList<POIOverlayItem> mOverlays;
 
   /** The <code>Context</code> of the application. */
   private final Context context;
@@ -31,13 +31,14 @@ public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
 
     super(boundCenterBottom(defaultMarker));
     this.context = context;
+    mOverlays = new ArrayList<POIOverlayItem>();
   }
 
   /**
    * Adds an item to this <code>POIItemizedOverlay</code>.
    * 
-   * @param overlay
-   *          the new item to add.
+   * @param item
+   *          the new POIOverlayItem to add.
    */
   public void addOverlay(POIOverlayItem item) {
 
@@ -55,6 +56,13 @@ public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
   public int size() {
 
     return mOverlays.size();
+  }
+
+  /**
+   * Remove all POIOverlayItem
+   */
+  public void clear() {
+    mOverlays.clear();
   }
 
   @Override

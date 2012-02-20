@@ -241,8 +241,8 @@ public class POI extends GeoPoint {
   /**
    * Sets the <code>List</code> of tags of this <code>POI</code>.
    * 
-   * @param tags
-   *          a <code>List</code> of <code>String</code>.
+   * @param tag
+   *          a tag
    */
   public void setTag(String tag) {
 

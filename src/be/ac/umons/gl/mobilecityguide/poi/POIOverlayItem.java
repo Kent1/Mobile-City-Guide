@@ -11,8 +11,8 @@ public class POIOverlayItem extends OverlayItem {
   /**
    * Constructs a new instance of <code>POIOverlayItem</code>.
    * 
-   * @param point
-   *          the location of this <code>POIOverlayItem</code>.
+   * @param poi
+   *          the poi of this <code>POIOverlayItem</code>.
    * @param title
    *          the title of this <code>POIOverlayItem</code>.
    * @param snippet
