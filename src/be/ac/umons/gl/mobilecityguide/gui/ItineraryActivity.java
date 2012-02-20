@@ -51,7 +51,7 @@ public class ItineraryActivity extends ListActivity {
           Toast
               .makeText(
                   ItineraryActivity.this,
-                  getString(R.string.totalprice) + " " + itinerary.getPrice()
+                  getString(R.string.totalprice) + " " + Double.toString(itinerary.getPrice())
                       + "€ \n" + getString(R.string.totaltime) + " "
                       + itinerary.getDuration() + " "
                       + getString(R.string.minutes), Toast.LENGTH_SHORT).show();
