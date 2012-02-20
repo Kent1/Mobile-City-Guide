@@ -48,6 +48,8 @@ public class ItineraryCreationActivity extends Activity {
     itinerary.clear();
     pois = new ArrayList<POI>();
     
+    tags = new ArrayList<String>();
+    
     POIDB db = new POIDB(getApplicationContext());
     pois = db.getPOIList();
 
