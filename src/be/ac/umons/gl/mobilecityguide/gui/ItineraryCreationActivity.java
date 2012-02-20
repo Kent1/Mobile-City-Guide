@@ -43,8 +43,9 @@ public class ItineraryCreationActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.itinerarycreationactivity);
-
-    itinerary = new Itinerary();
+    
+    itinerary = (Itinerary) getApplicationContext();
+    itinerary.clear();
     pois = new ArrayList<POI>();
     
     POIDB db = new POIDB(getApplicationContext());
