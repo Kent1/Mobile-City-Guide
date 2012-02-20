@@ -83,6 +83,6 @@ public class POIDBTest extends AndroidTestCase {
     ArrayList<POI> poi = db.getPOIList();
     assertTrue(!poi.isEmpty());
     assertEquals(poi.get(0).getName(), "Pentagone");
-    assertEquals(poi.get(2).getName(), "Warocque");
+    assertEquals(poi.get(1).getName(), "Warocque");
   }
 }
