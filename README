@@ -5,13 +5,18 @@ Compilation
 -----------
 
 Le projet est compilable avec Ant.
-Si vous avez une erreur avec ant, faites un
-"android update project -p ./"
+
+Si vous avez une erreur avec ant (qu'il ne trouve pas sdk.dir), faites un cd "android update project -p ./"
+
+Pour utiliser le projet vous pouvez utiliser "ant debug" ou "ant instrument" pour la compilation, et enfin "ant installd" ou "ant installi" pour l'installation sur le device ou l'émulateur. Il vous faut un émulateur ou un smartphone connecté (et un seul).
+
+Pour que la map s'affiche il faut changer l'api key dans "res/layout/main.xml"
 
 Tests
 -----
 
 Le project de tests se trouve dans le dossier "tests/"
-Il se compile aussi avec ant, et on éxécute le test avec "ant tests".
-Si vous avez un problème avec ant, faites un
-"android update test-project -p ./ -m ../"
+
+Il se compile aussi avec ant. D'abord on installe le projet comme indiquer au dessus, "ant debug" et "ant installt" et on éxécute le test avec "ant test".
+
+Si vous avez un problème avec ant, faites un "android update test-project -p ./ -m ../"
