@@ -63,6 +63,7 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/sub_text"
             android:textSize="17dp" />
 
           <TextView
@@ -78,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="fill"
+            android:textColor="@color/sub_text"
             android:textSize="17dp" />
 
           <TextView
@@ -92,6 +94,7 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/sub_text"
             android:textSize="17dp" />
 
           <TextView
@@ -106,6 +109,7 @@
             android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/sub_text"
             android:textSize="17dp" />
 
           <RatingBar

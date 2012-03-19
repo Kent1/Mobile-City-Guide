@@ -19,6 +19,7 @@ import android.widget.Toast;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
+import be.ac.umons.gl.mobilecityguide.poi.POIAdapter;
 
 /**
  * @author Quentin Loos
@@ -81,8 +82,7 @@ public class ItineraryActivity extends ListActivity {
 
     super.onResume();
 
-    array = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1,
-        itinerary.getList());
+    array = new POIAdapter(getApplicationContext(),R.layout.poi_in_list , itinerary.getList());
     this.setListAdapter(array);
 
     if (itinerary.size() > 0)
