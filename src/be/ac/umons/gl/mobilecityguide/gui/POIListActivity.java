@@ -2,24 +2,18 @@ package be.ac.umons.gl.mobilecityguide.gui;
 
 import java.util.List;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import be.ac.umons.gl.mobilecityguide.R;
 import be.ac.umons.gl.mobilecityguide.db.POIDB;
-import be.ac.umons.gl.mobilecityguide.db.TagDB;
-import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIAdapter;
 
 public class POIListActivity extends ListActivity {
 
   private List<POI> pois;
-  private Itinerary itinerary;
   private POIDB poiDB;
 
   @Override
@@ -27,16 +21,11 @@ public class POIListActivity extends ListActivity {
 
     super.onCreate(savedInstanceState);
 
-    TagDB tagDB = new TagDB(this);
-    SharedPreferences prefs = getSharedPreferences("MobileCityGuide",
-        MODE_WORLD_READABLE);
-
-    itinerary = (Itinerary) getApplicationContext();
-
     poiDB = new POIDB(this.getApplicationContext());
     pois = poiDB.getPOIList();
 
-    this.setListAdapter(new POIAdapter(getApplicationContext(),R.layout.poi_in_list , pois));
+    setContentView(R.layout.poilistactivity);
+    this.setListAdapter(new POIAdapter(this, R.layout.poi_in_list, pois));
   }
 
   @Override
