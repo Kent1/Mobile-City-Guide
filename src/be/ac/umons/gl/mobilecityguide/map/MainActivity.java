@@ -59,6 +59,11 @@ public class MainActivity extends MapActivity {
   /** The <code>LocationHelperr</code> for GPS localization. */
   private LocationHelper locationHelper;
 
+  /**
+   * The state of MainActivity - 0 : FREEWALK, 1 : ITINERARY
+   */
+  private boolean STATE = false;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
 
@@ -80,8 +85,11 @@ public class MainActivity extends MapActivity {
     mapOverlays = mapView.getOverlays();
     marker = getResources().getDrawable(R.drawable.map_marker);
 
+    itemizedOverlay = new POIItemizedOverlay(marker, this);
+
     locationHelper = new LocationHelper(this, mapView);
     this.loadPOIs();
+    this.displayOverlay();
   }
 
   @Override
@@ -114,8 +122,28 @@ public class MainActivity extends MapActivity {
   }
 
   @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+    if (STATE) {
+      menu.getItem(0).setVisible(true);
+      menu.getItem(1).setVisible(false);
+    } else {
+      menu.getItem(0).setVisible(false);
+      menu.getItem(1).setVisible(true);
+    }
+    return true;
+  }
+
+  @Override
   public boolean onMenuItemSelected(int featureId, MenuItem item) {
     switch (item.getItemId()) {
+    case R.id.itemShowPOI:
+      STATE = false;
+      this.displayOverlay();
+      return true;
+    case R.id.itemShowItinerary:
+      STATE = true;
+      this.displayOverlay();
+      return true;
     case R.id.itemItinerary:
       Intent intent = new Intent(this, ItineraryActivity.class);
       this.startActivityForResult(intent, R.id.itemItinerary);
@@ -143,8 +171,7 @@ public class MainActivity extends MapActivity {
 
     pois = poidb.getPOIList();
 
-    mapOverlays.remove(itemizedOverlay);
-    itemizedOverlay = new POIItemizedOverlay(marker, this);
+    itemizedOverlay.clear();
 
     for (POI poi : pois) {
       if (tagDB.isTagSelected(poi.getTag())
@@ -153,9 +180,16 @@ public class MainActivity extends MapActivity {
         itemizedOverlay.addOverlay(item);
       }
     }
+  }
 
-    if (itemizedOverlay.size() != 0)
-      mapOverlays.add(itemizedOverlay);
+  public void displayOverlay() {
+    if (STATE) {
+      mapOverlays.remove(itemizedOverlay);
+    } else {
+      if (itemizedOverlay.size() != 0)
+        mapOverlays.add(itemizedOverlay);
+    }
+    mapView.invalidate();
   }
 
   public void displayPOI(POI poi) {
