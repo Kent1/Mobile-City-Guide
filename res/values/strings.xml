@@ -27,4 +27,6 @@
     <string name="itemRemove">Remove</string>
     
     <string name="noItem">There\'s no item.</string>
+    <string name="itemShowPOI">Show POI</string>
+    <string name="itemShowItinerary">Show Itinerary</string>
 </resources>
