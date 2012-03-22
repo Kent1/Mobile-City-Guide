@@ -79,15 +79,18 @@ public abstract class DB {
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
     }
-
-    HttpEntity entity = response.getEntity();
     InputStream is = null;
     try {
+      HttpEntity entity = response.getEntity();
       is = entity.getContent();
     } catch (IllegalStateException e) {
       Log.e(tag, "IllegalStateException : " + e.getMessage());
     } catch (IOException e) {
       Log.e(tag, "IOException : " + e.getMessage());
+    } catch (NullPointerException e) {
+      // No network
+      Log.e(tag, "NullPointerException : " + e.getMessage());
+      return null;
     }
 
     BufferedReader reader = null;
