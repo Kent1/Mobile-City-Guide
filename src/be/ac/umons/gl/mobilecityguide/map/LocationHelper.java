@@ -35,10 +35,15 @@ public class LocationHelper implements LocationListener {
     locationManager = (LocationManager) context
         .getSystemService(Context.LOCATION_SERVICE);
 
-    initLocation = mapView.getMapCenter();
-
     prefs = context.getSharedPreferences("MobileCityGuide",
         Context.MODE_WORLD_READABLE);
+
+    initLocation = mapView.getMapCenter();
+
+    if (initLocation != null)
+      new POIDB(context).retrievePOIList(initLocation.getLatitudeE6() / 1E6,
+          initLocation.getLongitudeE6() / 1E6,
+          Integer.parseInt(prefs.getString("radius", "5")));
 
     // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
     // 60000, 0, this);
