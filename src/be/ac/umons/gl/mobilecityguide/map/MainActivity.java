@@ -22,6 +22,9 @@ import be.ac.umons.gl.mobilecityguide.poi.Itinerary;
 import be.ac.umons.gl.mobilecityguide.poi.POI;
 import be.ac.umons.gl.mobilecityguide.poi.POIItemizedOverlay;
 import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
+import be.ac.umons.gl.mobilecityguide.route.Route;
+import be.ac.umons.gl.mobilecityguide.route.RouteOverlay;
+import be.ac.umons.gl.mobilecityguide.route.RouteProvider;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -46,6 +49,7 @@ public class MainActivity extends MapActivity {
 
   /** The <code>POIItemizedOverlay</code> with the <code>POI</code>s to display. */
   private POIItemizedOverlay itemizedOverlay;
+  private RouteOverlay routeOverlay;
 
   /** The marker to indicates <code>POI</code>s one the map. */
   private Drawable marker;
@@ -185,9 +189,16 @@ public class MainActivity extends MapActivity {
   public void displayOverlay() {
     if (STATE) {
       mapOverlays.remove(itemizedOverlay);
+      RouteProvider routeProvider = new RouteProvider(
+          locationHelper.getMyLocation(), locationHelper.getMyLocation(),
+          (Itinerary) this.getApplication());
+      Route route = routeProvider.startDriving();
+      routeOverlay = new RouteOverlay(route);
+      mapOverlays.add(routeOverlay);
     } else {
       if (itemizedOverlay.size() != 0)
         mapOverlays.add(itemizedOverlay);
+      mapOverlays.remove(routeOverlay);
     }
     mapView.invalidate();
   }
