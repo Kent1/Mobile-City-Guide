@@ -92,7 +92,6 @@ public class MainActivity extends MapActivity {
     itemizedOverlay = new POIItemizedOverlay(marker, this);
 
     locationHelper = new LocationHelper(this, mapView);
-    this.loadPOIs();
     this.displayOverlay();
   }
 
@@ -110,7 +109,7 @@ public class MainActivity extends MapActivity {
     case R.id.itemItinerary:
       return;
     case R.id.itemFilter:
-      loadPOIs();
+      displayOverlay();
       return;
     case R.id.itemPreferences:
       mapView.setSatellite(prefs.getBoolean("satellite", false));
@@ -177,16 +176,24 @@ public class MainActivity extends MapActivity {
 
     itemizedOverlay.clear();
 
-    for (POI poi : pois) {
-      if (tagDB.isTagSelected(poi.getTag())
-          && poi.getRank() >= prefs.getInt("rankRadioGroup", 0)) {
+    if (STATE) {
+      for (POI poi : (Itinerary) this.getApplication()) {
         POIOverlayItem item = new POIOverlayItem(poi, "", "");
         itemizedOverlay.addOverlay(item);
+      }
+    } else {
+      for (POI poi : pois) {
+        if (tagDB.isTagSelected(poi.getTag())
+            && poi.getRank() >= prefs.getInt("rankRadioGroup", 0)) {
+          POIOverlayItem item = new POIOverlayItem(poi, "", "");
+          itemizedOverlay.addOverlay(item);
+        }
       }
     }
   }
 
   public void displayOverlay() {
+    loadPOIs();
     if (STATE) {
       mapOverlays.remove(itemizedOverlay);
       RouteProvider routeProvider = new RouteProvider(
@@ -195,6 +202,7 @@ public class MainActivity extends MapActivity {
       Route route = routeProvider.startDriving();
       routeOverlay = new RouteOverlay(route);
       mapOverlays.add(routeOverlay);
+      mapOverlays.add(itemizedOverlay);
     } else {
       if (itemizedOverlay.size() != 0)
         mapOverlays.add(itemizedOverlay);

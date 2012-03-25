@@ -63,7 +63,9 @@ public class RouteProvider {
 
   public Route startDriving() {
     String urlget = getUrl();
+    Log.e("RouteProvider", urlget);
     JSONObject JSONRoute = getJSON(urlget);
+    Log.e("RouteProvider", JSONRoute.toString());
     return routeFromJSON(JSONRoute);
   }
 
@@ -83,10 +85,10 @@ public class RouteProvider {
     // WayPoints
     StringBuilder waypoints = new StringBuilder("");
     for (POI poi : itinerary)
-      waypoints.append(poi.getLatitude() + "," + poi.getLongitude());
+      waypoints.append("%7C" + poi.getLatitude() + "," + poi.getLongitude());
 
-    urlget.append("&waypoints=optimize:true%7C" + waypoints.toString());
-    urlget.append("&mode" + mode);
+    urlget.append("&waypoints=optimize:true" + waypoints.toString());
+    urlget.append("&mode=" + mode);
     urlget.append("&sensor=true");
 
     return urlget.toString();

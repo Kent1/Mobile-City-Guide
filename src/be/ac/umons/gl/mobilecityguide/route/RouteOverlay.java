@@ -36,6 +36,7 @@ public class RouteOverlay extends Overlay {
       paint.setAntiAlias(true);
       paint.setDither(true);
       paint.setColor(Color.BLUE);
+      paint.setStyle(Paint.Style.STROKE);
       paint.setStrokeWidth(5);
       paint.setAlpha(120);
 
