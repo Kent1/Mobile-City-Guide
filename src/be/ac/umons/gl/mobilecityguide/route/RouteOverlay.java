@@ -62,4 +62,17 @@ public class RouteOverlay extends Overlay {
 
     return super.draw(canvas, mapView, shadow, when);
   }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.google.android.maps.Overlay#onTap(com.google.android.maps.GeoPoint,
+   * com.google.android.maps.MapView)
+   */
+  @Override
+  public boolean onTap(GeoPoint arg0, MapView arg1) {
+    return true;
+  }
+
 }

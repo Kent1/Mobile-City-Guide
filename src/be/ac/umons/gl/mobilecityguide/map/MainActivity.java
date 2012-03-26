@@ -195,19 +195,16 @@ public class MainActivity extends MapActivity {
   public void displayOverlay() {
     loadPOIs();
     if (STATE) {
-      mapOverlays.remove(itemizedOverlay);
       RouteProvider routeProvider = new RouteProvider(
-          locationHelper.getMyLocation(), locationHelper.getMyLocation(),
-          (Itinerary) this.getApplication());
+          locationHelper.getMyLocation(), (Itinerary) this.getApplication());
       Route route = routeProvider.startDriving();
-      routeOverlay = new RouteOverlay(route);
-      mapOverlays.add(routeOverlay);
-      mapOverlays.add(itemizedOverlay);
-    } else {
-      if (itemizedOverlay.size() != 0)
-        mapOverlays.add(itemizedOverlay);
-      mapOverlays.remove(routeOverlay);
+      if (route != null) {
+        routeOverlay = new RouteOverlay(route);
+        mapOverlays.add(routeOverlay);
+      }
     }
+    mapOverlays.remove(itemizedOverlay);
+    mapOverlays.add(itemizedOverlay);
     mapView.invalidate();
   }
 

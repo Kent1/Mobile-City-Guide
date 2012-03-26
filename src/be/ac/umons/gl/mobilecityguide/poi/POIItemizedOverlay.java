@@ -43,6 +43,7 @@ public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
   public void addOverlay(POIOverlayItem item) {
 
     mOverlays.add(item);
+    setLastFocusedIndex(-1);
     populate();
   }
 
@@ -63,6 +64,8 @@ public class POIItemizedOverlay extends ItemizedOverlay<POIOverlayItem> {
    */
   public void clear() {
     mOverlays.clear();
+    setLastFocusedIndex(-1);
+    populate();
   }
 
   @Override

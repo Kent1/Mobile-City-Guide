@@ -62,6 +62,8 @@ public class RouteProvider {
   }
 
   public Route startDriving() {
+    if (itinerary.getList().isEmpty())
+      return null;
     String urlget = getUrl();
     Log.e("RouteProvider", urlget);
     JSONObject JSONRoute = getJSON(urlget);
