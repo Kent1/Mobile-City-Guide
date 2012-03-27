@@ -2,7 +2,6 @@ package be.ac.umons.gl.mobilecityguide.map;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -25,7 +24,6 @@ import be.ac.umons.gl.mobilecityguide.poi.POIOverlayItem;
 import be.ac.umons.gl.mobilecityguide.route.Route;
 import be.ac.umons.gl.mobilecityguide.route.RouteOverlay;
 import be.ac.umons.gl.mobilecityguide.route.RouteProvider;
-
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -37,9 +35,6 @@ public class MainActivity extends MapActivity {
 
   /** The <code>List</code> of every <code>POI</code>s around the user. */
   private List<POI> pois = new ArrayList<POI>();
-
-  /** The current <code>Itinerary</code>. */
-  private Itinerary itinerary;
 
   /** The <code>TagDB</code> for get the tag list. */
   private TagDB tagDB;
@@ -80,8 +75,6 @@ public class MainActivity extends MapActivity {
     tagDB = new TagDB(this);
     tagDB.retrieveTagList();
 
-    itinerary = new Itinerary();
-
     mapView = (MapView) findViewById(R.id.mapview);
     mapView.setBuiltInZoomControls(true);
     mapView.getController().setZoom(16);
@@ -107,6 +100,10 @@ public class MainActivity extends MapActivity {
     case R.id.itemPOIDisplay:
     case R.id.itemPOIList:
     case R.id.itemItinerary:
+      if(resultCode == 2){
+        STATE = true;
+        displayOverlay();
+      }
       return;
     case R.id.itemFilter:
       displayOverlay();
@@ -202,7 +199,8 @@ public class MainActivity extends MapActivity {
         routeOverlay = new RouteOverlay(route);
         mapOverlays.add(routeOverlay);
       }
-    }
+    } else mapOverlays.remove(routeOverlay);
+    
     mapOverlays.remove(itemizedOverlay);
     mapOverlays.add(itemizedOverlay);
     mapView.invalidate();

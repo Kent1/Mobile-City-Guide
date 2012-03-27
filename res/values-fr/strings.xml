@@ -4,5 +4,6 @@
     <!-- Tags -->
     <string name="all">Tous</string>
     <string name="none">Aucun</string>
-    
+    <string name="filters">Filtres</string>
+    <string name="ranking">Note</string>
 </resources>

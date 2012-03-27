@@ -29,4 +29,6 @@
     <string name="noItem">There\'s no item.</string>
     <string name="itemShowPOI">Show POI</string>
     <string name="itemShowItinerary">Show Itinerary</string>
+    <string name="filters">Filters</string>
+    <string name="ranking">Ranking</string>
 </resources>

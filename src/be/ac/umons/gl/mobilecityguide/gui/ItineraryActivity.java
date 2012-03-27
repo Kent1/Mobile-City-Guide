@@ -66,8 +66,11 @@ public class ItineraryActivity extends ListActivity {
       @Override
       public void onClick(View v) {
 
-        if (itinerary.size() > 0)
-          ;// TODO display itinerary on map!
+        if (itinerary.size() > 0){
+          Intent data = new Intent();
+          setResult(2, data);
+          finish();
+        }
         else
           Toast.makeText(ItineraryActivity.this, getString(R.string.empty),
               Toast.LENGTH_SHORT).show();
