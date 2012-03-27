@@ -6,4 +6,5 @@
     <string name="none">Aucun</string>
     <string name="filters">Filtres</string>
     <string name="ranking">Note</string>
+    <string name="toobig">Itineraire trop grand</string>
 </resources>

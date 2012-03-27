@@ -31,4 +31,5 @@
     <string name="itemShowItinerary">Show Itinerary</string>
     <string name="filters">Filters</string>
     <string name="ranking">Ranking</string>
+    <string name="toobig">Itinerary too big</string>
 </resources>

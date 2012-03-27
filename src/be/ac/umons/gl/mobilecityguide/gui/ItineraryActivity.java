@@ -67,9 +67,14 @@ public class ItineraryActivity extends ListActivity {
       public void onClick(View v) {
 
         if (itinerary.size() > 0){
-          Intent data = new Intent();
-          setResult(2, data);
-          finish();
+          if((itinerary.size() < 10)){
+            Intent data = new Intent();
+            setResult(2, data);
+            finish();
+          }
+          else
+            Toast.makeText(ItineraryActivity.this, getString(R.string.toobig),
+                Toast.LENGTH_SHORT).show();
         }
         else
           Toast.makeText(ItineraryActivity.this, getString(R.string.empty),
