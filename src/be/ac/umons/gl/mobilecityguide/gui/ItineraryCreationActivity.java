@@ -115,7 +115,7 @@ public class ItineraryCreationActivity extends Activity {
     }
 
     // Generate from the filtered POIs
-    while (time > 0 && pois.size() > 0 && itinerary.size() < 10) {
+    while (time > 0 && pois.size() > 0 && itinerary.size() < 8) {
 
       i = (int) (Math.random() * pois.size());
 
