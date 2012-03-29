@@ -91,6 +91,13 @@ public class POIDisplayActivity extends Activity {
     }
 
     button2 = (Button) findViewById(R.id.button2);
+    if (!poi.isVisited()) {
+      button2.setText(R.string.visited);
+      button2.setOnClickListener(new Visited());
+    } else {
+      button2.setText(R.string.noVisited);
+      button2.setOnClickListener(new NoVisited());
+    }
   }
 
   class Add implements OnClickListener {
@@ -112,6 +119,26 @@ public class POIDisplayActivity extends Activity {
       itinerary.remove(poi);
       button.setText(R.string.add);
       button.setOnClickListener(new Add());
+    }
+  }
+
+  class Visited implements OnClickListener {
+
+    @Override
+    public void onClick(View v) {
+      poi.setVisited(true);
+      button2.setText(R.string.noVisited);
+      button2.setOnClickListener(new NoVisited());
+    }
+  }
+
+  class NoVisited implements OnClickListener {
+
+    @Override
+    public void onClick(View v) {
+      poi.setVisited(false);
+      button2.setText(R.string.visited);
+      button2.setOnClickListener(new Visited());
     }
   }
 
