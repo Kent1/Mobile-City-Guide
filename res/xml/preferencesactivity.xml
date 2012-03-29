@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory
+        android:title="@string/categoryProfil">
+        
+        <EditTextPreference
+            android:title="@string/profileName"
+            android:key="profileName"
+            android:summary="@string/nameSummary"
+            />
+        
+        <ListPreference
+            android:entries="@array/genderEntries"
+            android:title="@string/gender"
+            android:key="gender"
+            android:summary="@string/genderSummary"
+            android:entryValues="@array/gender"
+            />
+        
+        <EditTextPreference
+            android:title="@string/age"
+            android:key="age"
+            android:summary="@string/ageSummary"
+            android:inputType="number"
+			/>
+        
+    </PreferenceCategory>
+    
 	<PreferenceCategory
             android:title="@string/categoryMap">
             

@@ -27,7 +27,7 @@ public class POIDisplayActivity extends Activity {
   private POI poi;
   private TextView name, address, description, price, duration;
   private RatingBar ratingBar, ratingBarIndicator;
-  private Button button;
+  private Button button, button2;
   private float myRank;
   private Itinerary itinerary;
   private RankingDB rdb;
@@ -89,6 +89,8 @@ public class POIDisplayActivity extends Activity {
       button.setText(R.string.remove);
       button.setOnClickListener(new Remove());
     }
+
+    button2 = (Button) findViewById(R.id.button2);
   }
 
   class Add implements OnClickListener {

@@ -9,4 +9,6 @@
     <string name="add">Add to itinerary</string>
     <string name="remove">Remove from itinerary</string>
     <string name="toast">You assign a score of</string>
+    <string name="visited">Marquer comme visité</string>
+    <string name="noVisited">Marquer comme non visité</string>
 </resources>
